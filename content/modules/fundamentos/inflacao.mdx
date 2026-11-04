@@ -1,0 +1,57 @@
+import { InflationErosion } from "@/components/sim/inflation-erosion";
+
+Existe uma perda que não aparece no extrato: o dinheiro continua com o mesmo número, mas compra menos. Isso é inflação — o aumento generalizado e contínuo dos preços.
+
+## Como a inflação é medida
+
+No Brasil, o índice oficial é o **IPCA**, calculado pelo IBGE. Ele acompanha o preço de uma cesta de produtos e serviços que representa o consumo das famílias: alimentação, transporte, moradia, saúde, educação.
+
+Quando o IPCA acumula 5% em 12 meses, significa que, em média, o que custava R$ 100 passou a custar R$ 105.
+
+<Callout variant="info" title="Inflação não é o preço de um produto">
+  Um item pode ficar mais barato enquanto a inflação geral sobe. O índice é uma média: alguns preços
+  sobem muito, outros caem, e o resultado é o número que aparece no jornal.
+</Callout>
+
+## O poder de compra
+
+R$ 1.000 guardados na gaveta continuam sendo R$ 1.000 daqui a dez anos. Mas, com inflação de 5% ao ano, eles compram o que hoje custaria cerca de R$ 614.
+
+A conta é uma divisão, não uma subtração:
+
+<Formula label="Valor real = valor nominal dividido pelo fator de inflação acumulada">
+  Valor real = 1.000 ÷ (1 + 0,05)^10 ≈ 614
+</Formula>
+
+<InflationErosion />
+
+## Rendimento nominal x rendimento real
+
+Seu investimento rendeu 10% no ano e a inflação foi 5%. Quanto você ganhou de verdade?
+
+A resposta intuitiva é 5%. A correta é **4,76%**, porque os fatores se dividem:
+
+<Formula label="Fórmula de Fisher">Retorno real = (1 + nominal) ÷ (1 + inflação) − 1</Formula>
+
+A diferença parece pequena, mas se repete todo ano. Em 20 anos, 5% ao ano viram 165% de ganho; 4,76% ao ano viram 153%. E o Imposto de Renda ainda incide sobre o ganho **nominal** — ou seja, você paga imposto sobre a parte que só repôs a inflação.
+
+<Callout variant="warn" title="A poupança e a armadilha do 0,5%">
+  Quando a Selic está acima de 8,5% ao ano, a poupança rende 0,5% ao mês mais TR. Parece bom até
+  você comparar com a inflação do período: em vários momentos, o ganho real fica perto de zero.
+  Isenção de IR não compensa falta de rentabilidade.
+</Callout>
+
+<KeyIdea>
+  Ganhar dinheiro nominalmente não é ganhar de verdade. O número que importa é o retorno real: o que
+  sobra depois da inflação e do imposto.
+</KeyIdea>
+
+## O que fazer com isso
+
+Três consequências práticas:
+
+1. **Dinheiro parado perde valor.** Reserva de emergência também precisa render, mesmo que pouco.
+2. **Compare sempre pelo retorno real.** Um CDB de 11% com inflação de 6% rende menos que um de 9% com inflação de 3%.
+3. **Pense no prazo.** Quanto mais longo o objetivo, mais a inflação acumulada pesa — e mais o investimento precisa superá-la.
+
+No próximo módulo, você vai ver como escolher produtos de renda fixa sabendo exatamente quanto está ganhando depois de impostos e inflação.

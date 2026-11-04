@@ -1,0 +1,67 @@
+import { CompoundInterestSimulator } from "@/components/sim/compound-interest";
+
+Se você só puder aprender uma coisa sobre investimentos, aprenda esta: **juros compostos são juros que rendem juros**. Parece detalhe, mas é o que separa uma poupança esquecida de um patrimônio construído.
+
+## A diferença em uma frase
+
+Nos **juros simples**, o rendimento incide sempre sobre o valor inicial. Nos **juros compostos**, incide sobre o saldo acumulado — que já inclui os juros dos meses anteriores.
+
+R$ 1.000 a 1% ao mês:
+
+| Período  | Juros simples | Juros compostos |
+| -------- | ------------- | --------------- |
+| 1 mês    | R$ 1.010      | R$ 1.010        |
+| 6 meses  | R$ 1.060      | R$ 1.061,52     |
+| 12 meses | R$ 1.120      | R$ 1.126,83     |
+| 10 anos  | R$ 2.200      | R$ 3.300,39     |
+
+No começo a diferença é quase invisível. Depois ela deixa de ser.
+
+## A fórmula
+
+<Formula label="M = montante final · C = capital inicial · i = taxa por período · t = número de períodos">
+  M = C × (1 + i)^t
+</Formula>
+
+Com aportes mensais, a conta soma duas partes: o valor inicial crescendo e cada aporte rendendo pelo tempo que ficou investido.
+
+<Formula label="A = aporte mensal">M = C × (1 + i)^t + A × [(1 + i)^t − 1] ÷ i</Formula>
+
+Você não precisa decorar. Precisa entender o que cada peça faz: **tempo no expoente** é o que transforma a curva em bola de neve.
+
+## Simule você mesmo
+
+Mexa nos controles abaixo. Repare no formato da curva: ela não é uma reta, e é justamente no fim que ela dispara.
+
+<CompoundInterestSimulator />
+
+<Callout variant="success" title="Repare em um detalhe">
+  Aumentar o prazo de 10 para 20 anos não dobra o saldo final — multiplica por mais de três. É o
+  efeito exponencial agindo.
+</Callout>
+
+## A regra dos 72
+
+Um atalho mental útil: divida 72 pela taxa anual e você tem uma estimativa de quantos anos o dinheiro leva para dobrar.
+
+- A 6% ao ano: cerca de 12 anos
+- A 9% ao ano: cerca de 8 anos
+- A 12% ao ano: cerca de 6 anos
+
+Serve para comparar cenários de cabeça, sem calculadora.
+
+<Callout variant="warn" title="Cuidado com a taxa mensal">
+  1% ao mês não é 12% ao ano. É 12,68% ao ano, porque cada mês incide sobre o saldo anterior. Sempre
+  que comparar produtos, coloque tudo na mesma unidade de tempo.
+</Callout>
+
+<KeyIdea>
+  O tempo é o ingrediente mais poderoso dos juros compostos — e o único que não pode ser comprado
+  depois. Começar cedo vale mais do que acertar a taxa.
+</KeyIdea>
+
+## O outro lado da moeda
+
+Juros compostos também trabalham contra você. Uma dívida de cartão a 12% ao mês dobra em cerca de 6 meses. Por isso, antes de investir, quite o que cobra mais do que qualquer investimento paga.
+
+No próximo capítulo: a inflação, a força que corrói o seu dinheiro mesmo quando ele parece intacto.
