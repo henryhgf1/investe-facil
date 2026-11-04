@@ -24,7 +24,7 @@ vocabulário aos poucos e com simuladores onde errar custa zero.
 - **Quiz com correção e explicação** em cada lição
 - **Progresso persistente** no navegador, com XP, níveis e aproveitamento nos quizzes
 - **Backup em JSON** para exportar/importar progresso entre dispositivos
-- **Design system documentado** em `/design-system`
+- **Documentação de design** em [`docs/design-system.md`](docs/design-system.md)
 - **Acessibilidade**: navegação por teclado, contraste AA, gráficos com descrição textual e
   respeito a `prefers-reduced-motion`
 
@@ -68,13 +68,13 @@ node scripts/screenshot.mjs
 ## Estrutura
 
 ```
-app/                      rotas (landing, trilha, lição, sobre, design system)
+app/                      rotas (landing, trilha, lição, sobre)
 components/
   charts/                 gráficos SVG sem dependências
   learn/                  quiz, progresso, navegação da trilha
   mdx/                    Callout, KeyIdea, Formula
   sim/                    simuladores interativos
-  ui/                     design system base
+  ui/                     componentes base (botão, card, badge, progresso)
 content/
   modules/                lições em MDX, versionadas no Git
   lessons.ts              metadados e ordenação da trilha
@@ -84,6 +84,7 @@ lib/
   finance.ts              juros compostos, inflação, retorno real (funções puras)
   xp.ts                   níveis e progressão
   store/progress.ts       Zustand + persist + validação do backup
+docs/                     notas de aprendizado e design system
 tests/e2e/                fluxos críticos em desktop e mobile
 ```
 
@@ -113,7 +114,7 @@ histórico exigir interação mais rica.
 
 ## Roadmap
 
-- [x] Sprint 1 — base, design system, 3 lições, quiz, progresso e deploy estático
+- [x] Sprint 1 — base, componentes, 3 lições, quiz, progresso e deploy estático
 - [ ] Sprint 2 — demais lições, glossário, badges e missões
 - [ ] Sprint 3 — simulador com dados históricos (máquina do tempo), renda fixa com IR/IOF
 - [ ] Sprint 4 — carteira, benchmarks (CDI/IBOV) e relatório de evolução

@@ -30,7 +30,6 @@ async function shot(path, name, fullPage = true) {
 await shot("/", "home");
 await shot("/trilha/", "trilha");
 await shot("/trilha/fundamentos/juros-compostos/", "licao-juros-compostos");
-await shot("/design-system/", "design-system");
 
 const mobile = await browser.newContext({
   viewport: { width: 390, height: 844 },

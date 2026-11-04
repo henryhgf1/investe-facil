@@ -5,7 +5,6 @@ import { Logo } from "@/components/ui/logo";
 
 const navLinks = [
   { href: "/trilha/", label: "Trilha" },
-  { href: "/design-system/", label: "Design" },
   { href: "/sobre/", label: "Sobre" },
 ];
 
