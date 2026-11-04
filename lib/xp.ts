@@ -1,7 +1,7 @@
 export const XP_PER_LESSON = 20;
 export const XP_PER_CORRECT_ANSWER = 5;
 
-const LEVEL_THRESHOLDS = [0, 40, 100, 180, 300, 460];
+const LEVEL_THRESHOLDS = [0, 40, 100, 180, 280, 360];
 
 export type LevelInfo = {
   level: number;

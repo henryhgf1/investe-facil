@@ -29,6 +29,11 @@ describe("levelForXp", () => {
     expect(info.progressPercent).toBe(100);
   });
 
+  it("mantém o nível 6 alcançável com as 10 lições e os quizzes", () => {
+    expect(levelForXp(360).level).toBe(6);
+    expect(levelForXp(359).level).toBe(5);
+  });
+
   it("trata XP negativo como zero", () => {
     expect(levelForXp(-50).level).toBe(1);
   });

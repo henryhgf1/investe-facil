@@ -1,0 +1,60 @@
+import { FixedIncomeComparison } from "@/components/sim/fixed-income-comparison";
+
+CDB, LCI e LCA são todos empréstimos que você faz a uma instituição financeira. A diferença está em quem recebe o dinheiro, qual garantia existe e quanto de imposto você paga. E é justamente aí que a comparação por taxa bruta engana.
+
+## CDB: emprestando para o banco
+
+O **CDB** (Certificado de Depósito Bancário) é um título emitido por bancos. Quando você compra, o banco usa o seu dinheiro para financiar as próprias operações e devolve com juros.
+
+Ele pode render de três formas:
+
+- **Pós-fixado:** um percentual do CDI, como "100% do CDI"
+- **Prefixado:** uma taxa fixa, como "12% ao ano"
+- **Híbrido:** inflação + taxa fixa
+
+O CDB é protegido pelo **FGC** (Fundo Garantidor de Créditos) até **R$ 250 mil por CPF e por instituição**, com limite global de R$ 1 milhão a cada quatro anos. Se o banco quebrar, você recebe de volta até esse teto — mas não recebe na hora, e sim após o processo do fundo.
+
+## LCI e LCA: isentas, mas com contrapartidas
+
+**LCI** (Letra de Crédito Imobiliário) e **LCA** (Letra de Crédito do Agronegócio) também são emitidas por bancos, mas o dinheiro é direcionado a setores específicos: imobiliário e agropecuário.
+
+A grande vantagem é a **isenção de Imposto de Renda para pessoa física**. A contrapartida aparece em três lugares:
+
+1. **Taxa menor.** Como o banco não precisa compensar o imposto que você pagaria, ele oferece um percentual do CDI mais baixo.
+2. **Carência.** Esses títulos costumam ter prazo mínimo antes do resgate, então não servem para dinheiro que você pode precisar amanhã.
+3. **Menos liquidez.** Em muitos casos, só dá para resgatar no vencimento.
+
+<Callout variant="warn" title="Isento de IR não significa melhor">
+  Uma LCI de 80% do CDI pode perder para um CDB de 100% do CDI. A isenção só compensa quando a taxa
+  oferecida é alta o suficiente para superar o imposto que o CDB paga.
+</Callout>
+
+## A conta que compara de verdade
+
+Para comparar os dois, converta tudo para **valor líquido no mesmo prazo**. A taxa de indiferença é:
+
+<Formula label="Taxa mínima da LCI para empatar com um CDB, dada a alíquota de IR">
+  LCI equivalente = CDB × (1 − alíquota de IR)
+</Formula>
+
+Com IR de 17,5% (prazo entre 361 e 720 dias), um CDB de 100% do CDI equivale a uma LCI de **82,5% do CDI**. Se a LCI oferecer 90%, ela ganha. Com IR de 22,5% (até 180 dias), a equivalência cai para 77,5% — e a LCI fica ainda mais atraente.
+
+<FixedIncomeComparison preset="cdb-lci" />
+
+Repare como o resultado muda com o prazo: quanto mais tempo, menor o IR e mais o CDB se aproxima da LCI. É por isso que a resposta certa depende do seu horizonte, não de uma regra fixa.
+
+<KeyIdea>
+  Compare sempre pelo valor líquido, no mesmo prazo. A isenção de IR da LCI é uma vantagem real, mas
+  ela vem embutida em uma taxa menor e em menos liquidez.
+</KeyIdea>
+
+## Antes de escolher
+
+Verifique quatro coisas em qualquer produto de renda fixa:
+
+1. **Quem emite** e se está coberto pelo FGC
+2. **Qual é a taxa** e se ela é pós, prefixada ou híbrida
+3. **Quando você pode resgatar** e se existe carência
+4. **Quanto sobra depois do IR**, no prazo que você pretende ficar
+
+O próximo capítulo abre exatamente esse último item: a tabela do IR, o IOF dos primeiros dias e por que resgatar cedo pode custar caro.

@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import { annualToMonthly, projectMonthly, purchasingPowerSeries, realReturn } from "./finance";
+import {
+  annualToMonthly,
+  dividendYield,
+  incomeTaxRate,
+  iofRate,
+  netFixedIncome,
+  portfolioRisk,
+  poupancaAnnualRate,
+  projectMonthly,
+  purchasingPowerSeries,
+  realReturn,
+} from "./finance";
 
 describe("projectMonthly", () => {
   it("mantém o saldo igual ao investido quando a taxa é zero", () => {
@@ -55,5 +66,114 @@ describe("purchasingPowerSeries", () => {
     const points = purchasingPowerSeries({ initial: 1000, annualInflation: 0, years: 5 });
 
     expect(points.at(-1)?.real).toBeCloseTo(1000, 6);
+  });
+});
+
+describe("incomeTaxRate", () => {
+  it("respeita as fronteiras da tabela regressiva", () => {
+    expect(incomeTaxRate(180)).toBe(0.225);
+    expect(incomeTaxRate(181)).toBe(0.2);
+    expect(incomeTaxRate(360)).toBe(0.2);
+    expect(incomeTaxRate(361)).toBe(0.175);
+    expect(incomeTaxRate(720)).toBe(0.175);
+    expect(incomeTaxRate(721)).toBe(0.15);
+  });
+});
+
+describe("iofRate", () => {
+  it("segue a tabela oficial dos primeiros 30 dias", () => {
+    expect(iofRate(1)).toBeCloseTo(0.96, 6);
+    expect(iofRate(15)).toBeCloseTo(0.5, 6);
+    expect(iofRate(29)).toBeCloseTo(0.03, 6);
+    expect(iofRate(30)).toBe(0);
+    expect(iofRate(90)).toBe(0);
+  });
+});
+
+describe("netFixedIncome", () => {
+  it("cobra 17,5% de IR em um CDB de um ano", () => {
+    const result = netFixedIncome({ principal: 1000, annualRate: 0.1, days: 365 });
+
+    expect(result.gross).toBeCloseTo(100, 6);
+    expect(result.iof).toBe(0);
+    expect(result.ir).toBeCloseTo(17.5, 6);
+    expect(result.netAmount).toBeCloseTo(1082.5, 6);
+    expect(result.effectiveAnnualRate * 100).toBeCloseTo(8.25, 6);
+  });
+
+  it("cai para 15% de IR depois de 720 dias", () => {
+    const result = netFixedIncome({ principal: 1000, annualRate: 0.1, days: 730 });
+
+    expect(result.gross).toBeCloseTo(210, 6);
+    expect(result.ir).toBeCloseTo(31.5, 6);
+    expect(result.netAmount).toBeCloseTo(1178.5, 6);
+  });
+
+  it("não cobra IOF no 30º dia", () => {
+    const result = netFixedIncome({ principal: 1000, annualRate: 0.12, days: 30 });
+
+    expect(result.iof).toBe(0);
+    expect(result.ir).toBeGreaterThan(0);
+  });
+
+  it("quase zera o rendimento no primeiro dia por causa do IOF", () => {
+    const result = netFixedIncome({ principal: 1000, annualRate: 0.12, days: 1 });
+
+    expect(result.iof / result.gross).toBeCloseTo(0.96, 6);
+    expect(result.netGain).toBeLessThan(result.gross * 0.05);
+  });
+
+  it("isenta LCI de IR e IOF", () => {
+    const result = netFixedIncome({
+      principal: 1000,
+      annualRate: 0.1,
+      days: 365,
+      product: "lci",
+    });
+
+    expect(result.iof).toBe(0);
+    expect(result.ir).toBe(0);
+    expect(result.netAmount).toBeCloseTo(1100, 6);
+  });
+});
+
+describe("poupancaAnnualRate", () => {
+  it("rende 0,5% ao mês quando a Selic está acima de 8,5%", () => {
+    expect(poupancaAnnualRate(0.1) * 100).toBeCloseTo(6.1678, 3);
+  });
+
+  it("rende 70% da Selic quando ela está abaixo de 8,5%", () => {
+    expect(poupancaAnnualRate(0.05) * 100).toBeCloseTo(3.5, 6);
+    expect(poupancaAnnualRate(0.085) * 100).toBeCloseTo(5.95, 6);
+  });
+});
+
+describe("dividendYield", () => {
+  it("calcula o provento sobre o preço", () => {
+    expect(dividendYield({ dividendPerShare: 0.6, price: 12 }) * 100).toBeCloseTo(5, 6);
+  });
+
+  it("devolve zero para preço inválido", () => {
+    expect(dividendYield({ dividendPerShare: 1, price: 0 })).toBe(0);
+  });
+});
+
+describe("portfolioRisk", () => {
+  it("mantém o risco do ativo quando há só um ativo", () => {
+    expect(portfolioRisk({ assetRisk: 0.2, assetCount: 1, correlation: 0.4 })).toBeCloseTo(0.2, 6);
+  });
+
+  it("reduz o risco com ativos descorrelacionados", () => {
+    expect(portfolioRisk({ assetRisk: 0.2, assetCount: 4, correlation: 0 })).toBeCloseTo(0.1, 6);
+  });
+
+  it("não reduz risco quando a correlação é perfeita", () => {
+    expect(portfolioRisk({ assetRisk: 0.2, assetCount: 10, correlation: 1 })).toBeCloseTo(0.2, 6);
+  });
+
+  it("converge para o piso da correlação com muitos ativos", () => {
+    const risk = portfolioRisk({ assetRisk: 0.2, assetCount: 100, correlation: 0.5 });
+
+    expect(risk).toBeCloseTo(0.2 * Math.sqrt(0.505), 6);
   });
 });

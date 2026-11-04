@@ -55,7 +55,7 @@ export const lessons: LessonMeta[] = [
     summary:
       "Todo retorno acima da média vem com uma dose de incerteza. Aprenda a nomear o risco antes de aceitá-lo.",
     durationMin: 5,
-    status: "soon",
+    status: "ready",
     requires: "inflacao",
   },
   {
@@ -66,7 +66,7 @@ export const lessons: LessonMeta[] = [
     summary:
       "As três siglas que aparecem em todo lugar, explicadas sem jargão: quem paga, para quem e por quê.",
     durationMin: 6,
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "cdb-lci-lca",
@@ -76,7 +76,7 @@ export const lessons: LessonMeta[] = [
     summary:
       "Rentabilidade, liquidez e o FGC. Como comparar produtos que parecem iguais mas não são.",
     durationMin: 6,
-    status: "soon",
+    status: "ready",
     requires: "cdi-selic-tesouro",
   },
   {
@@ -87,7 +87,7 @@ export const lessons: LessonMeta[] = [
     summary:
       "A tabela regressiva do Imposto de Renda e o IOF dos primeiros 30 dias explicam por que resgatar cedo pode custar caro.",
     durationMin: 5,
-    status: "soon",
+    status: "ready",
     requires: "cdb-lci-lca",
   },
   {
@@ -98,7 +98,7 @@ export const lessons: LessonMeta[] = [
     summary:
       "Comprar uma ação é virar sócio de um negócio. Entenda o que você ganha, o que você arrisca e o que a bolsa não é.",
     durationMin: 6,
-    status: "soon",
+    status: "ready",
   },
   {
     slug: "dividendos-fiis-etfs",
@@ -108,7 +108,7 @@ export const lessons: LessonMeta[] = [
     summary:
       "Três formas diferentes de receber dinheiro de empresas e imóveis — e o que cada uma exige de você.",
     durationMin: 7,
-    status: "soon",
+    status: "ready",
     requires: "o-que-e-uma-acao",
   },
   {
@@ -118,7 +118,7 @@ export const lessons: LessonMeta[] = [
     title: "Diversificação e os erros de iniciante",
     summary: "Concentrar parece ousado, diversificar parece chato. Os dados dizem o contrário.",
     durationMin: 6,
-    status: "soon",
+    status: "ready",
     requires: "dividendos-fiis-etfs",
   },
 ];

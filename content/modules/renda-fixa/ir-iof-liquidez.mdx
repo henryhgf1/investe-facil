@@ -1,0 +1,67 @@
+import { TaxCalculator } from "@/components/sim/tax-calculator";
+
+Um CDB de 12% ao ano não rende 12% no seu bolso. O Imposto de Renda e, nos primeiros dias, o IOF mudam o resultado. Saber fazer essa conta é o que separa "taxa bonita no anúncio" de "dinheiro que realmente sobra".
+
+## Imposto de Renda: quanto mais tempo, menos imposto
+
+Na renda fixa tributada, o IR segue uma tabela regressiva. A alíquota depende do prazo entre a aplicação e o resgate:
+
+| Tempo aplicado    | Alíquota de IR |
+| ----------------- | -------------- |
+| Até 180 dias      | 22,5%          |
+| De 181 a 360 dias | 20%            |
+| De 361 a 720 dias | 17,5%          |
+| Acima de 720 dias | 15%            |
+
+O imposto incide **só sobre o rendimento**, nunca sobre o valor que você aplicou. E é retido na fonte: você recebe o valor já líquido.
+
+## IOF: o pedágio dos primeiros 30 dias
+
+O IOF existe para desestimular o resgate em curtíssimo prazo. Ele incide apenas sobre o rendimento e só nos primeiros 29 dias:
+
+| Dia do resgate      | IOF sobre o rendimento |
+| ------------------- | ---------------------- |
+| 1º dia              | 96%                    |
+| 10º dia             | 66%                    |
+| 20º dia             | 33%                    |
+| 29º dia             | 3%                     |
+| A partir do 30º dia | 0%                     |
+
+No primeiro dia, o IOF leva 96% do que você ganhou. Mesmo que o investimento tenha rendido, sobra quase nada. A partir do 30º dia corrido, o IOF desaparece — e só o IR continua.
+
+<Callout variant="info" title="A ordem importa">
+  O cálculo segue esta sequência: rendimento bruto → IOF → IR sobre o que sobrou → valor líquido.
+  Por isso o IOF reduz a base do IR: você não paga imposto de renda sobre o dinheiro que já foi para
+  o IOF.
+</Callout>
+
+## Simule o seu resgate
+
+Mexa no prazo e veja o efeito no valor final. Repare no "degrau" do 30º dia e nas faixas do IR.
+
+<TaxCalculator />
+
+<Callout variant="warn" title="Liquidez diária tem preço">
+  "Liquidez diária" significa que você pode resgatar a qualquer momento — não que resgatar cedo seja
+  barato. Em um CDB com liquidez diária, sacar no 5º dia pode devolver menos do que você colocou em
+  rendimento.
+</Callout>
+
+## O que isso muda na prática
+
+Três consequências diretas:
+
+1. **Dinheiro de curto prazo não combina com produto tributado de longo prazo.** Se você vai usar em 3 meses, aceite uma taxa menor e fique em algo com liquidez e sem IOF.
+2. **O prazo é parte da rentabilidade.** Um CDB de 12% resgatado em 6 meses pode render menos que um de 10% mantido por 2 anos.
+3. **A reserva de emergência vem primeiro.** Ela fica em algo seguro e líquido, mesmo que renda menos. O resto pode esperar e pagar menos imposto.
+
+<KeyIdea>
+  O rendimento que importa é o líquido. Antes de comparar taxas, pergunte por quanto tempo você pode
+  deixar o dinheiro parado — porque o prazo define o IR, o IOF e a sua liberdade.
+</KeyIdea>
+
+## Fechando a renda fixa
+
+Você já sabe quem paga, quanto pagam, qual risco existe e quanto sobra depois dos impostos. Isso cobre a maior parte das decisões de renda fixa de um iniciante.
+
+No próximo módulo, a lógica muda: em vez de emprestar, você vira sócio. E a primeira pergunta é entender o que uma ação realmente representa.
