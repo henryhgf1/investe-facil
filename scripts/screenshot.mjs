@@ -30,6 +30,8 @@ async function shot(path, name, fullPage = true) {
 await shot("/", "home");
 await shot("/trilha/", "trilha");
 await shot("/trilha/fundamentos/juros-compostos/", "licao-juros-compostos");
+await shot("/trilha/renda-variavel/o-que-e-uma-acao/", "licao-o-que-e-uma-acao");
+await shot("/glossario/", "glossario");
 
 const mobile = await browser.newContext({
   viewport: { width: 390, height: 844 },
@@ -42,6 +44,11 @@ await mobilePage.goto(`${base}/`, { waitUntil: "networkidle" });
 await mobilePage.waitForTimeout(400);
 await mobilePage.screenshot({ path: `${outDir}/home-mobile.png`, fullPage: true });
 console.log("ok home-mobile");
+
+await mobilePage.goto(`${base}/glossario/`, { waitUntil: "networkidle" });
+await mobilePage.waitForTimeout(400);
+await mobilePage.screenshot({ path: `${outDir}/glossario-mobile.png`, fullPage: true });
+console.log("ok glossario-mobile");
 
 await browser.close();
 

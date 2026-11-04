@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { glossary } from "@/content/glossary";
 
 export const metadata: Metadata = {
   title: "Sobre o projeto",
@@ -29,7 +30,7 @@ const decisions = [
     icon: Wrench,
     title: "Motor de simulação em funções puras",
     description:
-      "Os cálculos de juros compostos, inflação e retorno real ficam isolados da interface e cobertos por testes — fáceis de auditar e de reutilizar.",
+      "Os cálculos de juros compostos, inflação, IR, IOF e risco ficam isolados da interface e cobertos por testes — fáceis de auditar e de reutilizar.",
   },
 ];
 
@@ -85,12 +86,20 @@ export default function SobrePage() {
         )}
       </div>
 
-      <h2 className="font-display text-ink mt-12 text-2xl font-bold">O que está por vir</h2>
+      <h2 className="font-display text-ink mt-12 text-2xl font-bold">O que já está no ar</h2>
       <ul className="mt-4 space-y-2 text-[17px] leading-8 text-slate-700">
         <li className="flex gap-2">
           <BookOpen className="text-brand-600 mt-1.5 size-4 shrink-0" aria-hidden="true" />
-          As 7 lições restantes dos módulos de renda fixa e renda variável.
+          As 10 lições dos três módulos, cada uma com quiz e exemplos numéricos.
         </li>
+        <li className="flex gap-2">
+          <BookOpen className="text-brand-600 mt-1.5 size-4 shrink-0" aria-hidden="true" />
+          Glossário com {glossary.length} termos, busca sem acento e filtros por categoria.
+        </li>
+      </ul>
+
+      <h2 className="font-display text-ink mt-12 text-2xl font-bold">Próximos passos</h2>
+      <ul className="mt-4 space-y-2 text-[17px] leading-8 text-slate-700">
         <li className="flex gap-2">
           <BookOpen className="text-brand-600 mt-1.5 size-4 shrink-0" aria-hidden="true" />
           Simulador com dados históricos: comece em 2020 e avance no tempo para viver a crise sem
@@ -98,7 +107,7 @@ export default function SobrePage() {
         </li>
         <li className="flex gap-2">
           <BookOpen className="text-brand-600 mt-1.5 size-4 shrink-0" aria-hidden="true" />
-          Missões práticas, glossário e relatório de evolução da carteira.
+          Missões práticas, badges e relatório de evolução da carteira.
         </li>
       </ul>
 
@@ -126,6 +135,9 @@ export default function SobrePage() {
         </Link>
         <Link href="/trilha/" className="text-brand-700 hover:text-brand-800 font-semibold">
           Começar a trilha
+        </Link>
+        <Link href="/glossario/" className="text-brand-700 hover:text-brand-800 font-semibold">
+          Consultar o glossário
         </Link>
       </div>
     </Container>

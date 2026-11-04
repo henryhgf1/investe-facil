@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { glossary } from "@/content/glossary";
 import { lessonsOfModule, readyLessons } from "@/content/lessons";
 import { modules } from "@/content/modules";
 import { projectMonthly } from "@/lib/finance";
@@ -96,8 +97,8 @@ export default function HomePage() {
                 <dd className="font-display text-ink text-xl font-bold">{modules.length}</dd>
               </div>
               <div>
-                <dt className="text-muted">Lições no plano</dt>
-                <dd className="font-display text-ink text-xl font-bold">10</dd>
+                <dt className="text-muted">Lições no ar</dt>
+                <dd className="font-display text-ink text-xl font-bold">{readyLessons.length}</dd>
               </div>
               <div>
                 <dt className="text-muted">Dinheiro em risco</dt>
@@ -211,8 +212,8 @@ export default function HomePage() {
                 Do zero à primeira carteira
               </h2>
               <p className="text-muted mt-3 text-base leading-7">
-                Cada módulo termina com um quiz e um desafio prático. {readyLessons.length} lições
-                já estão no ar; as demais entram nas próximas semanas.
+                Cada lição termina com um quiz, e a maioria traz um simulador para testar a ideia.
+                As {readyLessons.length} lições da trilha já estão no ar.
               </p>
             </div>
             <Link
@@ -269,6 +270,20 @@ export default function HomePage() {
                 </Card>
               );
             })}
+          </div>
+
+          <div className="border-line bg-canvas mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border px-5 py-4">
+            <p className="text-muted text-sm">
+              Encontrou uma sigla desconhecida? O glossário explica {glossary.length} termos em
+              português claro, com busca que ignora acentos.
+            </p>
+            <Link
+              href="/glossario/"
+              className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-2 text-sm font-semibold"
+            >
+              Abrir o glossário
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
           </div>
         </Container>
       </section>

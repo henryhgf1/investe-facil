@@ -63,11 +63,20 @@ Solução em `lib/hooks/use-hydrated.ts`:
 localStorage é lido. O estado tem `version: 1` e uma função `migrate`, para que uma mudança de
 formato no futuro não apague o progresso de quem já usa o site.
 
+## Busca sem acento
+
+`lib/search.ts` normaliza o texto com `normalize("NFD")`, remove os diacríticos com uma regex
+(`[\u0300-\u036f]`), baixa a caixa e limpa pontuação. Assim "inflação", "inflacao" e "INFLACAO"
+caem na mesma chave. A busca por várias palavras exige que todas apareçam em algum campo — termo,
+definição, sinônimos ou categoria.
+
 ## Testes
 
 - `vitest.config.mts` com ambiente `jsdom` e alias `@/`.
 - Testes de funções puras não precisam de DOM: `lib/finance.test.ts`, `lib/xp.test.ts`.
 - O teste do store precisa de `localStorage`, por isso roda em `jsdom`.
+- `content/content.test.ts` lê o sistema de arquivos e o source do registry para garantir que
+  toda lição publicada tem MDX, entrada no registry e quiz válido — sem importar os arquivos MDX.
 - Playwright sobe o build estático (`npm run preview`) e testa fluxos reais em desktop e mobile.
 
 ## O que eu faria diferente em um app com login

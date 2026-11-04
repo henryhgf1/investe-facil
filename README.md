@@ -5,8 +5,9 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado — sem cadastro, sem backend e sem dinheiro em risco.
 
-> **Status:** Sprint 1 concluído. A trilha de fundamentos está no ar com 3 lições; os módulos de
-> renda fixa, renda variável e o simulador histórico entram nas próximas etapas.
+> **Status:** Sprint 2 concluído. A trilha completa (10 lições) e o glossário com mais de 50 termos
+> estão no ar. Badges e missões práticas ficaram para a próxima etapa, junto com o simulador
+> histórico.
 
 ![Página inicial](screenshots/home.png)
 
@@ -18,9 +19,12 @@ vocabulário aos poucos e com simuladores onde errar custa zero.
 
 ## O que já funciona
 
-- **Trilha em 3 módulos** com 10 lições planejadas e 3 publicadas
+- **Trilha em 3 módulos** com 10 lições publicadas
 - **Lições em MDX** com componentes interativos embutidos
-- **Simuladores** de juros compostos e de perda de poder de compra, com sliders e gráfico SVG
+- **8 simuladores e gráficos**: juros compostos, inflação, risco × retorno, Tesouro × poupança,
+  CDB × LCI, IR/IOF, dividend yield, propriedade e diversificação
+- **Glossário com mais de 50 termos**, busca que ignora acentos, filtros por categoria e dados
+  estruturados para indexação
 - **Quiz com correção e explicação** em cada lição
 - **Progresso persistente** no navegador, com XP, níveis e aproveitamento nos quizzes
 - **Backup em JSON** para exportar/importar progresso entre dispositivos
@@ -68,20 +72,22 @@ node scripts/screenshot.mjs
 ## Estrutura
 
 ```
-app/                      rotas (landing, trilha, lição, sobre)
+app/                      rotas (landing, trilha, lição, glossário, sobre)
 components/
   charts/                 gráficos SVG sem dependências
-  learn/                  quiz, progresso, navegação da trilha
+  learn/                  quiz, progresso, navegação da trilha e glossário
   mdx/                    Callout, KeyIdea, Formula
   sim/                    simuladores interativos
   ui/                     componentes base (botão, card, badge, progresso)
 content/
   modules/                lições em MDX, versionadas no Git
+  glossary.ts             verbetes, categorias e ligações entre termos
   lessons.ts              metadados e ordenação da trilha
   quizzes.ts              perguntas, respostas e explicações
   registry.ts             mapeamento slug → componente MDX
 lib/
-  finance.ts              juros compostos, inflação, retorno real (funções puras)
+  finance.ts              juros, inflação, IR/IOF, dividend yield e risco (funções puras)
+  search.ts               normalização de busca sem acento
   xp.ts                   níveis e progressão
   store/progress.ts       Zustand + persist + validação do backup
 docs/                     notas de aprendizado e design system
@@ -99,7 +105,12 @@ mitigada pelo backup manual.
 abrir um pull request, e o build quebra se um componente ou link estiver errado. Sem CMS.
 
 **Motor financeiro separado da interface.** `lib/finance.ts` concentra as contas de juros
-compostos, inflação e retorno real em funções puras, cobertas por testes. A UI apenas consome.
+compostos, inflação, IR/IOF, dividend yield e risco em funções puras, cobertas por testes. A UI
+apenas consome.
+
+**Conteúdo validado no build.** Um teste de integridade garante que toda lição publicada tem
+arquivo MDX, entrada no registry e quiz com alternativas válidas. O glossário também é checado:
+slugs únicos, categorias existentes e referências cruzadas válidas.
 
 **Gráficos próprios em SVG.** Para os simuladores atuais, um componente de ~100 linhas resolve
 sem adicionar 100 kB de biblioteca. Bibliotecas de gráfico entram apenas quando o simulador
@@ -107,16 +118,18 @@ histórico exigir interação mais rica.
 
 ## Testes
 
-- **19 testes unitários** cobrindo o motor financeiro, a progressão de XP e o store (incluindo
-  idempotência, melhor pontuação no quiz e round-trip de backup)
-- **10 testes E2E** em desktop e mobile: navegação, conclusão de lição com persistência,
-  correção do quiz, reação dos simuladores e ausência de rolagem horizontal
+- **51 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
+  a progressão de XP, o store (idempotência, melhor pontuação e round-trip de backup), a busca sem
+  acento e a integridade do conteúdo/glossário
+- **9 cenários E2E** em desktop e mobile: navegação, conclusão de lição com persistência, correção
+  do quiz, reação dos simuladores, abertura das 10 lições, busca do glossário e ausência de rolagem
+  horizontal
 
 ## Roadmap
 
 - [x] Sprint 1 — base, componentes, 3 lições, quiz, progresso e deploy estático
-- [ ] Sprint 2 — demais lições, glossário, badges e missões
-- [ ] Sprint 3 — simulador com dados históricos (máquina do tempo), renda fixa com IR/IOF
+- [x] Sprint 2 — 10 lições publicadas, simuladores de renda fixa/variável e glossário
+- [ ] Sprint 3 — badges, missões práticas e simulador com dados históricos (máquina do tempo)
 - [ ] Sprint 4 — carteira, benchmarks (CDI/IBOV) e relatório de evolução
 
 ## Aviso
