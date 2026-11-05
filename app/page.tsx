@@ -62,7 +62,7 @@ export default function HomePage() {
                 sem arriscar
                 <span
                   aria-hidden="true"
-                  className="bg-brand-200 absolute bottom-[0.35em] left-0 h-1.5 w-full rounded-full"
+                  className="bg-brand-200 absolute bottom-[0.07em] left-0 h-1.5 w-full rounded-full"
                 />
               </span>{" "}
               dinheiro de verdade.
