@@ -16,6 +16,10 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
     {
+      name: "tablet",
+      use: { ...devices["Galaxy Tab S4"] },
+    },
+    {
       name: "mobile",
       use: { ...devices["Pixel 7"] },
     },

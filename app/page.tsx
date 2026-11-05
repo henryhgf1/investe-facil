@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Clock3, Compass, Gauge, Sparkles, Target } from "lucide-react";
+import { ArrowRight, BookOpen, Clock3, Compass, Gauge, Target } from "lucide-react";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
@@ -56,11 +56,6 @@ export default function HomePage() {
         />
         <Container className="relative grid gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
           <div>
-            <Badge variant="brand" className="mb-5">
-              <Sparkles className="size-3.5" aria-hidden="true" />
-              Projeto de portfólio · gratuito e sem cadastro
-            </Badge>
-
             <h1 className="font-display text-ink text-4xl leading-[1.05] font-extrabold sm:text-5xl">
               Aprenda a investir{" "}
               <span className="text-brand-700 relative whitespace-nowrap">

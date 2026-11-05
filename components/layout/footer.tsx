@@ -40,9 +40,6 @@ export function Footer() {
             projeto educacional de portfólio. Nada aqui é recomendação de investimento.
             Rentabilidades passadas não garantem resultados futuros.
           </p>
-          <p className="mt-2">
-            Feito com Next.js, TypeScript e Tailwind CSS · {new Date().getFullYear()}
-          </p>
         </div>
       </Container>
     </footer>

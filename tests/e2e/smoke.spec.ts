@@ -64,6 +64,9 @@ test("o simulador de juros compostos reage aos controles", async ({ page }) => {
 
   const aporte = simulator.getByLabel(/aporte por mês/i);
 
+  const caixa = await aporte.boundingBox();
+  expect(caixa?.height ?? 0, "área de toque do slider").toBeGreaterThanOrEqual(24);
+
   await expect(async () => {
     await aporte.evaluate((element) => {
       const input = element as HTMLInputElement;
@@ -162,4 +165,41 @@ test("o simulador de diversificação reage ao número de ativos", async ({ page
   }).toPass({ timeout: 10_000 });
 
   await expect(ativos).toHaveValue("20");
+});
+
+test("o menu mobile abre, navega e fecha", async ({ page }) => {
+  const viewport = page.viewportSize();
+  test.skip(!viewport || viewport.width >= 640, "menu suspenso só aparece em telas estreitas");
+
+  const menu = page.locator("header details");
+  const summary = page.locator("header summary");
+
+  await summary.click();
+  await expect(menu).toHaveAttribute("open", "");
+
+  await page.locator("header details a", { hasText: "Glossário" }).click();
+  await expect(page).toHaveURL(/\/glossario\/?$/);
+  await expect(menu).not.toHaveAttribute("open", "");
+
+  await summary.click();
+  await expect(menu).toHaveAttribute("open", "");
+
+  await page.keyboard.press("Escape");
+  await expect(menu).not.toHaveAttribute("open", "");
+  await expect(summary).toBeFocused();
+});
+
+test("a navegação horizontal mantém alvos de toque de 44px", async ({ page }) => {
+  const viewport = page.viewportSize();
+  test.skip(!viewport || viewport.width < 640, "navegação horizontal só aparece a partir de 640px");
+
+  const links = page.locator("header nav a");
+  const total = await links.count();
+
+  expect(total).toBeGreaterThan(0);
+
+  for (let index = 0; index < total; index += 1) {
+    const caixa = await links.nth(index).boundingBox();
+    expect(caixa?.height ?? 0, `link ${index} da navegação`).toBeGreaterThanOrEqual(44);
+  }
 });
