@@ -3,7 +3,7 @@
 ![CI](https://github.com/henryhgf1/investe-facil/actions/workflows/ci.yml/badge.svg)
 
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
-progresso gamificado — sem cadastro, sem backend e sem dinheiro em risco.
+progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
 > **Status:** Sprint 2 concluído. A trilha completa (10 lições) e o glossário com mais de 50 termos
 > estão no ar. Badges e missões práticas ficaram para a próxima etapa, junto com o simulador
@@ -43,7 +43,7 @@ vocabulário aos poucos e com simuladores onde errar custa zero.
 | Estado    | Zustand com `persist` versionado                        |
 | Validação | Zod                                                     |
 | Testes    | Vitest + Testing Library (unitários) e Playwright (E2E) |
-| Deploy    | Estático — Vercel, Netlify ou qualquer CDN              |
+| Deploy    | Estático: Vercel, Netlify ou qualquer CDN               |
 
 ## Rodando localmente
 
@@ -98,7 +98,7 @@ tests/e2e/                fluxos críticos em desktop e mobile
 
 **Sem backend, de propósito.** O progresso vive no `localStorage`, com schema versionado e
 exportação em JSON. Isso elimina banco, autenticação, custo de servidor e coleta de dados
-pessoais — e deixa o deploy em uma CDN estática. A limitação (progresso por navegador) é
+pessoais, e deixa o deploy em uma CDN estática. A limitação (progresso por navegador) é
 mitigada pelo backup manual.
 
 **Conteúdo em MDX versionado no Git.** Cada lição é um arquivo de texto. Revisar conteúdo é
@@ -127,10 +127,10 @@ histórico exigir interação mais rica.
 
 ## Roadmap
 
-- [x] Sprint 1 — base, componentes, 3 lições, quiz, progresso e deploy estático
-- [x] Sprint 2 — 10 lições publicadas, simuladores de renda fixa/variável e glossário
-- [ ] Sprint 3 — badges, missões práticas e simulador com dados históricos (máquina do tempo)
-- [ ] Sprint 4 — carteira, benchmarks (CDI/IBOV) e relatório de evolução
+- [x] Sprint 1: base, componentes, 3 lições, quiz, progresso e deploy estático
+- [x] Sprint 2: 10 lições publicadas, simuladores de renda fixa/variável e glossário
+- [ ] Sprint 3: badges, missões práticas e simulador com dados históricos (máquina do tempo)
+- [ ] Sprint 4: carteira, benchmarks (CDI/IBOV) e relatório de evolução
 
 ## Aviso
 

@@ -42,7 +42,7 @@ export const lessons: LessonMeta[] = [
     order: 3,
     title: "Inflação: o ladrão silencioso",
     summary:
-      "R$ 1.000 parados não perdem valor no extrato — mas perdem poder de compra. Aprenda a calcular o ganho que realmente importa.",
+      "R$ 1.000 parados não perdem valor no extrato, mas perdem poder de compra. Aprenda a calcular o ganho que realmente importa.",
     durationMin: 6,
     status: "ready",
     requires: "juros-compostos",
@@ -106,7 +106,7 @@ export const lessons: LessonMeta[] = [
     order: 2,
     title: "Dividendos, FIIs e ETFs",
     summary:
-      "Três formas diferentes de receber dinheiro de empresas e imóveis — e o que cada uma exige de você.",
+      "Três formas diferentes de receber dinheiro de empresas e imóveis, e o que cada uma exige de você.",
     durationMin: 7,
     status: "ready",
     requires: "o-que-e-uma-acao",

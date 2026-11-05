@@ -142,7 +142,7 @@ export function OwnershipSimulator() {
 
           <p className="border-line bg-canvas text-muted mt-4 rounded-xl border px-4 py-3 text-sm leading-6">
             Você não compra um código na tela: compra uma fração de um negócio. Se a empresa gera
-            lucro, essa fração vale algo — mesmo quando o preço da ação passa meses parado.
+            lucro, essa fração vale algo, mesmo quando o preço da ação passa meses parado.
           </p>
         </div>
       </div>

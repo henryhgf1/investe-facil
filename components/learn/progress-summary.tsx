@@ -79,7 +79,7 @@ export function ProgressSummary() {
         <Progress value={info.progressPercent} label={`Progresso para o nível ${info.level + 1}`} />
         <p className="text-muted text-xs">
           {info.xpToNextLevel === null
-            ? "Nível máximo por enquanto — novos módulos chegam em breve."
+            ? "Nível máximo por enquanto. Novos módulos chegam em breve."
             : `Faltam ${info.xpToNextLevel} XP para o nível ${info.level + 1}.`}
         </p>
       </div>

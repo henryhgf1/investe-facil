@@ -119,7 +119,7 @@ export const glossary: GlossaryTerm[] = [
     term: "Reserva de emergência",
     category: "fundamentos",
     definition:
-      "Dinheiro separado para imprevistos — de três a seis meses de despesas, em algo seguro e com liquidez diária. É o primeiro passo antes de qualquer investimento de risco.",
+      "Dinheiro separado para imprevistos: de três a seis meses de despesas, em algo seguro e com liquidez diária. É o primeiro passo antes de qualquer investimento de risco.",
     seeAlso: ["liquidez", "tesouro-selic"],
   },
   {
@@ -207,7 +207,7 @@ export const glossary: GlossaryTerm[] = [
     category: "renda-fixa",
     aliases: ["debêntures incentivadas"],
     definition:
-      "Título de dívida emitido por empresas, e não por bancos. Paga juros em troca de crédito e tem risco de crédito da própria companhia — não conta com a garantia do FGC.",
+      "Título de dívida emitido por empresas, e não por bancos. Paga juros em troca de crédito e tem risco de crédito da própria companhia, sem a garantia do FGC.",
     seeAlso: ["risco-de-credito", "fgc"],
   },
   {
@@ -232,7 +232,7 @@ export const glossary: GlossaryTerm[] = [
     term: "Ação",
     category: "renda-variavel",
     definition:
-      "A menor fração do capital social de uma empresa. Quem compra uma ação vira sócio: participa dos lucros, dos prejuízos e da valorização — sem garantia de retorno.",
+      "A menor fração do capital social de uma empresa. Quem compra uma ação vira sócio: participa dos lucros, dos prejuízos e da valorização, sem garantia de retorno.",
     seeAlso: ["acao-on", "acao-pn", "dividendos", "bolsa-de-valores"],
   },
   {
@@ -312,7 +312,7 @@ export const glossary: GlossaryTerm[] = [
     category: "renda-variavel",
     aliases: ["market cap", "capitalização de mercado"],
     definition:
-      "Preço da ação multiplicado pelo total de ações emitidas. Mostra quanto o mercado está pagando pela empresa inteira naquele momento — não confundir com o valor do negócio.",
+      "Preço da ação multiplicado pelo total de ações emitidas. Mostra quanto o mercado está pagando pela empresa inteira naquele momento. Não confundir com o valor do negócio.",
     seeAlso: ["acao", "ipo"],
   },
   {
@@ -412,7 +412,7 @@ export const glossary: GlossaryTerm[] = [
     term: "Volatilidade",
     category: "risco",
     definition:
-      "A intensidade com que o preço de um ativo oscila ao longo do tempo. Alta volatilidade significa variações grandes — para cima e para baixo. Não é sinônimo de perda definitiva.",
+      "A intensidade com que o preço de um ativo oscila ao longo do tempo. Alta volatilidade significa variações grandes, para cima e para baixo. Não é sinônimo de perda definitiva.",
     seeAlso: ["risco", "risco-de-mercado"],
   },
   {
@@ -438,7 +438,7 @@ export const glossary: GlossaryTerm[] = [
     category: "risco",
     aliases: ["risco sistemático"],
     definition:
-      "O risco que afeta todo o mercado ao mesmo tempo: crise global, alta de juros, pandemia. Não desaparece com diversificação — só pode ser administrado com prazo e paciência.",
+      "O risco que afeta todo o mercado ao mesmo tempo: crise global, alta de juros, pandemia. Não desaparece com diversificação; só pode ser administrado com prazo e paciência.",
     seeAlso: ["risco-sistematico", "volatilidade"],
   },
   {
@@ -496,7 +496,7 @@ export const glossary: GlossaryTerm[] = [
     category: "risco",
     aliases: ["suitability", "conservador moderado arrojado"],
     definition:
-      "Classificação que combina capacidade e tolerância a risco — normalmente conservador, moderado ou arrojado. Serve para alinhar a carteira ao quanto você aguenta ver o patrimônio oscilar.",
+      "Classificação que combina capacidade e tolerância a risco: normalmente conservador, moderado ou arrojado. Serve para alinhar a carteira ao quanto você aguenta ver o patrimônio oscilar.",
     seeAlso: ["risco", "diversificacao"],
   },
 ];

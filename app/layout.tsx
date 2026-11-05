@@ -21,7 +21,7 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "Investe Fácil — aprenda a investir sem arriscar dinheiro de verdade",
+    default: "Investe Fácil: aprenda a investir sem arriscar dinheiro de verdade",
     template: "%s · Investe Fácil",
   },
   description:
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: "Investe Fácil",
-    title: "Investe Fácil — aprenda a investir sem arriscar dinheiro de verdade",
+    title: "Investe Fácil: aprenda a investir sem arriscar dinheiro de verdade",
     description:
       "Teoria curta, simuladores interativos e um caminho claro para o seu primeiro investimento.",
   },

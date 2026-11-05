@@ -23,7 +23,7 @@ export function Logo({ className }: { className?: string }) {
     <Link
       href="/"
       className={cn("inline-flex items-center gap-2.5 rounded-lg", className)}
-      aria-label="Investe Fácil — página inicial"
+      aria-label="Investe Fácil: página inicial"
     >
       <LogoMark />
       <span className="font-display text-ink text-[17px] font-extrabold tracking-tight">

@@ -40,8 +40,8 @@ Texto corrido usa `text-slate-700` (cinza-azulado), um tom acima de `muted` em c
 
 ## Tipografia
 
-- **Manrope** (`font-display`) — títulos, números grandes e navegação de marca
-- **Inter** (`font-sans`) — corpo, formulários e UI
+- **Manrope** (`font-display`): títulos, números grandes e navegação de marca
+- **Inter** (`font-sans`): corpo, formulários e UI
 
 | Papel      | Classes                                | Tamanho |
 | ---------- | -------------------------------------- | ------- |
@@ -64,14 +64,14 @@ Títulos usam `letter-spacing: -0.02em` e `text-wrap: balance` (definidos no `@l
 | Seções, banners | 24px  | `rounded-3xl`  |
 | Pílulas         | 999px | `rounded-full` |
 
-- Sombra padrão de card: `0 1px 2px rgba(11, 18, 32, 0.04)` — quase invisível, só para separar do fundo
+- Sombra padrão de card: `0 1px 2px rgba(11, 18, 32, 0.04)` (quase invisível, só para separar do fundo)
 - Container: `max-w-6xl` com `px-5 sm:px-6 lg:px-8`
 - Ritmo vertical entre seções: `py-16` a `py-20`
 - Conteúdo de lição: `max-w-3xl` para manter a linha entre 60 e 75 caracteres
 
 ## Componentes
 
-### Button — `components/ui/button.tsx`
+### Button (`components/ui/button.tsx`)
 
 | Variante    | Uso                                |
 | ----------- | ---------------------------------- |
@@ -83,27 +83,27 @@ Títulos usam `letter-spacing: -0.02em` e `text-wrap: balance` (definidos no `@l
 Tamanhos: `sm` (36px), `md` (44px), `lg` (48px). Para links com aparência de botão, use
 `buttonStyles({ variant, size })` em vez de `<Button>`.
 
-### Badge — `components/ui/badge.tsx`
+### Badge (`components/ui/badge.tsx`)
 
 Variantes `brand`, `accent`, `warn`, `neutral`, `outline`. Sempre em caixa alta? Não: texto
 normal, `font-semibold`, `text-xs`.
 
-### Progress — `components/ui/progress.tsx`
+### Progress (`components/ui/progress.tsx`)
 
 Exige `label` (vira `aria-label`) e `value` de 0 a 100. Tamanho `sm` para progresso dentro de
 cards, `md` para o resumo de nível. A cor da barra pode ser trocada por `barClassName`.
 
-### Card — `components/ui/card.tsx`
+### Card (`components/ui/card.tsx`)
 
 `Card`, `CardTitle` e `CardDescription`. O card não tem padding próprio: quem usa decide
 (`p-5`, `p-6`).
 
-### Slider — `components/ui/slider.tsx`
+### Slider (`components/ui/slider.tsx`)
 
 Slider nativo com `accent-color`, label associado por `htmlFor` e `<output>` mostrando o valor
 formatado. Sempre inclua `display` legível ("R$ 200", "0,80% a.m.").
 
-### Blocos de MDX — `components/mdx/index.tsx`
+### Blocos de MDX (`components/mdx/index.tsx`)
 
 | Componente | Uso                                                   |
 | ---------- | ----------------------------------------------------- |
@@ -111,7 +111,7 @@ formatado. Sempre inclua `display` legível ("R$ 200", "0,80% a.m.").
 | `KeyIdea`  | a única ideia que o leitor deve levar da lição        |
 | `Formula`  | destaque de fórmula matemática com legenda opcional   |
 
-### Gráficos — `components/charts/projection-chart.tsx`
+### Gráficos (`components/charts/projection-chart.tsx`)
 
 SVG próprio, sem biblioteca. Recebe `series` (label, cor, valores, `fill`) e um `ariaLabel`
 obrigatório descrevendo o resultado em texto. A primeira série é a linha principal; as demais

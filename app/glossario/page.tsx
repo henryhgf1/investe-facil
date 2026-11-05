@@ -40,7 +40,7 @@ export default function GlossarioPage() {
         </h1>
         <p className="text-muted mt-4 text-base leading-7">
           {glossary.length} termos explicados sem jargão, organizados em {glossaryCategories.length}{" "}
-          categorias. Use a busca — ela ignora acentos e encontra siglas como CDI, FII e IOF.
+          categorias. Use a busca: ela ignora acentos e encontra siglas como CDI, FII e IOF.
         </p>
       </div>
 
@@ -54,7 +54,7 @@ export default function GlossarioPage() {
         </p>
         <p className="text-muted mt-2 text-sm leading-6">
           O glossário cobre o vocabulário usado na trilha. Se um termo ainda não está aqui, ele
-          provavelmente aparece em uma das lições — e o contexto ajuda a fixar o significado.
+          provavelmente aparece em uma das lições, e o contexto ajuda a fixar o significado.
         </p>
         <Link
           href="/trilha/"

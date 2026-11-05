@@ -86,7 +86,7 @@ export function InflationErosion() {
           {formatPercent(loss * 100, 1)}
         </span>
         <span className="text-muted text-sm">
-          — sobram {formatBRLPrecise(last.real)} de valor real.
+          sobram {formatBRLPrecise(last.real)} de valor real.
         </span>
       </div>
     </section>

@@ -70,7 +70,7 @@ export default function HomePage() {
 
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
               Teoria curta, simuladores interativos e um caminho claro do primeiro aporte à primeira
-              carteira diversificada. Feito para quem está começando — de verdade.
+              carteira diversificada. Feito para quem está começando, de verdade.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

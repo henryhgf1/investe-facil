@@ -1,4 +1,4 @@
-# Notas de aprendizado — Next.js
+# Notas de aprendizado: Next.js
 
 Registro dos conceitos usados neste projeto, com o arquivo onde cada um aparece. Serve como
 material de estudo e como referência para as próximas etapas.
@@ -17,10 +17,10 @@ Por padrão, tudo é Server Component: roda no build, não envia JavaScript para
 Um arquivo só vira Client Component com a diretiva `"use client"` no topo. Usamos isso apenas
 onde há interação ou estado:
 
-- `components/learn/quiz.tsx` — respostas e correção
-- `components/learn/trilha-list.tsx` — lê o progresso do localStorage
-- `components/sim/*.tsx` — sliders com estado
-- `components/charts/projection-chart.tsx` — usa `useId`
+- `components/learn/quiz.tsx`: respostas e correção
+- `components/learn/trilha-list.tsx`: lê o progresso do localStorage
+- `components/sim/*.tsx`: sliders com estado
+- `components/charts/projection-chart.tsx`: usa `useId`
 
 Regra prática: mantenha a página como Server Component e isole a interação no menor componente
 possível. Foi o que fizemos na lição: o texto em MDX é renderizado no build, e só o botão de
@@ -32,7 +32,7 @@ concluir e o quiz são client.
 
 Consequências:
 
-- Não há API routes nem ISR — todo dado precisa existir em build time.
+- Não há API routes nem ISR: todo dado precisa existir em build time.
 - Rotas dinâmicas precisam de `generateStaticParams` para dizer quais páginas existirão.
 - `trailingSlash: true` gera pastas com `index.html`, o que funciona em qualquer CDN.
 - Imagens precisam de `unoptimized: true`, porque o otimizador do Next depende de servidor.
@@ -67,7 +67,7 @@ formato no futuro não apague o progresso de quem já usa o site.
 
 `lib/search.ts` normaliza o texto com `normalize("NFD")`, remove os diacríticos com uma regex
 (`[\u0300-\u036f]`), baixa a caixa e limpa pontuação. Assim "inflação", "inflacao" e "INFLACAO"
-caem na mesma chave. A busca por várias palavras exige que todas apareçam em algum campo — termo,
+caem na mesma chave. A busca por várias palavras exige que todas apareçam em algum campo: termo,
 definição, sinônimos ou categoria.
 
 ## Testes
@@ -76,10 +76,10 @@ definição, sinônimos ou categoria.
 - Testes de funções puras não precisam de DOM: `lib/finance.test.ts`, `lib/xp.test.ts`.
 - O teste do store precisa de `localStorage`, por isso roda em `jsdom`.
 - `content/content.test.ts` lê o sistema de arquivos e o source do registry para garantir que
-  toda lição publicada tem MDX, entrada no registry e quiz válido — sem importar os arquivos MDX.
+  toda lição publicada tem MDX, entrada no registry e quiz válido, sem importar os arquivos MDX.
 - Playwright sobe o build estático (`npm run preview`) e testa fluxos reais em desktop e mobile.
 
 ## O que eu faria diferente em um app com login
 
 Com autenticação e banco, o progresso sairia do localStorage e viraria uma tabela
-`LessonProgress` por usuário. O motor de simulação continuaria puro — só a persistência mudaria.
+`LessonProgress` por usuário. O motor de simulação continuaria puro; só a persistência mudaria.

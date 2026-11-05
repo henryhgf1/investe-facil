@@ -131,7 +131,7 @@ export type NetFixedIncomeResult = {
  *
  * Ordem de cálculo usada pelas corretoras: IOF sobre o rendimento bruto e,
  * depois, IR sobre o rendimento que sobrou. Juros compostos por dias
- * corridos (base 365) — uma simplificação didática em relação aos 252 dias
+ * corridos (base 365), uma simplificação didática em relação aos 252 dias
  * úteis do mercado.
  */
 export function netFixedIncome({

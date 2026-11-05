@@ -55,7 +55,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     returnPct: 11.5,
     color: "#1d4ed8",
     description:
-      "Garante inflação mais uma taxa fixa se você levar até o vencimento. Se vender antes, o preço do título oscila — e pode cair.",
+      "Garante inflação mais uma taxa fixa se você levar até o vencimento. Se vender antes, o preço do título oscila, e pode cair.",
   },
   {
     id: "fii",

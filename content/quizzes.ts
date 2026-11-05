@@ -26,7 +26,7 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       ],
       correctOptionId: "b",
       explanation:
-        "Guardar dinheiro é a base da reserva de emergência. Investir é fazer esse dinheiro render acima da inflação — e para isso existe risco.",
+        "Guardar dinheiro é a base da reserva de emergência. Investir é fazer esse dinheiro render acima da inflação. Para isso existe risco.",
     },
     {
       id: "q2",
@@ -64,7 +64,7 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       ],
       correctOptionId: "a",
       explanation:
-        "Juros simples incidem sempre sobre o valor inicial. Compostos incidem sobre o saldo acumulado, incluindo os juros já ganhos — é o efeito bola de neve.",
+        "Juros simples incidem sempre sobre o valor inicial. Compostos incidem sobre o saldo acumulado, incluindo os juros já ganhos: é o efeito bola de neve.",
     },
     {
       id: "q2",
@@ -155,7 +155,7 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       ],
       correctOptionId: "b",
       explanation:
-        "Se o investimento rende 8% e a inflação é 7%, o ganho real é de menos de 1%. O que importa é o que sobra depois da inflação — e do imposto.",
+        "Se o investimento rende 8% e a inflação é 7%, o ganho real é de menos de 1%. O que importa é o que sobra depois da inflação e do imposto.",
     },
   ],
   "risco-e-retorno": [
@@ -202,7 +202,7 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       ],
       correctOptionId: "b",
       explanation:
-        "Volatilidade é a variação de preço no caminho. A perda vira definitiva no momento da venda — ou se o negócio realmente deixar de gerar valor.",
+        "Volatilidade é a variação de preço no caminho. A perda vira definitiva no momento da venda, ou se o negócio realmente deixar de gerar valor.",
     },
   ],
   "cdi-selic-tesouro": [
@@ -336,7 +336,7 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       ],
       correctOptionId: "b",
       explanation:
-        "Ação é fração do capital social. O acionista é dono de uma parte do negócio — e participa dos lucros e dos riscos, sem garantia de receber nada.",
+        "Ação é fração do capital social. O acionista é dono de uma parte do negócio e participa dos lucros e dos riscos, sem garantia de receber nada.",
     },
     {
       id: "q2",
