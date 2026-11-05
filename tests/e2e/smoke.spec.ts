@@ -13,8 +13,27 @@ test("a landing apresenta a proposta e leva à trilha", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: /um caminho/i })).toBeVisible();
 });
 
+test("a página sobre explica como o produto funciona", async ({ page }) => {
+  await page.goto("/sobre/");
+
+  await expect(
+    page.getByRole("heading", { level: 1, name: /como o investe fácil funciona/i }),
+  ).toBeVisible();
+
+  for (const heading of [
+    "Para quem é",
+    "A trilha em 3 módulos",
+    "O material",
+    "Os exercícios",
+    "Quiz e progresso",
+    "Glossário",
+  ]) {
+    await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
+  }
+});
+
 test("a página não tem rolagem horizontal", async ({ page }) => {
-  for (const route of ["/trilha/", "/glossario/"]) {
+  for (const route of ["/trilha/", "/glossario/", "/sobre/"]) {
     await page.goto(route);
 
     const overflow = await page.evaluate(
