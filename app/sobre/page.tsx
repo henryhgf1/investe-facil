@@ -30,7 +30,7 @@ const decisions = [
     icon: Wrench,
     title: "Motor de simulação em funções puras",
     description:
-      "Os cálculos de juros compostos, inflação, IR, IOF e risco ficam isolados da interface e cobertos por testes — fáceis de auditar e de reutilizar.",
+      "Os cálculos de juros compostos, inflação, IR, IOF e risco ficam isolados da interface e cobertos por testes fáceis de auditar e de reutilizar.",
   },
 ];
 
