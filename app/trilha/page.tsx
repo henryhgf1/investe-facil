@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { MissionsSummary } from "@/components/learn/missions-summary";
 import { ProgressSummary } from "@/components/learn/progress-summary";
 import { ProgressTools } from "@/components/learn/progress-tools";
 import { TrilhaList } from "@/components/learn/trilha-list";
@@ -30,6 +31,7 @@ export default function TrilhaPage() {
 
       <div className="mt-8 space-y-4">
         <ProgressSummary />
+        <MissionsSummary />
         <ProgressTools />
       </div>
 

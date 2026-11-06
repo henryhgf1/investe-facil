@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CompleteLesson } from "@/components/learn/complete-lesson";
+import { LessonMission } from "@/components/learn/lesson-mission";
 import { Quiz } from "@/components/learn/quiz";
 import { ReadingProgress } from "@/components/learn/reading-progress";
 import { Badge } from "@/components/ui/badge";
@@ -119,6 +120,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </div>
 
         <Quiz slug={lesson.slug} questions={quiz} />
+
+        <LessonMission lessonSlug={lesson.slug} />
 
         <nav
           aria-label="Navegação entre lições"
