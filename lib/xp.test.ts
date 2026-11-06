@@ -34,6 +34,13 @@ describe("levelForXp", () => {
     expect(levelForXp(359).level).toBe(5);
   });
 
+  it("chega ao nível 8 com os 480 XP disponíveis", () => {
+    expect(levelForXp(419).level).toBe(6);
+    expect(levelForXp(420).level).toBe(7);
+    expect(levelForXp(479).level).toBe(7);
+    expect(levelForXp(480).level).toBe(8);
+  });
+
   it("trata XP negativo como zero", () => {
     expect(levelForXp(-50).level).toBe(1);
   });
