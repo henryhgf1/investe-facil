@@ -13,23 +13,56 @@ export type QuizRecord = {
   total: number;
 };
 
+export type MissionRecord = {
+  completedAt: string;
+};
+
 export type ProgressSnapshot = {
   xp: number;
   lessons: Record<string, LessonRecord>;
   quizzes: Record<string, QuizRecord>;
+  missions: Record<string, MissionRecord>;
   badges: string[];
 };
 
+export const PROGRESS_VERSION = 2;
+
 export function createInitialSnapshot(): ProgressSnapshot {
-  return { xp: 0, lessons: {}, quizzes: {}, badges: [] };
+  return { xp: 0, lessons: {}, quizzes: {}, missions: {}, badges: [] };
 }
+
+/**
+ * Converte snapshots antigos para o formato atual.
+ * A versão 1 não tinha missões, então o campo entra vazio.
+ */
+export function migrateProgress(persisted: unknown, version: number): ProgressSnapshot {
+  const data = (persisted ?? {}) as Partial<ProgressSnapshot>;
+  const base = createInitialSnapshot();
+
+  if (version < PROGRESS_VERSION) {
+    return {
+      ...base,
+      ...data,
+      missions: data.missions ?? {},
+      badges: Array.isArray(data.badges) ? data.badges : [],
+    };
+  }
+
+  return {
+    ...base,
+    ...data,
+    missions: data.missions ?? {},
+  };
+}
+
+const recordSchema = z.object({ completedAt: z.string().min(1) });
 
 const payloadSchema = z.object({
   app: z.literal("investe-facil"),
-  version: z.literal(1),
+  version: z.union([z.literal(1), z.literal(2)]),
   data: z.object({
     xp: z.number().int().min(0).max(1_000_000),
-    lessons: z.record(z.string(), z.object({ completedAt: z.string().min(1) })),
+    lessons: z.record(z.string(), recordSchema),
     quizzes: z.record(
       z.string(),
       z.object({
@@ -37,7 +70,8 @@ const payloadSchema = z.object({
         total: z.number().int().min(0),
       }),
     ),
-    badges: z.array(z.string()),
+    missions: z.record(z.string(), recordSchema).default({}),
+    badges: z.array(z.string()).default([]),
   }),
 });
 
@@ -46,6 +80,7 @@ export type ImportResult = { ok: true } | { ok: false; error: string };
 type ProgressStore = ProgressSnapshot & {
   completeLesson: (slug: string, xp: number) => void;
   recordQuiz: (slug: string, score: number, total: number, xpPerCorrect: number) => void;
+  completeMission: (id: string, xp: number) => void;
   reset: () => void;
   exportProgress: () => string;
   importProgress: (raw: string) => ImportResult;
@@ -88,16 +123,29 @@ export const useProgressStore = create<ProgressStore>()(
         });
       },
 
+      completeMission: (id, xp) => {
+        const state = get();
+        if (state.missions[id]) return;
+
+        set({
+          xp: state.xp + xp,
+          missions: {
+            ...state.missions,
+            [id]: { completedAt: new Date().toISOString() },
+          },
+        });
+      },
+
       reset: () => set(createInitialSnapshot()),
 
       exportProgress: () => {
-        const { xp, lessons, quizzes, badges } = get();
+        const { xp, lessons, quizzes, missions, badges } = get();
         return JSON.stringify(
           {
             app: "investe-facil",
-            version: 1,
+            version: PROGRESS_VERSION,
             exportedAt: new Date().toISOString(),
-            data: { xp, lessons, quizzes, badges },
+            data: { xp, lessons, quizzes, missions, badges },
           },
           null,
           2,
@@ -126,16 +174,17 @@ export const useProgressStore = create<ProgressStore>()(
     }),
     {
       name: STORAGE_KEY,
-      version: 1,
+      version: PROGRESS_VERSION,
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
       partialize: (state) => ({
         xp: state.xp,
         lessons: state.lessons,
         quizzes: state.quizzes,
+        missions: state.missions,
         badges: state.badges,
       }),
-      migrate: (persisted) => persisted as ProgressSnapshot,
+      migrate: migrateProgress,
     },
   ),
 );
