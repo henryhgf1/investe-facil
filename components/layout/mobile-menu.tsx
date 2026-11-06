@@ -70,9 +70,6 @@ export function MobileMenu({ links }: { links: readonly NavLink[] }) {
             {link.label}
           </Link>
         ))}
-        <span className="mt-1 block rounded-lg px-3 py-3 text-sm text-slate-400">
-          Simulador · em breve
-        </span>
       </div>
     </details>
   );

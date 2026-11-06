@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Clock3, Compass, Gauge, Target } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarRange, Clock3, Compass, Gauge, Target } from "lucide-react";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { glossary } from "@/content/glossary";
 import { lessonsOfModule, readyLessons } from "@/content/lessons";
+import { missions } from "@/content/missions";
 import { modules } from "@/content/modules";
 import { projectMonthly } from "@/lib/finance";
 import { formatBRL, formatCompactBRL, formatPercent } from "@/lib/utils";
@@ -94,6 +95,10 @@ export default function HomePage() {
               <div>
                 <dt className="text-muted">Lições no ar</dt>
                 <dd className="font-display text-ink text-xl font-bold">{readyLessons.length}</dd>
+              </div>
+              <div>
+                <dt className="text-muted">Missões práticas</dt>
+                <dd className="font-display text-ink text-xl font-bold">{missions.length}</dd>
               </div>
               <div>
                 <dt className="text-muted">Dinheiro em risco</dt>
@@ -278,6 +283,67 @@ export default function HomePage() {
             >
               Abrir o glossário
               <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-line border-t py-16 sm:py-20">
+        <Container>
+          <div className="max-w-2xl">
+            <p className="text-brand-700 mb-2 text-xs font-bold tracking-widest uppercase">
+              Pratique sem risco
+            </p>
+            <h2 className="font-display text-ink text-3xl font-bold">
+              Duas formas de aprender fazendo
+            </h2>
+            <p className="text-muted mt-3 text-base leading-7">
+              Depois da teoria, use os números a seu favor: volte no tempo com dados reais de
+              mercado ou leve o aprendizado para uma tarefa concreta do dia a dia.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            <Link href="/simulador/" className="group">
+              <Card className="group-hover:border-brand-600/40 h-full p-6 transition-colors">
+                <span className="bg-brand-50 text-brand-700 flex size-11 items-center justify-center rounded-xl">
+                  <CalendarRange className="size-5" aria-hidden="true" />
+                </span>
+                <Badge variant="brand" className="mt-4">
+                  Simulador histórico
+                </Badge>
+                <h3 className="font-display text-ink mt-2 text-xl font-bold">Máquina do tempo</h3>
+                <p className="text-muted mt-2 text-sm leading-6">
+                  Compare CDI, Ibovespa e inflação de 2000 a 2024 com os seus aportes e veja como o
+                  tempo muda o resultado.
+                </p>
+                <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  Abrir o simulador
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </span>
+              </Card>
+            </Link>
+
+            <Link href="/missoes/" className="group">
+              <Card className="group-hover:border-brand-600/40 h-full p-6 transition-colors">
+                <span className="bg-warn-soft text-warn flex size-11 items-center justify-center rounded-xl">
+                  <Target className="size-5" aria-hidden="true" />
+                </span>
+                <Badge variant="warn" className="mt-4">
+                  Prática
+                </Badge>
+                <h3 className="font-display text-ink mt-2 text-xl font-bold">
+                  Missões e conquistas
+                </h3>
+                <p className="text-muted mt-2 text-sm leading-6">
+                  Oito missões curtas para aplicar o conteúdo na vida real, com XP e badges que
+                  acompanham o seu progresso.
+                </p>
+                <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  Ver missões
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </span>
+              </Card>
             </Link>
           </div>
         </Container>

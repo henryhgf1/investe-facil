@@ -2,6 +2,7 @@ import {
   ArrowRight,
   BadgeCheck,
   Calculator,
+  CalendarRange,
   CheckCircle2,
   Compass,
   Layers,
@@ -115,6 +116,12 @@ const exercises = [
     icon: BadgeCheck,
     title: "Virar sócio",
     description: "Entenda o que significa comprar uma fração de uma empresa.",
+  },
+  {
+    icon: CalendarRange,
+    title: "Máquina do tempo",
+    description:
+      "Compare CDI, Ibovespa e inflação de 2000 a 2024 com aportes mensais e valores corrigidos.",
   },
 ];
 
@@ -239,7 +246,7 @@ export default function SobrePage() {
           Os exercícios
         </h2>
         <p className="text-muted mt-2 text-sm leading-6">
-          Seis simuladores permitem testar as ideias da trilha sem dinheiro real.
+          Sete simuladores permitem testar as ideias da trilha sem dinheiro real.
         </p>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {exercises.map((exercise) => (
@@ -258,7 +265,7 @@ export default function SobrePage() {
         <h2 id="progresso" className="font-display text-ink text-2xl font-bold">
           Quiz e progresso
         </h2>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="mt-5 grid gap-3 sm:grid-cols-3">
           <Card className="p-5">
             <span className="bg-accent-soft text-accent flex size-9 items-center justify-center rounded-xl">
               <ListChecks className="size-4" aria-hidden="true" />
@@ -278,11 +285,24 @@ export default function SobrePage() {
             </span>
             <h3 className="font-display text-ink mt-3 text-base font-bold">Progresso sem conta</h3>
             <p className="text-muted mt-1 text-sm leading-6">
-              Cada lição concluída vale {XP_PER_LESSON} XP. O nível sobe de 1 a 6 e o progresso fica
+              Cada lição concluída vale {XP_PER_LESSON} XP. O nível sobe de 1 a 8 e o progresso fica
               no seu navegador, com backup em JSON.
             </p>
             <Badge variant="brand" className="mt-3">
               Sem login e sem coleta de dados
+            </Badge>
+          </Card>
+          <Card className="p-5">
+            <span className="bg-warn-soft text-warn flex size-9 items-center justify-center rounded-xl">
+              <Target className="size-4" aria-hidden="true" />
+            </span>
+            <h3 className="font-display text-ink mt-3 text-base font-bold">Missões e badges</h3>
+            <p className="text-muted mt-1 text-sm leading-6">
+              Oito missões práticas valem 15 XP cada. Doze conquistas aparecem conforme lições,
+              quizzes e missões avançam.
+            </p>
+            <Badge variant="warn" className="mt-3">
+              +15 XP por missão
             </Badge>
           </Card>
         </div>
@@ -339,6 +359,12 @@ export default function SobrePage() {
         >
           Começar a trilha
           <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
+        <Link href="/simulador/" className="text-brand-700 hover:text-brand-800 font-semibold">
+          Abrir o simulador
+        </Link>
+        <Link href="/missoes/" className="text-brand-700 hover:text-brand-800 font-semibold">
+          Ver missões
         </Link>
         <Link href="/glossario/" className="text-brand-700 hover:text-brand-800 font-semibold">
           Consultar o glossário

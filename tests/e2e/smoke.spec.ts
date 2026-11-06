@@ -33,7 +33,7 @@ test("a página sobre explica como o produto funciona", async ({ page }) => {
 });
 
 test("a página não tem rolagem horizontal", async ({ page }) => {
-  for (const route of ["/trilha/", "/glossario/", "/sobre/"]) {
+  for (const route of ["/trilha/", "/glossario/", "/sobre/", "/simulador/", "/missoes/"]) {
     await page.goto(route);
 
     const overflow = await page.evaluate(

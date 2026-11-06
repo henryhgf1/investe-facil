@@ -5,11 +5,12 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
-> **Status:** Sprint 2 concluído. A trilha completa (10 lições) e o glossário com mais de 50 termos
-> estão no ar. Badges e missões práticas ficaram para a próxima etapa, junto com o simulador
-> histórico.
+> **Status:** Sprint 3 concluído. A trilha de 10 lições, os 7 simuladores (incluindo a máquina
+> do tempo), as 8 missões práticas e as 12 conquistas estão no ar.
 
 ![Página inicial](screenshots/home.png)
+
+![Missões práticas e conquistas](screenshots/missoes.png)
 
 ## O problema
 
@@ -21,12 +22,16 @@ vocabulário aos poucos e com simuladores onde errar custa zero.
 
 - **Trilha em 3 módulos** com 10 lições publicadas
 - **Lições em MDX** com componentes interativos embutidos
-- **8 simuladores e gráficos**: juros compostos, inflação, risco × retorno, Tesouro × poupança,
-  CDB × LCI, IR/IOF, dividend yield, propriedade e diversificação
+- **Simuladores e gráficos**: juros compostos, inflação, risco × retorno, Tesouro × poupança,
+  CDB × LCI, IR/IOF, dividend yield, propriedade, diversificação e a máquina do tempo com CDI,
+  Ibovespa e IPCA de 2000 a 2024
+- **8 missões práticas** com passos curtos para aplicar o conteúdo sem abrir conta em corretora
+- **12 conquistas** derivadas do progresso, sem campo extra para manter no backup
 - **Glossário com mais de 50 termos**, busca que ignora acentos, filtros por categoria e dados
   estruturados para indexação
 - **Quiz com correção e explicação** em cada lição
-- **Progresso persistente** no navegador, com XP, níveis e aproveitamento nos quizzes
+- **Progresso persistente** no navegador, com XP, 8 níveis, aproveitamento nos quizzes, missões e
+  badges
 - **Backup em JSON** para exportar/importar progresso entre dispositivos
 - **Documentação de design** em [`docs/design-system.md`](docs/design-system.md)
 - **Acessibilidade**: navegação por teclado, contraste AA, gráficos com descrição textual e
@@ -72,21 +77,25 @@ node scripts/screenshot.mjs
 ## Estrutura
 
 ```
-app/                      rotas (landing, trilha, lição, glossário, sobre)
+app/                      rotas (landing, trilha, lição, simulador, missões, glossário, sobre)
 components/
   charts/                 gráficos SVG sem dependências
-  learn/                  quiz, progresso, navegação da trilha e glossário
+  learn/                  quiz, progresso, missões, badges e navegação da trilha
   mdx/                    Callout, KeyIdea, Formula
-  sim/                    simuladores interativos
+  sim/                    simuladores interativos, incluindo a máquina do tempo
   ui/                     componentes base (botão, card, badge, progresso)
 content/
   modules/                lições em MDX, versionadas no Git
   glossary.ts             verbetes, categorias e ligações entre termos
+  history.ts              série anual de CDI, Ibovespa e IPCA (2000 a 2024)
   lessons.ts              metadados e ordenação da trilha
+  missions.ts             missões práticas e lição recomendada
   quizzes.ts              perguntas, respostas e explicações
   registry.ts             mapeamento slug → componente MDX
 lib/
+  badges.ts               conquistas derivadas do progresso
   finance.ts              juros, inflação, IR/IOF, dividend yield e risco (funções puras)
+  history.ts              simulação histórica e correção pela inflação
   search.ts               normalização de busca sem acento
   xp.ts                   níveis e progressão
   store/progress.ts       Zustand + persist + validação do backup
@@ -99,7 +108,8 @@ tests/e2e/                fluxos críticos em desktop e mobile
 **Sem backend, de propósito.** O progresso vive no `localStorage`, com schema versionado e
 exportação em JSON. Isso elimina banco, autenticação, custo de servidor e coleta de dados
 pessoais, e deixa o deploy em uma CDN estática. A limitação (progresso por navegador) é
-mitigada pelo backup manual.
+mitigada pelo backup manual. A versão 2 do store adiciona missões e migra automaticamente
+backups da versão 1.
 
 **Conteúdo em MDX versionado no Git.** Cada lição é um arquivo de texto. Revisar conteúdo é
 abrir um pull request, e o build quebra se um componente ou link estiver errado. Sem CMS.
@@ -113,23 +123,32 @@ arquivo MDX, entrada no registry e quiz com alternativas válidas. O glossário 
 slugs únicos, categorias existentes e referências cruzadas válidas.
 
 **Gráficos próprios em SVG.** Para os simuladores atuais, um componente de ~100 linhas resolve
-sem adicionar 100 kB de biblioteca. Bibliotecas de gráfico entram apenas quando o simulador
-histórico exigir interação mais rica.
+sem adicionar 100 kB de biblioteca. A máquina do tempo reutiliza o mesmo componente com rótulos
+por ano, em vez de puxar uma biblioteca de gráficos.
+
+**Dados históricos embutidos no build.** `content/history.ts` guarda a série anual de CDI,
+Ibovespa e IPCA de 2000 a 2024. `lib/history.ts` aplica a taxa anual mês a mês, corrige pela
+inflação e destaca melhor e pior ano. Os números são aproximados, declaram as fontes na tela e
+não incluem impostos, taxas, custódia ou dividendos.
+
+**Badges derivadas do progresso.** `lib/badges.ts` calcula cada conquista a partir de XP, lições,
+quizzes e missões. Nada é gravado além do próprio progresso, então uma badge nunca fica
+dessincronizada do que o aluno fez.
 
 ## Testes
 
-- **51 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
-  a progressão de XP, o store (idempotência, melhor pontuação e round-trip de backup), a busca sem
-  acento e a integridade do conteúdo/glossário
-- **9 cenários E2E** em desktop e mobile: navegação, conclusão de lição com persistência, correção
-  do quiz, reação dos simuladores, abertura das 10 lições, busca do glossário e ausência de rolagem
-  horizontal
+- **80 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
+  a simulação histórica, a progressão de XP, o store (idempotência, missões, migração v1 → v2 e
+  round-trip de backup), as badges, a busca sem acento e a integridade do conteúdo/glossário
+- **19 cenários E2E** em desktop e mobile: navegação, conclusão de lição com persistência, correção
+  do quiz, reação dos simuladores, máquina do tempo, missões e badges, abertura das 10 lições,
+  busca do glossário e ausência de rolagem horizontal
 
 ## Roadmap
 
 - [x] Sprint 1: base, componentes, 3 lições, quiz, progresso e deploy estático
 - [x] Sprint 2: 10 lições publicadas, simuladores de renda fixa/variável e glossário
-- [ ] Sprint 3: badges, missões práticas e simulador com dados históricos (máquina do tempo)
+- [x] Sprint 3: badges, missões práticas e simulador com dados históricos (máquina do tempo)
 - [ ] Sprint 4: carteira, benchmarks (CDI/IBOV) e relatório de evolução
 
 ## Aviso
