@@ -6,6 +6,8 @@ import { Logo } from "@/components/ui/logo";
 
 const navLinks = [
   { href: "/trilha/", label: "Trilha" },
+  { href: "/simulador/", label: "Simulador" },
+  { href: "/missoes/", label: "Missões" },
   { href: "/glossario/", label: "Glossário" },
   { href: "/sobre/", label: "Sobre" },
 ];
@@ -26,12 +28,6 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <span className="border-line ml-2 inline-flex cursor-not-allowed items-center gap-2 rounded-lg border border-dashed px-3 py-3 text-sm text-slate-400">
-            Simulador
-            <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold tracking-wide uppercase">
-              em breve
-            </span>
-          </span>
         </nav>
 
         <MobileMenu links={navLinks} />

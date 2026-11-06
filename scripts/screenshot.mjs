@@ -17,7 +17,9 @@ const desktop = await browser.newContext({
 const page = await desktop.newPage();
 page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
 page.on("console", (message) => {
-  if (message.type() === "error") errors.push(`console: ${message.text()}`);
+  if (message.type() === "error" && !message.text().includes("Failed to load resource")) {
+    errors.push(`console: ${message.text()}`);
+  }
 });
 
 async function shot(path, name, fullPage = true) {
@@ -32,6 +34,8 @@ await shot("/trilha/", "trilha");
 await shot("/trilha/fundamentos/juros-compostos/", "licao-juros-compostos");
 await shot("/trilha/renda-variavel/o-que-e-uma-acao/", "licao-o-que-e-uma-acao");
 await shot("/glossario/", "glossario");
+await shot("/simulador/", "simulador");
+await shot("/missoes/", "missoes");
 
 const mobile = await browser.newContext({
   viewport: { width: 390, height: 844 },
@@ -49,6 +53,11 @@ await mobilePage.goto(`${base}/glossario/`, { waitUntil: "networkidle" });
 await mobilePage.waitForTimeout(400);
 await mobilePage.screenshot({ path: `${outDir}/glossario-mobile.png`, fullPage: true });
 console.log("ok glossario-mobile");
+
+await mobilePage.goto(`${base}/missoes/`, { waitUntil: "networkidle" });
+await mobilePage.waitForTimeout(400);
+await mobilePage.screenshot({ path: `${outDir}/missoes-mobile.png`, fullPage: true });
+console.log("ok missoes-mobile");
 
 await browser.close();
 

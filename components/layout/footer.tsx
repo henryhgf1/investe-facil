@@ -25,6 +25,12 @@ export function Footer() {
             <Link href="/trilha/" className="hover:text-brand-700 text-slate-600">
               Trilha
             </Link>
+            <Link href="/simulador/" className="hover:text-brand-700 text-slate-600">
+              Simulador
+            </Link>
+            <Link href="/missoes/" className="hover:text-brand-700 text-slate-600">
+              Missões
+            </Link>
             <Link href="/glossario/" className="hover:text-brand-700 text-slate-600">
               Glossário
             </Link>

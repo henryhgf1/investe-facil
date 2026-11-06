@@ -60,8 +60,23 @@ Solução em `lib/hooks/use-hydrated.ts`:
 ## Zustand com persist
 
 `lib/store/progress.ts` usa `persist` com `skipHydration: true` para controlar quando o
-localStorage é lido. O estado tem `version: 1` e uma função `migrate`, para que uma mudança de
-formato no futuro não apague o progresso de quem já usa o site.
+localStorage é lido. O estado tem `version: 2` e uma função `migrate`, para que uma mudança de
+formato no futuro não apague o progresso de quem já usa o site. A migração da versão 1 apenas
+adiciona `missions: {}`, então backups antigos continuam válidos.
+
+## Badges derivadas
+
+`lib/badges.ts` não guarda um campo "badge conquistada". Cada badge é uma função que recebe XP,
+lições, quizzes e missões e devolve `true` ou `false`. A vantagem é que o estado nunca fica
+inconsistente: se o progresso existe, a badge aparece. A desvantagem é recalcular a lista a cada
+render, o que é barato para 12 badges.
+
+## Dados históricos
+
+`content/history.ts` é uma série anual de CDI, Ibovespa e IPCA de 2000 a 2024, embutida no build.
+`lib/history.ts` converte a taxa anual em mensal equivalente, aplica aportes e corrige os valores
+pelo índice de inflação acumulado. O componente `ProjectionChart` recebe `xLabels` para trocar o
+eixo em meses por anos, sem duplicar o gráfico.
 
 ## Busca sem acento
 
