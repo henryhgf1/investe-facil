@@ -16,6 +16,8 @@ type ProjectionChartProps = {
   series: ChartSeries[];
   ariaLabel: string;
   className?: string;
+  /** Rótulos do eixo X. Sem eles, o eixo é calculado em meses. */
+  xLabels?: string[];
 };
 
 const WIDTH = 720;
@@ -31,7 +33,7 @@ function niceMax(value: number) {
   return step * magnitude;
 }
 
-export function ProjectionChart({ series, ariaLabel, className }: ProjectionChartProps) {
+export function ProjectionChart({ series, ariaLabel, className, xLabels }: ProjectionChartProps) {
   const gradientId = useId().replace(/:/g, "");
   const pointCount = Math.max(...series.map((item) => item.values.length), 2);
   const innerWidth = WIDTH - PADDING.left - PADDING.right;
@@ -58,6 +60,11 @@ export function ProjectionChart({ series, ariaLabel, className }: ProjectionChar
     if (index === 0) return "hoje";
     if (months >= 12 && months % 12 === 0) return `${months / 12} anos`;
     return `${months} meses`;
+  };
+
+  const labelForIndex = (index: number) => {
+    if (xLabels) return xLabels[index] ?? "";
+    return labelForMonth(index);
   };
 
   return (
@@ -140,7 +147,7 @@ export function ProjectionChart({ series, ariaLabel, className }: ProjectionChar
             textAnchor={index === 0 ? "start" : index === pointCount - 1 ? "end" : "middle"}
             className="fill-muted text-[11px]"
           >
-            {labelForMonth(index)}
+            {labelForIndex(index)}
           </text>
         ))}
       </svg>
