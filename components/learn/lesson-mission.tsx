@@ -1,7 +1,7 @@
 import { ArrowRight, Target } from "lucide-react";
 import Link from "next/link";
 
-import { CompleteMission } from "@/components/learn/complete-mission";
+import { MissionExercise } from "@/components/learn/mission-exercise";
 import { Badge } from "@/components/ui/badge";
 import { missionsForLesson } from "@/content/missions";
 import { XP_PER_MISSION } from "@/lib/xp";
@@ -34,11 +34,11 @@ export function LessonMission({ lessonSlug }: { lessonSlug: string }) {
             <h3 className="font-display text-ink text-base font-bold">{mission.title}</h3>
             <p className="text-muted mt-1.5 text-sm leading-6">{mission.summary}</p>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <CompleteMission mission={mission} />
+            <div className="mt-4">
+              <MissionExercise mission={mission} compact />
               <Link
                 href={`/missoes/#${mission.id}`}
-                className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-1.5 text-sm font-semibold"
+                className="text-brand-700 hover:text-brand-800 mt-3 inline-flex items-center gap-1.5 text-sm font-semibold"
               >
                 Ver todas as missões
                 <ArrowRight className="size-4" aria-hidden="true" />

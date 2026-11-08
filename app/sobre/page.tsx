@@ -285,8 +285,8 @@ export default function SobrePage() {
             </span>
             <h3 className="font-display text-ink mt-3 text-base font-bold">Progresso sem conta</h3>
             <p className="text-muted mt-1 text-sm leading-6">
-              Cada lição concluída vale {XP_PER_LESSON} XP. O nível sobe de 1 a 8 e o progresso fica
-              no seu navegador, com backup em JSON.
+              Cada lição concluída após o quiz vale {XP_PER_LESSON} XP. O nível sobe de 1 a 8 e o
+              progresso fica no seu navegador, com backup em JSON.
             </p>
             <Badge variant="brand" className="mt-3">
               Sem login e sem coleta de dados
@@ -298,8 +298,8 @@ export default function SobrePage() {
             </span>
             <h3 className="font-display text-ink mt-3 text-base font-bold">Missões e badges</h3>
             <p className="text-muted mt-1 text-sm leading-6">
-              Oito missões práticas valem 15 XP cada. Doze conquistas aparecem conforme lições,
-              quizzes e missões avançam.
+              Oito missões práticas com checklist e pergunta de verificação valem 15 XP cada. Doze
+              conquistas aparecem conforme lições, quizzes e missões avançam.
             </p>
             <Badge variant="warn" className="mt-3">
               +15 XP por missão

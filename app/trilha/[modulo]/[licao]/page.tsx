@@ -107,19 +107,23 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </article>
         </div>
 
+        <Quiz slug={lesson.slug} questions={quiz} />
+
         <div className="border-line mt-10 rounded-2xl border bg-white p-5 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p className="font-display text-ink text-base font-bold">Terminou a leitura?</p>
+              <p className="font-display text-ink text-base font-bold">
+                Terminou a leitura e o quiz?
+              </p>
               <p className="text-muted mt-1 text-sm">
-                Marque como concluída para somar XP e acompanhar seu progresso.
+                {quiz.length > 0
+                  ? "Responda ao quiz acima e marque a lição como concluída para somar XP."
+                  : "Marque a lição como concluída para somar XP e acompanhar seu progresso."}
               </p>
             </div>
-            <CompleteLesson slug={lesson.slug} xp={XP_PER_LESSON} />
+            <CompleteLesson slug={lesson.slug} xp={XP_PER_LESSON} quizRequired={quiz.length > 0} />
           </div>
         </div>
-
-        <Quiz slug={lesson.slug} questions={quiz} />
 
         <LessonMission lessonSlug={lesson.slug} />
 

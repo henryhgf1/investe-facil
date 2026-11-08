@@ -25,8 +25,9 @@ vocabulário aos poucos e com simuladores onde errar custa zero.
 - **Simuladores e gráficos**: juros compostos, inflação, risco × retorno, Tesouro × poupança,
   CDB × LCI, IR/IOF, dividend yield, propriedade, diversificação e a máquina do tempo com CDI,
   Ibovespa e IPCA de 2000 a 2024
-- **8 missões práticas** com passos curtos para aplicar o conteúdo sem abrir conta em corretora
+- **8 missões práticas** com checklist obrigatório e pergunta de verificação antes de liberar o XP
 - **12 conquistas** derivadas do progresso, sem campo extra para manter no backup
+- **Conclusão de lição condicionada ao quiz**, para o XP não sair com um clique acidental
 - **Glossário com mais de 50 termos**, busca que ignora acentos, filtros por categoria e dados
   estruturados para indexação
 - **Quiz com correção e explicação** em cada lição
@@ -89,7 +90,7 @@ content/
   glossary.ts             verbetes, categorias e ligações entre termos
   history.ts              série anual de CDI, Ibovespa e IPCA (2000 a 2024)
   lessons.ts              metadados e ordenação da trilha
-  missions.ts             missões práticas e lição recomendada
+  missions.ts             missões práticas, lição recomendada e pergunta de verificação
   quizzes.ts              perguntas, respostas e explicações
   registry.ts             mapeamento slug → componente MDX
 lib/
@@ -135,14 +136,19 @@ não incluem impostos, taxas, custódia ou dividendos.
 quizzes e missões. Nada é gravado além do próprio progresso, então uma badge nunca fica
 dessincronizada do que o aluno fez.
 
+**Recompensa condicionada à prática.** As missões só liberam XP depois que todos os passos são
+marcados e a pergunta de verificação é respondida corretamente. As lições só liberam XP depois do
+envio do quiz. Como o site não tem backend, a verificação é de compreensão e de intenção, não de
+execução real da tarefa.
+
 ## Testes
 
-- **80 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
+- **81 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
   a simulação histórica, a progressão de XP, o store (idempotência, missões, migração v1 → v2 e
   round-trip de backup), as badges, a busca sem acento e a integridade do conteúdo/glossário
-- **19 cenários E2E** em desktop e mobile: navegação, conclusão de lição com persistência, correção
-  do quiz, reação dos simuladores, máquina do tempo, missões e badges, abertura das 10 lições,
-  busca do glossário e ausência de rolagem horizontal
+- **19 cenários E2E** em desktop, tablet e mobile: navegação, conclusão de lição com persistência,
+  correção do quiz, reação dos simuladores, máquina do tempo, missões e badges, abertura das 10
+  lições, busca do glossário e ausência de rolagem horizontal
 
 ## Roadmap
 

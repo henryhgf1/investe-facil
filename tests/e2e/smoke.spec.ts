@@ -1,4 +1,17 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+async function answerJurosCompostosQuiz(page: Page) {
+  const quiz = page.locator('section[aria-labelledby="quiz-titulo"]');
+
+  await quiz.getByText("Nos compostos, os juros também rendem juros", { exact: true }).click();
+  await quiz.getByText("R$ 1.126,83", { exact: true }).click();
+  await quiz.getByText("6 anos", { exact: true }).click();
+  await quiz.getByText("O tempo investido", { exact: true }).click();
+
+  await quiz.getByRole("button", { name: /ver resultado/i }).click();
+
+  await expect(quiz.getByText("4 de 4 corretas (100%)")).toBeVisible();
+}
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -44,10 +57,18 @@ test("a página não tem rolagem horizontal", async ({ page }) => {
   }
 });
 
-test("concluir uma lição soma XP e persiste após recarregar", async ({ page }) => {
+test("concluir uma lição exige o quiz e persiste após recarregar", async ({ page }) => {
   await page.goto("/trilha/fundamentos/juros-compostos/");
 
-  await page.getByRole("button", { name: /concluir lição/i }).click();
+  const complete = page.getByRole("button", { name: /concluir lição/i });
+
+  await expect(complete).toBeDisabled();
+  await expect(page.getByText("Responda ao quiz acima para liberar a conclusão.")).toBeVisible();
+
+  await answerJurosCompostosQuiz(page);
+  await expect(complete).toBeEnabled();
+
+  await complete.click();
   await expect(page.getByText("Lição concluída")).toBeVisible();
 
   await page.reload();
@@ -57,23 +78,14 @@ test("concluir uma lição soma XP e persiste após recarregar", async ({ page }
   await expect(
     page
       .getByRole("region", { name: "Resumo do seu progresso" })
-      .getByText("20 XP", { exact: true }),
+      .getByText("40 XP", { exact: true }),
   ).toBeVisible();
 });
 
 test("o quiz corrige as respostas e registra o resultado", async ({ page }) => {
   await page.goto("/trilha/fundamentos/juros-compostos/");
 
-  const quiz = page.locator('section[aria-labelledby="quiz-titulo"]');
-
-  await quiz.getByText("Nos compostos, os juros também rendem juros", { exact: true }).click();
-  await quiz.getByText("R$ 1.126,83", { exact: true }).click();
-  await quiz.getByText("6 anos", { exact: true }).click();
-  await quiz.getByText("O tempo investido", { exact: true }).click();
-
-  await quiz.getByRole("button", { name: /ver resultado/i }).click();
-
-  await expect(quiz.getByText("4 de 4 corretas (100%)")).toBeVisible();
+  await answerJurosCompostosQuiz(page);
 });
 
 test("o simulador de juros compostos reage aos controles", async ({ page }) => {

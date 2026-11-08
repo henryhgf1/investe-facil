@@ -37,6 +37,26 @@ describe("missões práticas", () => {
     }
   });
 
+  it("tem uma pergunta de verificação válida por missão", () => {
+    for (const mission of missions) {
+      const optionIds = mission.check.options.map((option) => option.id);
+
+      expect(mission.check.prompt.length, `${mission.id} tem pergunta curta`).toBeGreaterThan(10);
+      expect(
+        mission.check.options.length,
+        `${mission.id} tem poucas opções`,
+      ).toBeGreaterThanOrEqual(3);
+      expect(new Set(optionIds).size, `${mission.id} repete opção`).toBe(optionIds.length);
+      expect(optionIds, `${mission.id} aponta resposta inexistente`).toContain(
+        mission.check.answerId,
+      );
+      expect(
+        mission.check.explanation.length,
+        `${mission.id} tem explicação curta`,
+      ).toBeGreaterThan(20);
+    }
+  });
+
   it("encontra missões por id e por lição", () => {
     expect(getMission("mapa-do-dinheiro")?.title).toBe("Monte o mapa do seu dinheiro");
     expect(getMission("inexistente")).toBeUndefined();

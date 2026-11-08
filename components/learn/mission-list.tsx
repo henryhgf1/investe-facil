@@ -3,7 +3,7 @@
 import { ArrowRight, Clock3 } from "lucide-react";
 import Link from "next/link";
 
-import { CompleteMission } from "@/components/learn/complete-mission";
+import { MissionExercise } from "@/components/learn/mission-exercise";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { getLessonBySlug, lessonPath } from "@/content/lessons";
@@ -44,26 +44,12 @@ function MissionItem({ mission, completed }: { mission: Mission; completed: bool
       <h3 className="font-display text-ink mt-3 text-lg font-bold">{mission.title}</h3>
       <p className="text-muted mt-2 text-sm leading-6">{mission.summary}</p>
 
-      <ol className="mt-4 space-y-2">
-        {mission.steps.map((step, index) => (
-          <li key={step} className="flex gap-2.5 text-sm leading-6 text-slate-700">
-            <span
-              aria-hidden="true"
-              className="bg-brand-50 text-brand-700 mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
-            >
-              {index + 1}
-            </span>
-            {step}
-          </li>
-        ))}
-      </ol>
-
-      <div className="border-line mt-5 flex flex-wrap items-center justify-between gap-3 border-t pt-4">
-        <CompleteMission mission={mission} />
+      <div className="border-line mt-5 border-t pt-4">
+        <MissionExercise mission={mission} />
         {lesson ? (
           <Link
             href={lessonPath(lesson)}
-            className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-1.5 text-sm font-semibold"
+            className="text-brand-700 hover:text-brand-800 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
           >
             Ver a lição
             <ArrowRight className="size-4" aria-hidden="true" />
@@ -107,8 +93,8 @@ export function MissionList() {
           label={`${completed} de ${missions.length} missões concluídas`}
         />
         <p className="text-muted mt-2 text-sm leading-6">
-          Cada missão vale 15 XP e pode ser feita no seu ritmo. A lição recomendada ajuda, mas não
-          bloqueia a prática.
+          Cada missão vale 15 XP. Marque os passos e acerte a pergunta de verificação para liberar a
+          recompensa. A lição recomendada ajuda, mas não bloqueia a prática.
         </p>
       </div>
 
