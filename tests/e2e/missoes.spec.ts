@@ -11,17 +11,36 @@ test("a página de missões lista as oito práticas e as conquistas", async ({ p
 
   await expect(page.getByText("0 de 8 concluídas")).toBeVisible();
   await expect(page.getByRole("button", { name: /concluir missão/i })).toHaveCount(8);
+  await expect(page.getByRole("button", { name: /concluir missão/i }).first()).toBeDisabled();
   await expect(page.getByRole("heading", { name: "Conquistas" })).toBeVisible();
   await expect(page.getByText("0 de 12 conquistadas")).toBeVisible();
 });
 
-test("concluir uma missão soma XP, desbloqueia badge e persiste", async ({ page }) => {
-  await page
-    .getByRole("button", { name: /concluir missão/i })
-    .first()
-    .click();
+test("concluir uma missão exige checklist e pergunta correta", async ({ page }) => {
+  const mission = page.locator("#mapa-do-dinheiro");
+  const complete = mission.getByRole("button", { name: /concluir missão/i });
 
-  await expect(page.getByText("Missão concluída")).toBeVisible();
+  await expect(complete).toBeDisabled();
+
+  for (const checkbox of await mission.getByRole("checkbox").all()) {
+    await checkbox.check();
+  }
+
+  await expect(complete).toBeDisabled();
+
+  await mission.getByText("Todo o salário, para acelerar o resultado.", { exact: true }).click();
+  await expect(mission.getByText("Ainda não.")).toBeVisible();
+  await expect(complete).toBeDisabled();
+
+  await mission
+    .getByText("O que sobra sem comprometer os gastos essenciais e a reserva.", { exact: true })
+    .click();
+  await expect(mission.getByText("Correto.")).toBeVisible();
+  await expect(complete).toBeEnabled();
+
+  await complete.click();
+
+  await expect(mission.getByText("Missão concluída")).toBeVisible();
   await expect(page.getByText("1 de 8 concluídas")).toBeVisible();
   await expect(page.getByText("1 de 12 conquistadas")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Hora extra" })).toBeVisible();
@@ -37,9 +56,23 @@ test("a lição mostra a missão recomendada e permite concluí-la", async ({ pa
   await page.goto("/trilha/fundamentos/juros-compostos/");
 
   const section = page.locator('section[aria-labelledby="missao-pratica"]');
+  const complete = section.getByRole("button", { name: /concluir missão/i });
 
   await expect(section.getByText("Teste o poder do tempo")).toBeVisible();
-  await section.getByRole("button", { name: /concluir missão/i }).click();
+  await expect(complete).toBeDisabled();
+
+  for (const checkbox of await section.getByRole("checkbox").all()) {
+    await checkbox.check();
+  }
+
+  await section
+    .getByText("Porque os juros compostos incidem sobre os rendimentos acumulados.", {
+      exact: true,
+    })
+    .click();
+  await expect(complete).toBeEnabled();
+
+  await complete.click();
   await expect(section.getByText("Missão concluída")).toBeVisible();
 
   await section.getByRole("link", { name: /ver todas as missões/i }).click();

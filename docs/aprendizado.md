@@ -71,6 +71,15 @@ lições, quizzes e missões e devolve `true` ou `false`. A vantagem é que o es
 inconsistente: se o progresso existe, a badge aparece. A desvantagem é recalcular a lista a cada
 render, o que é barato para 12 badges.
 
+## Recompensa condicionada
+
+`components/learn/mission-exercise.tsx` mantém o checklist e a pergunta de verificação em estado
+local e só chama `completeMission` quando todos os passos estão marcados e a alternativa correta
+foi escolhida. `components/learn/complete-lesson.tsx` só libera o botão quando
+`state.quizzes[slug]` existe. A conclusão continua no store, então a regra vale para qualquer
+página que renderize o componente. Sem backend, a verificação é de compreensão e intenção, não de
+execução real da tarefa.
+
 ## Dados históricos
 
 `content/history.ts` é uma série anual de CDI, Ibovespa e IPCA de 2000 a 2024, embutida no build.

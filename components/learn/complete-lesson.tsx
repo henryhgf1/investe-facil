@@ -1,14 +1,23 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
 import { useProgressStore } from "@/lib/store/progress";
 
-export function CompleteLesson({ slug, xp }: { slug: string; xp: number }) {
+export function CompleteLesson({
+  slug,
+  xp,
+  quizRequired = false,
+}: {
+  slug: string;
+  xp: number;
+  quizRequired?: boolean;
+}) {
   const hydrated = useHydrated();
   const completed = useProgressStore((state) => Boolean(state.lessons[slug]));
+  const quizDone = useProgressStore((state) => Boolean(state.quizzes[slug]));
   const completeLesson = useProgressStore((state) => state.completeLesson);
 
   if (!hydrated) {
@@ -22,6 +31,23 @@ export function CompleteLesson({ slug, xp }: { slug: string; xp: number }) {
         Lição concluída
         <span className="text-brand-700 font-normal">· +{xp} XP registrados</span>
       </p>
+    );
+  }
+
+  if (quizRequired && !quizDone) {
+    const helperId = `quiz-${slug}-status`;
+
+    return (
+      <div className="flex flex-col items-start gap-2">
+        <Button size="lg" disabled aria-describedby={helperId}>
+          <Lock className="size-4" aria-hidden="true" />
+          Concluir lição
+          <span className="font-normal text-white/70">+{xp} XP</span>
+        </Button>
+        <p id={helperId} className="text-muted text-xs leading-5">
+          Responda ao quiz acima para liberar a conclusão.
+        </p>
+      </div>
     );
   }
 

@@ -336,8 +336,8 @@ export default function HomePage() {
                   Missões e conquistas
                 </h3>
                 <p className="text-muted mt-2 text-sm leading-6">
-                  Oito missões curtas para aplicar o conteúdo na vida real, com XP e badges que
-                  acompanham o seu progresso.
+                  Oito missões curtas para aplicar o conteúdo na vida real, com checklist, pergunta
+                  de verificação, XP e badges que acompanham o seu progresso.
                 </p>
                 <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
                   Ver missões

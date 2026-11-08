@@ -13,7 +13,7 @@ import { MAX_XP } from "@/lib/xp";
 export const metadata: Metadata = {
   title: "Missões práticas e conquistas",
   description:
-    "Oito missões curtas para levar a educação financeira para a vida real, com XP e badges que acompanham seu progresso.",
+    "Oito missões curtas para levar a educação financeira para a vida real, com checklist, pergunta de verificação, XP e badges.",
 };
 
 export default function MissoesPage() {
@@ -29,8 +29,9 @@ export default function MissoesPage() {
         </h1>
         <p className="text-muted mt-4 text-base leading-7">
           As missões transformam cada lição em uma tarefa curta e concreta. São {missions.length}{" "}
-          práticas de 8 a 15 minutos, cada uma valendo 15 XP, mais {badges.length} conquistas que
-          aparecem conforme você avança.
+          práticas de 8 a 15 minutos. Marque os passos e acerte a pergunta de verificação para
+          liberar os 15 XP de cada uma, além de {badges.length} conquistas que aparecem conforme
+          você avança.
         </p>
 
         <div className="text-muted mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
