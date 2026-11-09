@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
+export { TimeComparison } from "./time-comparison";
+
 type CalloutVariant = "info" | "warn" | "success";
 
 const calloutStyles: Record<CalloutVariant, { wrapper: string; icon: ReactNode }> = {

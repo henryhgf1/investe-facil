@@ -112,6 +112,26 @@ test("o simulador de juros compostos reage aos controles", async ({ page }) => {
   await expect(aporte).toHaveValue("1000");
 });
 
+test("o comparativo de tempo mostra os valores corretos", async ({ page }) => {
+  await page.goto("/trilha/fundamentos/por-que-investir/");
+
+  const comparison = page.locator('section[aria-labelledby="comparativo-tempo"]');
+
+  await expect(comparison.getByText("R$ 60.065", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("R$ 216.339", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("3,6x", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("6x", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("R$ 36.000", { exact: true }).first()).toBeVisible();
+  await expect(comparison.getByText("Aportado", { exact: true })).toHaveCount(2);
+  await expect(comparison.getByText("Juros", { exact: true })).toHaveCount(2);
+
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+
+  expect(overflow, "overflow horizontal na lição").toBeLessThanOrEqual(1);
+});
+
 const lessonPaths = [
   "/trilha/fundamentos/por-que-investir/",
   "/trilha/fundamentos/juros-compostos/",
