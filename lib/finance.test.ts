@@ -40,6 +40,20 @@ describe("projectMonthly", () => {
     expect(points[0]).toEqual({ month: 0, invested: 300, balance: 300 });
     expect(points).toHaveLength(4);
   });
+
+  it("sustenta os números do comparativo entre Ana e Bruno", () => {
+    const ana = projectMonthly({ monthly: 300, monthlyRate: 0.008, months: 120 }).at(-1);
+    const bruno = projectMonthly({ monthly: 300, monthlyRate: 0.008, months: 240 }).at(-1);
+
+    expect(ana?.balance).toBeCloseTo(60065.24, 2);
+    expect(bruno?.balance).toBeCloseTo(216339.37, 2);
+
+    const anaInterest = (ana?.balance ?? 0) - (ana?.invested ?? 0);
+    const brunoInterest = (bruno?.balance ?? 0) - (bruno?.invested ?? 0);
+
+    expect((bruno?.balance ?? 0) / (ana?.balance ?? 0)).toBeCloseTo(3.6, 1);
+    expect(brunoInterest / anaInterest).toBeCloseTo(6, 1);
+  });
 });
 
 describe("annualToMonthly", () => {

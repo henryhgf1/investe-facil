@@ -1,6 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 
-import { Callout, Formula, KeyIdea } from "@/components/mdx";
+import { Callout, Formula, KeyIdea, TimeComparison } from "@/components/mdx";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -75,5 +75,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Callout,
     KeyIdea,
     Formula,
+    TimeComparison,
   };
 }
