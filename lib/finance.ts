@@ -41,6 +41,24 @@ export function annualToMonthly(annualRate: number) {
 }
 
 /**
+ * Juros simples: o rendimento incide sempre sobre o capital inicial, sem
+ * incorporar os juros dos períodos anteriores.
+ */
+export function simpleInterestBalance({
+  principal,
+  monthlyRate,
+  months,
+}: {
+  principal: number;
+  monthlyRate: number;
+  months: number;
+}) {
+  const safePrincipal = Math.max(0, principal);
+  const safeMonths = Math.max(0, months);
+  return safePrincipal * (1 + Math.max(0, monthlyRate) * safeMonths);
+}
+
+/**
  * Retorno real (descontada a inflação), pela fórmula de Fisher:
  * (1 + nominal) / (1 + inflação) - 1
  */
@@ -83,11 +101,16 @@ export function purchasingPowerSeries({
  * Alíquota do Imposto de Renda na tabela regressiva da renda fixa.
  * 22,5% até 180 dias · 20% de 181 a 360 · 17,5% de 361 a 720 · 15% acima.
  */
+export const IR_BRACKETS = [
+  { maxDays: 180, rate: 0.225, label: "Até 180 dias" },
+  { maxDays: 360, rate: 0.2, label: "181 a 360 dias" },
+  { maxDays: 720, rate: 0.175, label: "361 a 720 dias" },
+  { maxDays: null, rate: 0.15, label: "Acima de 720 dias" },
+] as const;
+
 export function incomeTaxRate(days: number) {
-  if (days <= 180) return 0.225;
-  if (days <= 360) return 0.2;
-  if (days <= 720) return 0.175;
-  return 0.15;
+  const bracket = IR_BRACKETS.find((item) => item.maxDays === null || days <= item.maxDays);
+  return bracket?.rate ?? IR_BRACKETS[IR_BRACKETS.length - 1].rate;
 }
 
 /**

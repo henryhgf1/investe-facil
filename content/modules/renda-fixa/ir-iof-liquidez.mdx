@@ -6,12 +6,7 @@ Um CDB de 12% ao ano não rende 12% no seu bolso. O Imposto de Renda e, nos prim
 
 Na renda fixa tributada, o IR segue uma tabela regressiva. A alíquota depende do prazo entre a aplicação e o resgate:
 
-| Tempo aplicado    | Alíquota de IR |
-| ----------------- | -------------- |
-| Até 180 dias      | 22,5%          |
-| De 181 a 360 dias | 20%            |
-| De 361 a 720 dias | 17,5%          |
-| Acima de 720 dias | 15%            |
+<TaxBrackets />
 
 O imposto incide **só sobre o rendimento**, nunca sobre o valor que você aplicou. E é retido na fonte: você recebe o valor já líquido.
 
@@ -19,13 +14,7 @@ O imposto incide **só sobre o rendimento**, nunca sobre o valor que você aplic
 
 O IOF existe para desestimular o resgate em curtíssimo prazo. Ele incide apenas sobre o rendimento e só nos primeiros 29 dias:
 
-| Dia do resgate      | IOF sobre o rendimento |
-| ------------------- | ---------------------- |
-| 1º dia              | 96%                    |
-| 10º dia             | 66%                    |
-| 20º dia             | 33%                    |
-| 29º dia             | 3%                     |
-| A partir do 30º dia | 0%                     |
+<IofCountdown />
 
 No primeiro dia, o IOF leva 96% do que você ganhou. Mesmo que o investimento tenha rendido, sobra quase nada. A partir do 30º dia corrido, o IOF desaparece e só o IR continua.
 

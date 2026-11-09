@@ -1,6 +1,14 @@
 import type { MDXComponents } from "mdx/types";
 
-import { Callout, Formula, KeyIdea, TimeComparison } from "@/components/mdx";
+import {
+  Callout,
+  Formula,
+  InterestComparison,
+  IofCountdown,
+  KeyIdea,
+  TaxBrackets,
+  TimeComparison,
+} from "@/components/mdx";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -76,5 +84,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     KeyIdea,
     Formula,
     TimeComparison,
+    InterestComparison,
+    TaxBrackets,
+    IofCountdown,
   };
 }

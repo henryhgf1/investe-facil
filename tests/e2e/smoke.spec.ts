@@ -46,7 +46,15 @@ test("a página sobre explica como o produto funciona", async ({ page }) => {
 });
 
 test("a página não tem rolagem horizontal", async ({ page }) => {
-  for (const route of ["/trilha/", "/glossario/", "/sobre/", "/simulador/", "/missoes/"]) {
+  for (const route of [
+    "/trilha/",
+    "/trilha/fundamentos/juros-compostos/",
+    "/trilha/renda-fixa/ir-iof-liquidez/",
+    "/glossario/",
+    "/sobre/",
+    "/simulador/",
+    "/missoes/",
+  ]) {
     await page.goto(route);
 
     const overflow = await page.evaluate(
@@ -130,6 +138,39 @@ test("o comparativo de tempo mostra os valores corretos", async ({ page }) => {
   );
 
   expect(overflow, "overflow horizontal na lição").toBeLessThanOrEqual(1);
+});
+
+test("o comparativo de juros simples e compostos usa os valores calculados", async ({ page }) => {
+  await page.goto("/trilha/fundamentos/juros-compostos/");
+
+  const comparison = page.locator('section[aria-labelledby="comparativo-juros"]');
+
+  await expect(comparison.getByText("R$ 2.200,00", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("R$ 3.300,39", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("R$ 1.061,52", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("R$ 1.126,83", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("R$ 1.100,39", { exact: true })).toBeVisible();
+  await expect(comparison.getByText("3,3x", { exact: true })).toBeVisible();
+});
+
+test("as tabelas de IR e IOF refletem as regras oficiais", async ({ page }) => {
+  await page.goto("/trilha/renda-fixa/ir-iof-liquidez/");
+
+  const brackets = page.locator('section[aria-labelledby="faixas-ir"]');
+
+  await expect(brackets.getByText("22,5%", { exact: true })).toBeVisible();
+  await expect(brackets.getByText("20%", { exact: true })).toBeVisible();
+  await expect(brackets.getByText("17,5%", { exact: true })).toBeVisible();
+  await expect(brackets.getByText("15%", { exact: true })).toBeVisible();
+
+  const iof = page.locator('section[aria-labelledby="tabela-iof"]');
+
+  await expect(iof.getByText("96%", { exact: true })).toBeVisible();
+  await expect(iof.getByText("66%", { exact: true })).toBeVisible();
+  await expect(iof.getByText("33%", { exact: true })).toBeVisible();
+  await expect(iof.getByText("3%", { exact: true })).toBeVisible();
+  await expect(iof.getByText("0%", { exact: true })).toBeVisible();
+  await expect(iof.getByText("A partir do 30º dia", { exact: true })).toBeVisible();
 });
 
 const lessonPaths = [

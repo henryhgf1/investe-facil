@@ -1,7 +1,7 @@
 import { Clock3, TrendingUp } from "lucide-react";
 
 import { projectMonthly } from "@/lib/finance";
-import { cn, formatBRL } from "@/lib/utils";
+import { cn, formatBRL, formatMultiple } from "@/lib/utils";
 
 const MONTHLY = 300;
 const MONTHLY_RATE = 0.008;
@@ -30,10 +30,6 @@ function projectionFor(years: number) {
     balance: last.balance,
     interest: last.balance - last.invested,
   };
-}
-
-function formatMultiple(value: number) {
-  return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}x`;
 }
 
 function Stat({ value, label }: { value: string; label: string }) {

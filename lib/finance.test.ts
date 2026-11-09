@@ -4,6 +4,8 @@ import {
   annualToMonthly,
   dividendYield,
   incomeTaxRate,
+  IOF_TABLE,
+  IR_BRACKETS,
   iofRate,
   netFixedIncome,
   portfolioRisk,
@@ -11,6 +13,7 @@ import {
   projectMonthly,
   purchasingPowerSeries,
   realReturn,
+  simpleInterestBalance,
 } from "./finance";
 
 describe("projectMonthly", () => {
@@ -62,6 +65,22 @@ describe("annualToMonthly", () => {
   });
 });
 
+describe("simpleInterestBalance", () => {
+  it("rende sempre sobre o capital inicial", () => {
+    const base = { principal: 1000, monthlyRate: 0.01 };
+
+    expect(simpleInterestBalance({ ...base, months: 1 })).toBeCloseTo(1010, 2);
+    expect(simpleInterestBalance({ ...base, months: 6 })).toBeCloseTo(1060, 2);
+    expect(simpleInterestBalance({ ...base, months: 12 })).toBeCloseTo(1120, 2);
+    expect(simpleInterestBalance({ ...base, months: 120 })).toBeCloseTo(2200, 2);
+  });
+
+  it("não rende com taxa ou prazo zero", () => {
+    expect(simpleInterestBalance({ principal: 1000, monthlyRate: 0, months: 12 })).toBe(1000);
+    expect(simpleInterestBalance({ principal: 1000, monthlyRate: 0.01, months: 0 })).toBe(1000);
+  });
+});
+
 describe("realReturn", () => {
   it("desconta a inflação dividindo os fatores", () => {
     expect(realReturn(0.1, 0.05) * 100).toBeCloseTo(4.7619, 3);
@@ -92,6 +111,17 @@ describe("incomeTaxRate", () => {
     expect(incomeTaxRate(720)).toBe(0.175);
     expect(incomeTaxRate(721)).toBe(0.15);
   });
+
+  it("mantém IR_BRACKETS alinhado ao cálculo", () => {
+    expect(IR_BRACKETS.map((bracket) => bracket.rate)).toEqual([0.225, 0.2, 0.175, 0.15]);
+
+    for (const bracket of IR_BRACKETS) {
+      if (bracket.maxDays === null) continue;
+
+      expect(incomeTaxRate(bracket.maxDays)).toBe(bracket.rate);
+      expect(incomeTaxRate(bracket.maxDays + 1)).not.toBe(bracket.rate);
+    }
+  });
 });
 
 describe("iofRate", () => {
@@ -101,6 +131,12 @@ describe("iofRate", () => {
     expect(iofRate(29)).toBeCloseTo(0.03, 6);
     expect(iofRate(30)).toBe(0);
     expect(iofRate(90)).toBe(0);
+  });
+
+  it("tem 30 posições, da maior alíquota até zero", () => {
+    expect(IOF_TABLE).toHaveLength(30);
+    expect(IOF_TABLE[0]).toBe(0.96);
+    expect(IOF_TABLE[IOF_TABLE.length - 1]).toBe(0);
   });
 });
 
