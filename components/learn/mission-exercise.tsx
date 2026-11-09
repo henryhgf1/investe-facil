@@ -3,6 +3,7 @@
 import { Check, CheckCircle2, Lock, Sparkles, XCircle } from "lucide-react";
 import { useState } from "react";
 
+import { ProfileRequiredNotice } from "@/components/learn/profile-required";
 import { Button } from "@/components/ui/button";
 import type { Mission } from "@/content/missions";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
@@ -17,6 +18,7 @@ export function MissionExercise({
   compact?: boolean;
 }) {
   const hydrated = useHydrated();
+  const profile = useProgressStore((state) => state.profile);
   const completed = useProgressStore((state) => Boolean(state.missions[mission.id]));
   const completeMission = useProgressStore((state) => state.completeMission);
   const [checkedSteps, setCheckedSteps] = useState<number[]>([]);
@@ -40,6 +42,7 @@ export function MissionExercise({
   const allStepsChecked = checkedSteps.length === mission.steps.length;
   const answerIsCorrect = selectedOption === mission.check.answerId;
   const canComplete = allStepsChecked && answerIsCorrect;
+  const canRegister = canComplete && Boolean(profile);
   const statusId = `missao-${mission.id}-status`;
 
   let helperText = "Acerte a pergunta de verificação para liberar a conclusão.";
@@ -165,7 +168,7 @@ export function MissionExercise({
       <div className="flex flex-wrap items-center gap-3">
         <Button
           onClick={() => completeMission(mission.id, mission.xp)}
-          disabled={!canComplete}
+          disabled={!canRegister}
           aria-describedby={statusId}
         >
           {canComplete ? (
@@ -182,6 +185,8 @@ export function MissionExercise({
           {helperText}
         </p>
       </div>
+
+      {!profile ? <ProfileRequiredNotice action="registrar a conclusão das missões" /> : null}
     </div>
   );
 }

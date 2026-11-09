@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost" | "outline";
+type Variant = "primary" | "secondary" | "ghost" | "outline" | "danger";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -13,6 +13,7 @@ const variants: Record<Variant, string> = {
   secondary: "border border-line bg-white text-ink hover:bg-canvas",
   ghost: "text-brand-700 hover:bg-brand-50",
   outline: "border border-brand-600/40 text-brand-700 hover:border-brand-600 hover:bg-brand-50",
+  danger: "bg-danger text-white shadow-sm hover:bg-red-800",
 };
 
 const sizes: Record<Size, string> = {

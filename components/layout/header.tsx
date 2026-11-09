@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/missoes/", label: "Missões" },
   { href: "/glossario/", label: "Glossário" },
   { href: "/sobre/", label: "Sobre" },
+  { href: "/perfil/", label: "Perfil" },
 ];
 
 export function Header() {

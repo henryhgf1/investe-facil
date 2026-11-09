@@ -2,6 +2,23 @@ export const XP_PER_LESSON = 20;
 export const XP_PER_CORRECT_ANSWER = 5;
 export const XP_PER_MISSION = 15;
 
+export type XpProgressInput = {
+  lessons: Record<string, unknown>;
+  quizzes: Record<string, { bestScore: number }>;
+  missions: Record<string, unknown>;
+};
+
+/** Recalcula o XP a partir do progresso restante, usado ao apagar itens. */
+export function xpFromProgress({ lessons, quizzes, missions }: XpProgressInput) {
+  const lessonXp = Object.keys(lessons).length * XP_PER_LESSON;
+  const quizXp =
+    Object.values(quizzes).reduce((total, quiz) => total + quiz.bestScore, 0) *
+    XP_PER_CORRECT_ANSWER;
+  const missionXp = Object.keys(missions).length * XP_PER_MISSION;
+
+  return lessonXp + quizXp + missionXp;
+}
+
 const LEVEL_THRESHOLDS = [0, 40, 100, 180, 280, 360, 420, 480];
 
 export const MAX_LEVEL = LEVEL_THRESHOLDS.length;

@@ -1,9 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+import { seedProfile } from "./helpers";
+
 test.beforeEach(async ({ page }) => {
   await page.goto("/missoes/");
   await page.evaluate(() => window.localStorage.clear());
-  await page.reload();
+  await seedProfile(page);
 });
 
 test("a página de missões lista as oito práticas e as conquistas", async ({ page }) => {
@@ -22,8 +24,11 @@ test("concluir uma missão exige checklist e pergunta correta", async ({ page })
 
   await expect(complete).toBeDisabled();
 
-  for (const checkbox of await mission.getByRole("checkbox").all()) {
-    await checkbox.check();
+  const checkboxes = mission.getByRole("checkbox");
+  await expect(checkboxes.first()).toBeVisible();
+
+  for (let index = 0; index < (await checkboxes.count()); index += 1) {
+    await checkboxes.nth(index).check();
   }
 
   await expect(complete).toBeDisabled();
@@ -61,8 +66,11 @@ test("a lição mostra a missão recomendada e permite concluí-la", async ({ pa
   await expect(section.getByText("Teste o poder do tempo")).toBeVisible();
   await expect(complete).toBeDisabled();
 
-  for (const checkbox of await section.getByRole("checkbox").all()) {
-    await checkbox.check();
+  const checkboxes = section.getByRole("checkbox");
+  await expect(checkboxes.first()).toBeVisible();
+
+  for (let index = 0; index < (await checkboxes.count()); index += 1) {
+    await checkboxes.nth(index).check();
   }
 
   await section

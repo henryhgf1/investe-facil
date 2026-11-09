@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, RotateCcw, Upload } from "lucide-react";
+import { Download, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,6 @@ type Message = { type: "success" | "error"; text: string } | null;
 export function ProgressTools() {
   const exportProgress = useProgressStore((state) => state.exportProgress);
   const importProgress = useProgressStore((state) => state.importProgress);
-  const reset = useProgressStore((state) => state.reset);
   const fileInput = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<Message>(null);
 
@@ -40,30 +39,21 @@ export function ProgressTools() {
     if (fileInput.current) fileInput.current.value = "";
   }
 
-  function handleReset() {
-    const confirmed = window.confirm(
-      "Isso apaga todo o progresso salvo neste navegador. Deseja continuar?",
-    );
-    if (!confirmed) return;
-    reset();
-    setMessage({ type: "success", text: "Progresso zerado." });
-  }
-
   return (
     <details className="group border-line rounded-2xl border bg-white">
       <summary className="text-ink cursor-pointer list-none px-5 py-4 text-sm font-semibold marker:hidden">
         <span className="inline-flex items-center gap-2">
           Gerenciar progresso
           <span className="text-muted text-xs font-normal group-open:hidden">
-            (backup, importar, zerar)
+            (backup e importação)
           </span>
         </span>
       </summary>
 
       <div className="border-line space-y-4 border-t px-5 py-4">
         <p className="text-muted text-sm leading-6">
-          Seu progresso fica salvo apenas neste navegador. Exporte um backup para levar para outro
-          dispositivo.
+          Seu progresso e seu perfil ficam salvos apenas neste navegador. Exporte um backup para
+          levar para outro dispositivo.
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -84,11 +74,6 @@ export function ProgressTools() {
             aria-label="Arquivo de backup do progresso"
             onChange={(event) => void handleImport(event.target.files?.[0])}
           />
-
-          <Button variant="ghost" size="sm" onClick={handleReset}>
-            <RotateCcw className="size-4" aria-hidden="true" />
-            Zerar progresso
-          </Button>
         </div>
 
         {message ? (

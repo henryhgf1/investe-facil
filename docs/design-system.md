@@ -73,12 +73,13 @@ Títulos usam `letter-spacing: -0.02em` e `text-wrap: balance` (definidos no `@l
 
 ### Button (`components/ui/button.tsx`)
 
-| Variante    | Uso                                |
-| ----------- | ---------------------------------- |
-| `primary`   | ação principal, uma por tela       |
-| `secondary` | ação alternativa em fundo branco   |
-| `outline`   | ação terciária com borda colorida  |
-| `ghost`     | ações discretas, "zerar progresso" |
+| Variante    | Uso                               |
+| ----------- | --------------------------------- |
+| `primary`   | ação principal, uma por tela      |
+| `secondary` | ação alternativa em fundo branco  |
+| `outline`   | ação terciária com borda colorida |
+| `ghost`     | ações discretas                   |
+| `danger`    | apagar ou desfazer progresso      |
 
 Tamanhos: `sm` (36px), `md` (44px), `lg` (48px). Para links com aparência de botão, use
 `buttonStyles({ variant, size })` em vez de `<Button>`.
@@ -102,6 +103,21 @@ cards, `md` para o resumo de nível. A cor da barra pode ser trocada por `barCla
 
 Slider nativo com `accent-color`, label associado por `htmlFor` e `<output>` mostrando o valor
 formatado. Sempre inclua `display` legível ("R$ 200", "0,80% a.m.").
+
+### Perfil (`components/profile/`)
+
+| Componente      | Uso                                                               |
+| --------------- | ----------------------------------------------------------------- |
+| `ProfileAvatar` | ícone e tom do avatar; tamanhos `sm`, `md` e `lg`                 |
+| `ProfileForm`   | nome e escolha de avatar em radio group acessível                 |
+| `ResetProgress` | apagar missão ou lição individual e recomeçar partes do progresso |
+
+`ProfileBanner` (`components/learn/profile-banner.tsx`) convida a criar o perfil nas páginas de
+trilha e missões. `ProfileRequiredNotice` bloqueia a ação sem perfil, mantendo o conteúdo
+navegável.
+
+Toda ação de apagar pede confirmação em duas etapas. Ações em massa exigem digitar `RECOMEÇAR`
+ou `APAGAR`. O perfil é preservado em qualquer reset.
 
 ### Blocos de MDX (`components/mdx/index.tsx`)
 

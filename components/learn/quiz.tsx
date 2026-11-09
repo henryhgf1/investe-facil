@@ -3,6 +3,7 @@
 import { CheckCircle2, RotateCcw, XCircle } from "lucide-react";
 import { useState } from "react";
 
+import { ProfileRequiredNotice } from "@/components/learn/profile-required";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { QuizQuestion } from "@/content/quizzes";
@@ -16,6 +17,7 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
   const [score, setScore] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const recordQuiz = useProgressStore((state) => state.recordQuiz);
+  const profile = useProgressStore((state) => state.profile);
 
   if (questions.length === 0) return null;
 
@@ -27,6 +29,11 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
 
     if (!allAnswered) {
       setError("Responda todas as perguntas antes de ver o resultado.");
+      return;
+    }
+
+    if (!profile) {
+      setError("Crie seu perfil para registrar o resultado do quiz.");
       return;
     }
 
@@ -183,9 +190,12 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
             </Button>
           </div>
         ) : (
-          <Button type="submit" size="lg">
-            Ver resultado
-          </Button>
+          <div className="flex flex-col items-start gap-2">
+            <Button type="submit" size="lg" disabled={!profile}>
+              Ver resultado
+            </Button>
+            {!profile ? <ProfileRequiredNotice action="registrar o resultado do quiz" /> : null}
+          </div>
         )}
       </form>
     </section>
