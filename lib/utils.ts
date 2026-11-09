@@ -46,3 +46,8 @@ export function formatPercent(value: number, digits = 1) {
     maximumFractionDigits: digits,
   })}%`;
 }
+
+/** Formata uma proporção como múltiplo: 3.6 vira "3,6x". */
+export function formatMultiple(value: number) {
+  return `${value.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}x`;
+}
