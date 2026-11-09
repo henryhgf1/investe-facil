@@ -5,7 +5,7 @@ import { Check, Lock } from "lucide-react";
 import { ProfileRequiredNotice } from "@/components/learn/profile-required";
 import { Button } from "@/components/ui/button";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile, useProgressStore } from "@/lib/store/progress";
 
 export function CompleteLesson({
   slug,
@@ -17,9 +17,9 @@ export function CompleteLesson({
   quizRequired?: boolean;
 }) {
   const hydrated = useHydrated();
-  const profile = useProgressStore((state) => state.profile);
-  const completed = useProgressStore((state) => Boolean(state.lessons[slug]));
-  const quizDone = useProgressStore((state) => Boolean(state.quizzes[slug]));
+  const profile = useActiveProfile();
+  const completed = Boolean(profile?.lessons[slug]);
+  const quizDone = Boolean(profile?.quizzes[slug]);
   const completeLesson = useProgressStore((state) => state.completeLesson);
 
   if (!hydrated) {

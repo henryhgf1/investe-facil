@@ -36,11 +36,13 @@ dados pessoais.
 - **12 conquistas** calculadas a partir do progresso, sem campo extra para manter no backup
 - **Glossário com mais de 50 termos**, busca que ignora acentos e filtros por categoria
 - **Quiz com correção e explicação** em cada lição
-- **Perfil local** com nome e avatar, sem cadastro, senha ou envio de dados
+- **Até 3 perfis locais** com nome e avatar, cada um com progresso independente, sem cadastro,
+  senha ou envio de dados
+- **Troca de perfil** pelo cabeçalho ou pela página de perfis, com criação, edição e exclusão
 - **Progresso persistente** no navegador, com XP, 8 níveis, aproveitamento nos quizzes e badges
-- **Controle do progresso** no perfil: apague uma missão ou lição específica, recomece a trilha,
-  as missões ou todo o progresso, sempre com confirmação
-- **Backup em JSON** com progresso e perfil para exportar e importar entre dispositivos
+- **Controle do progresso** no perfil ativo: apague uma missão ou lição específica, recomece a
+  trilha, as missões ou todo o progresso, sempre com confirmação
+- **Backup em JSON** com todos os perfis e o progresso para exportar e importar entre dispositivos
 - **Acessibilidade**: navegação por teclado, contraste AA, gráficos com descrição textual e
   respeito a `prefers-reduced-motion`
 
@@ -89,7 +91,7 @@ components/
   charts/                 gráficos SVG sem dependências
   learn/                  quiz, progresso, missões, badges e navegação da trilha
   mdx/                    blocos reutilizáveis das lições
-  profile/                perfil local, avatar e controle de reset do progresso
+  profile/                perfis locais, avatares, troca de perfil e controle de reset
   sim/                    simuladores interativos, incluindo a máquina do tempo e a carteira
   ui/                     componentes base (botão, card, badge, progresso)
 content/
@@ -108,9 +110,11 @@ tests/e2e/                fluxos críticos em desktop, tablet e mobile
 
 ## Como foi construído
 
-**Sem backend, de propósito.** O perfil e o progresso vivem no `localStorage`, com schema
-versionado e exportação em JSON. Isso elimina banco, autenticação, custo de servidor e coleta de
-dados pessoais, e deixa o deploy em uma CDN estática.
+**Sem backend, de propósito.** Os perfis e o progresso vivem no `localStorage`, com schema
+versionado e exportação em JSON. Cada perfil guarda XP, lições, quizzes, missões e badges
+separados, e o primeiro perfil criado adota o progresso antigo de quem já usava o site. Isso
+elimina banco, autenticação, custo de servidor e coleta de dados pessoais, e deixa o deploy em
+uma CDN estática.
 
 **Conteúdo em MDX versionado no Git.** Cada lição é um arquivo de texto. Revisar conteúdo é
 abrir um pull request, e o build quebra se um componente ou link estiver errado.

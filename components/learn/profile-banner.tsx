@@ -6,11 +6,11 @@ import Link from "next/link";
 import { ProfileAvatar } from "@/components/profile/profile-avatar";
 import { buttonStyles } from "@/components/ui/button";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile } from "@/lib/store/progress";
 
 export function ProfileBanner() {
   const hydrated = useHydrated();
-  const profile = useProgressStore((state) => state.profile);
+  const profile = useActiveProfile();
 
   if (!hydrated || profile) return null;
 

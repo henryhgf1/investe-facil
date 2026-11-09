@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { lessons } from "@/content/lessons";
 import { missions } from "@/content/missions";
 import { modules } from "@/content/modules";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile, useProgressStore } from "@/lib/store/progress";
 
 function ItemResetButton({
   label,
@@ -160,8 +160,9 @@ function BulkReset({
 }
 
 export function ResetProgress() {
-  const lessonState = useProgressStore((state) => state.lessons);
-  const missionState = useProgressStore((state) => state.missions);
+  const profile = useActiveProfile();
+  const lessonState = profile?.lessons ?? {};
+  const missionState = profile?.missions ?? {};
   const resetLesson = useProgressStore((state) => state.resetLesson);
   const resetMission = useProgressStore((state) => state.resetMission);
   const resetMissions = useProgressStore((state) => state.resetMissions);

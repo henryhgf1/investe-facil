@@ -1,20 +1,22 @@
 "use client";
 
-import { BookOpen, Sparkles, Target, Trophy, UserRound } from "lucide-react";
+import { BookOpen, Plus, Sparkles, Target, Trophy, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useState } from "react";
 
 import { ProgressTools } from "@/components/learn/progress-tools";
 import { ProfileAvatar } from "@/components/profile/profile-avatar";
 import { ProfileForm } from "@/components/profile/profile-form";
+import { ProfileList } from "@/components/profile/profile-list";
 import { ResetProgress } from "@/components/profile/reset-progress";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Progress } from "@/components/ui/progress";
 import { readyLessons } from "@/content/lessons";
 import { missions } from "@/content/missions";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { MAX_PROFILES, useActiveProfile, useProfiles } from "@/lib/store/progress";
 import { levelForXp } from "@/lib/xp";
 
 function Stat({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
@@ -31,11 +33,10 @@ function Stat({ icon: Icon, label, value }: { icon: LucideIcon; label: string; v
 
 export function ProfilePage() {
   const hydrated = useHydrated();
-  const profile = useProgressStore((state) => state.profile);
-  const xp = useProgressStore((state) => state.xp);
-  const lessonState = useProgressStore((state) => state.lessons);
-  const missionState = useProgressStore((state) => state.missions);
-  const [formMessage, setFormMessage] = useState<string | null>(null);
+  const profile = useActiveProfile();
+  const profiles = useProfiles();
+  const [message, setMessage] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
 
   if (!hydrated) {
     return (
@@ -48,9 +49,11 @@ export function ProfilePage() {
     );
   }
 
-  const info = levelForXp(xp);
-  const completedLessons = Object.keys(lessonState).length;
-  const completedMissions = Object.keys(missionState).length;
+  const showCreateForm = !profile || creating;
+  const info = levelForXp(profile?.xp ?? 0);
+  const completedLessons = Object.keys(profile?.lessons ?? {}).length;
+  const completedMissions = Object.keys(profile?.missions ?? {}).length;
+  const formKey = showCreateForm ? "novo-perfil" : (profile?.id ?? "novo-perfil");
 
   return (
     <Container className="max-w-4xl py-12 sm:py-16">
@@ -63,8 +66,8 @@ export function ProfilePage() {
           Seu perfil
         </h1>
         <p className="text-muted mt-4 text-base leading-7">
-          Nome e avatar para identificar seu progresso neste navegador. Nada é enviado para servidor
-          e não existe senha.
+          Até {MAX_PROFILES} perfis por navegador, cada um com o próprio progresso. Nome e avatar
+          identificam você. Nada é enviado para servidor e não existe senha.
         </p>
       </div>
 
@@ -72,41 +75,63 @@ export function ProfilePage() {
         aria-labelledby="dados-perfil"
         className="border-line mt-8 overflow-hidden rounded-3xl border bg-white"
       >
-        <div className="border-line flex items-start gap-4 border-b px-6 py-5 sm:px-8">
-          <ProfileAvatar avatarId={profile?.avatarId} size="lg" />
-          <div className="min-w-0">
+        <div className="border-line flex flex-wrap items-start gap-4 border-b px-6 py-5 sm:px-8">
+          <ProfileAvatar avatarId={showCreateForm ? null : profile?.avatarId} size="lg" />
+          <div className="min-w-0 flex-1">
             <p className="text-brand-700 text-xs font-semibold tracking-widest uppercase">
-              {profile ? "Perfil local" : "Comece por aqui"}
+              {showCreateForm ? "Novo perfil" : "Perfil ativo"}
             </p>
             <h2 id="dados-perfil" className="font-display text-ink mt-1 text-xl font-bold">
-              {profile?.name ?? "Crie seu perfil"}
+              {showCreateForm ? "Crie seu perfil" : profile?.name}
             </h2>
             <p className="text-muted mt-1 text-sm leading-6">
-              {profile
-                ? `Nível ${info.level}, ${xp} XP acumulados.`
-                : "Só o nome e um avatar. Leva menos de um minuto e libera o registro do progresso."}
+              {showCreateForm
+                ? "Escolha um nome e um avatar. O novo perfil começa sem progresso e pode ser trocado depois."
+                : `Nível ${info.level}, ${profile?.xp ?? 0} XP acumulados neste perfil.`}
             </p>
           </div>
+
+          {!showCreateForm && profiles.length < MAX_PROFILES ? (
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => {
+                setCreating(true);
+                setMessage(null);
+              }}
+            >
+              <Plus className="size-4" aria-hidden="true" />
+              Adicionar perfil
+            </Button>
+          ) : null}
         </div>
 
         <div className="px-6 pb-6 sm:px-8">
-          {formMessage ? (
+          {message ? (
             <p
               role="status"
               className="bg-brand-50 text-brand-800 mt-6 rounded-xl px-4 py-3 text-sm"
             >
-              {formMessage}
+              {message}
             </p>
           ) : null}
           <ProfileForm
-            key={profile?.createdAt ?? "novo-perfil"}
-            profile={profile}
-            onSaved={() => setFormMessage("Perfil salvo.")}
+            key={formKey}
+            profile={showCreateForm ? null : profile}
+            mode={showCreateForm ? "create" : "edit"}
+            onDone={(text) => {
+              setMessage(text);
+              setCreating(false);
+            }}
+            onCancel={showCreateForm && profile ? () => setCreating(false) : undefined}
           />
         </div>
       </section>
 
-      {profile ? (
+      <ProfileList onMessage={setMessage} />
+
+      {profile && !showCreateForm ? (
         <>
           <section
             aria-labelledby="resumo-perfil"
@@ -118,7 +143,7 @@ export function ProfilePage() {
                   Resumo
                 </p>
                 <h2 id="resumo-perfil" className="font-display text-ink mt-1 text-xl font-bold">
-                  Seu progresso
+                  Progresso de {profile.name}
                 </h2>
               </div>
               <p className="text-muted text-sm">
@@ -128,7 +153,7 @@ export function ProfilePage() {
 
             <dl className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
               <Stat icon={Trophy} label="Nível" value={String(info.level)} />
-              <Stat icon={Sparkles} label="Experiência" value={`${xp} XP`} />
+              <Stat icon={Sparkles} label="Experiência" value={`${profile.xp} XP`} />
               <Stat
                 icon={BookOpen}
                 label="Lições"
@@ -158,15 +183,7 @@ export function ProfilePage() {
             <ResetProgress />
           </div>
         </>
-      ) : (
-        <div className="border-line bg-canvas mt-6 rounded-2xl border p-5">
-          <p className="text-ink text-sm font-semibold">Depois de criar o perfil</p>
-          <p className="text-muted mt-1 text-sm leading-6">
-            Você poderá apagar uma missão ou lição específica, recomeçar a trilha ou zerar todo o
-            progresso sem perder o perfil.
-          </p>
-        </div>
-      )}
+      ) : null}
 
       <div className="mt-6">
         <ProgressTools />

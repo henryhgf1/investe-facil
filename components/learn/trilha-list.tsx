@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { lessonsOfModule } from "@/content/lessons";
 import { modules } from "@/content/modules";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 
 const accentStyles = {
@@ -19,7 +19,8 @@ const accentStyles = {
 
 export function TrilhaList() {
   const hydrated = useHydrated();
-  const completedLessons = useProgressStore((state) => state.lessons);
+  const profile = useActiveProfile();
+  const completedLessons = profile?.lessons ?? {};
 
   return (
     <div className="space-y-10">

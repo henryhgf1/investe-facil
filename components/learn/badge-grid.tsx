@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { badgeStatus, badges, type BadgeStatus } from "@/lib/badges";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 
 const icons: Record<string, typeof Trophy> = {
@@ -97,10 +97,11 @@ function BadgeItem({ badge }: { badge: BadgeStatus }) {
 
 export function BadgeGrid() {
   const hydrated = useHydrated();
-  const xp = useProgressStore((state) => state.xp);
-  const lessons = useProgressStore((state) => state.lessons);
-  const quizzes = useProgressStore((state) => state.quizzes);
-  const missions = useProgressStore((state) => state.missions);
+  const profile = useActiveProfile();
+  const xp = profile?.xp ?? 0;
+  const lessons = profile?.lessons ?? {};
+  const quizzes = profile?.quizzes ?? {};
+  const missions = profile?.missions ?? {};
 
   const status = badgeStatus({ xp, lessons, quizzes, missions });
   const earned = status.filter((badge) => badge.earned).length;

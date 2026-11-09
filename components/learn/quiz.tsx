@@ -7,7 +7,7 @@ import { ProfileRequiredNotice } from "@/components/learn/profile-required";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { QuizQuestion } from "@/content/quizzes";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile, useProgressStore } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 import { XP_PER_CORRECT_ANSWER } from "@/lib/xp";
 
@@ -17,7 +17,7 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
   const [score, setScore] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const recordQuiz = useProgressStore((state) => state.recordQuiz);
-  const profile = useProgressStore((state) => state.profile);
+  const profile = useActiveProfile();
 
   if (questions.length === 0) return null;
 

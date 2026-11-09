@@ -106,18 +106,27 @@ formatado. Sempre inclua `display` legível ("R$ 200", "0,80% a.m.").
 
 ### Perfil (`components/profile/`)
 
-| Componente      | Uso                                                               |
-| --------------- | ----------------------------------------------------------------- |
-| `ProfileAvatar` | ícone e tom do avatar; tamanhos `sm`, `md` e `lg`                 |
-| `ProfileForm`   | nome e escolha de avatar em radio group acessível                 |
-| `ResetProgress` | apagar missão ou lição individual e recomeçar partes do progresso |
+| Componente        | Uso                                                                    |
+| ----------------- | ---------------------------------------------------------------------- |
+| `ProfileAvatar`   | ícone e tom do avatar; tamanhos `sm`, `md` e `lg`                      |
+| `ProfileForm`     | nome e avatar em radio group acessível, nos modos `create` e `edit`    |
+| `ProfileSwitcher` | seletor do cabeçalho com o perfil ativo, troca rápida e link de gestão |
+| `ProfileList`     | lista dos perfis, selo `Ativo`, troca e exclusão com confirmação       |
+| `ResetProgress`   | apagar missão ou lição individual e recomeçar partes do progresso      |
+
+Cada navegador mantém até três perfis, com XP, lições, quizzes, missões e badges independentes.
+O `ProfileSwitcher` aparece no cabeçalho em desktop e mobile; no desktop ele substitui o link de
+texto `Perfil`, e o menu hambúrguer mantém o atalho para a página. Sem perfil ativo, o controle
+vira um convite para criar o primeiro.
 
 `ProfileBanner` (`components/learn/profile-banner.tsx`) convida a criar o perfil nas páginas de
 trilha e missões. `ProfileRequiredNotice` bloqueia a ação sem perfil, mantendo o conteúdo
 navegável.
 
 Toda ação de apagar pede confirmação em duas etapas. Ações em massa exigem digitar `RECOMEÇAR`
-ou `APAGAR`. O perfil é preservado em qualquer reset.
+ou `APAGAR`. Apagar um perfil exige digitar `APAGAR` e remove todo o progresso dele; o próximo da
+lista vira ativo. O perfil é preservado nos resets de progresso. A importação de backup substitui
+todos os perfis e pede confirmação inline antes de aplicar.
 
 ### Blocos de MDX (`components/mdx/index.tsx`)
 

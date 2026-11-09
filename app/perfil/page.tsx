@@ -5,7 +5,7 @@ import { ProfilePage } from "@/components/profile/profile-page";
 export const metadata: Metadata = {
   title: "Seu perfil",
   description:
-    "Crie seu perfil local com nome e avatar, acompanhe seu progresso e apague conclusões específicas para recomeçar.",
+    "Crie até três perfis locais com nome e avatar, troque de perfil e acompanhe o progresso separado de cada um.",
 };
 
 export default function PerfilRoute() {

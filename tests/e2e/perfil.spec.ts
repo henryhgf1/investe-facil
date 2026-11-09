@@ -1,11 +1,15 @@
 import { expect, test, type Page } from "@playwright/test";
 
-import { seedProfile } from "./helpers";
+import { seedProfile, seedProfiles } from "./helpers";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => window.localStorage.clear());
 });
+
+function profileList(page: Page) {
+  return page.locator('section[aria-labelledby="lista-perfis"]');
+}
 
 async function completeFirstMission(page: Page) {
   const mission = page.locator("#mapa-do-dinheiro");
@@ -36,12 +40,151 @@ test("cria o perfil com nome e avatar e persiste após recarregar", async ({ pag
   await page.getByRole("button", { name: /criar perfil/i }).click();
 
   await expect(page.getByRole("status")).toContainText("Perfil salvo.");
-  await expect(page.getByRole("heading", { name: "Henry" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Henry", exact: true })).toBeVisible();
 
   await page.reload();
-  await expect(page.getByRole("heading", { name: "Henry" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Henry", exact: true })).toBeVisible();
   await expect(page.getByLabel("Nome", { exact: true })).toHaveValue("Henry");
   await expect(page.getByRole("radio", { name: "Foguete" })).toBeChecked();
+});
+
+test("permite até três perfis e bloqueia o quarto", async ({ page }) => {
+  await seedProfile(page, "Ana");
+
+  for (const name of ["Bruno", "Carla"]) {
+    await page.goto("/perfil/");
+    await page.getByRole("button", { name: /adicionar perfil/i }).click();
+    await page.getByLabel("Nome", { exact: true }).fill(name);
+    await page.getByRole("button", { name: /criar perfil/i }).click();
+    await expect(page.getByRole("status")).toContainText("Perfil salvo.");
+  }
+
+  await expect(profileList(page)).toContainText("3 de 3");
+  await expect(page.getByRole("button", { name: /adicionar perfil/i })).toHaveCount(0);
+});
+
+test("troca de perfil pelo cabeçalho e isola o progresso", async ({ page }) => {
+  await seedProfiles(page, [{ name: "Ana", xp: 20, lessons: ["inflacao"] }, { name: "Bruno" }], 0);
+  await page.goto("/trilha/");
+
+  const resumo = page.getByRole("region", { name: "Resumo do seu progresso" });
+  await expect(resumo).toContainText("20 XP");
+
+  await page.getByRole("button", { name: /trocar de perfil/i }).click();
+  await page.getByRole("menuitemradio", { name: /Bruno/ }).click();
+
+  await expect(resumo).toContainText("0 XP");
+  await expect(page.getByRole("button", { name: /trocar de perfil/i })).toHaveAccessibleName(
+    /Bruno/,
+  );
+
+  await page.goto("/perfil/");
+  await expect(page.getByRole("heading", { level: 2, name: "Bruno", exact: true })).toBeVisible();
+});
+
+test("troca de perfil pela página de perfis", async ({ page }) => {
+  await seedProfiles(
+    page,
+    [
+      { name: "Ana", xp: 20, lessons: ["inflacao"] },
+      { name: "Bruno", xp: 15, missions: ["mapa-do-dinheiro"] },
+    ],
+    0,
+  );
+  await page.goto("/perfil/");
+
+  const bruno = profileList(page).locator("li", { hasText: "Bruno" });
+  await bruno.getByRole("button", { name: "Usar este perfil" }).click();
+
+  await expect(page.getByRole("status")).toContainText("Agora você está usando o perfil Bruno.");
+  await expect(page.getByRole("heading", { level: 2, name: "Bruno", exact: true })).toBeVisible();
+  await expect(bruno.getByText("Ativo")).toBeVisible();
+});
+
+test("apaga um perfil com confirmação digitada", async ({ page }) => {
+  await seedProfiles(page, [{ name: "Ana" }, { name: "Bruno" }], 0);
+  await page.goto("/perfil/");
+
+  const bruno = profileList(page).locator("li", { hasText: "Bruno" });
+  await bruno.getByRole("button", { name: "Apagar perfil" }).click();
+
+  const confirmation = page.getByRole("group", {
+    name: /confirmar exclusão do perfil Bruno/i,
+  });
+  const confirm = confirmation.getByRole("button", { name: "Apagar perfil" });
+
+  await expect(confirm).toBeDisabled();
+  await confirmation.getByLabel(/digite APAGAR/i).fill("errado");
+  await expect(confirm).toBeDisabled();
+  await confirmation.getByLabel(/digite APAGAR/i).fill("APAGAR");
+  await expect(confirm).toBeEnabled();
+  await confirm.click();
+
+  await expect(page.getByRole("status")).toContainText("Perfil Bruno apagado.");
+  await expect(profileList(page).locator("li", { hasText: "Bruno" })).toHaveCount(0);
+});
+
+test("apagar o perfil ativo ativa o próximo da lista", async ({ page }) => {
+  await seedProfiles(page, [{ name: "Ana" }, { name: "Bruno" }, { name: "Carla" }], 1);
+  await page.goto("/perfil/");
+
+  const bruno = profileList(page).locator("li", { hasText: "Bruno" });
+  await bruno.getByRole("button", { name: "Apagar perfil" }).click();
+  const confirmation = page.getByRole("group", {
+    name: /confirmar exclusão do perfil Bruno/i,
+  });
+  await confirmation.getByLabel(/digite APAGAR/i).fill("APAGAR");
+  await confirmation.getByRole("button", { name: "Apagar perfil" }).click();
+
+  await expect(page.getByRole("status")).toContainText("Agora o perfil Carla está ativo.");
+  await expect(page.getByRole("heading", { level: 2, name: "Carla", exact: true })).toBeVisible();
+});
+
+test("apagar o último perfil volta ao estado sem perfil", async ({ page }) => {
+  await seedProfile(page, "Ana");
+  await page.goto("/perfil/");
+
+  const ana = profileList(page).locator("li", { hasText: "Ana" });
+  await ana.getByRole("button", { name: "Apagar perfil" }).click();
+  const confirmation = page.getByRole("group", {
+    name: /confirmar exclusão do perfil Ana/i,
+  });
+  await confirmation.getByLabel(/digite APAGAR/i).fill("APAGAR");
+  await confirmation.getByRole("button", { name: "Apagar perfil" }).click();
+
+  await expect(page.getByRole("status")).toContainText("Crie um novo perfil");
+  await expect(page.getByRole("heading", { name: /crie seu perfil/i })).toBeVisible();
+
+  await page.goto("/trilha/fundamentos/juros-compostos/");
+  await expect(page.getByRole("button", { name: /concluir lição/i })).toBeDisabled();
+  await expect(
+    page.getByText(/crie seu perfil para registrar a conclusão das lições/i),
+  ).toBeVisible();
+});
+
+test("edita um perfil sem afetar os demais", async ({ page }) => {
+  await seedProfiles(
+    page,
+    [
+      { name: "Ana", xp: 20, lessons: ["inflacao"] },
+      { name: "Bruno", xp: 15, missions: ["mapa-do-dinheiro"] },
+    ],
+    0,
+  );
+  await page.goto("/perfil/");
+
+  await page.getByLabel("Nome", { exact: true }).fill("Ana Silva");
+  await page.getByText("Bússola", { exact: true }).click();
+  await page.getByRole("button", { name: /salvar perfil/i }).click();
+  await expect(page.getByRole("status")).toContainText("Perfil salvo.");
+
+  const bruno = profileList(page).locator("li", { hasText: "Bruno" });
+  await bruno.getByRole("button", { name: "Usar este perfil" }).click();
+
+  await expect(page.getByLabel("Nome", { exact: true })).toHaveValue("Bruno");
+  await expect(page.getByRole("radio", { name: "Folha" })).toBeChecked();
+  await expect(page.getByText("Progresso de Bruno")).toBeVisible();
+  await expect(profileList(page)).toContainText("Ana Silva");
 });
 
 test("sem perfil bloqueia lição, quiz e missão com aviso", async ({ page }) => {
@@ -146,8 +289,47 @@ test("recomeçar as missões exige digitar a palavra de confirmação", async ({
   await expect(page.getByText("Nenhuma missão concluída ainda.")).toBeVisible();
 });
 
+test("exporta e importa um backup com todos os perfis", async ({ page }) => {
+  await seedProfiles(
+    page,
+    [
+      { name: "Ana", xp: 20, lessons: ["inflacao"] },
+      { name: "Bruno", xp: 15 },
+    ],
+    0,
+  );
+  await page.goto("/perfil/");
+
+  await page.locator("summary", { hasText: "Gerenciar progresso" }).click();
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Exportar" }).click();
+  const download = await downloadPromise;
+  const filePath = await download.path();
+  if (!filePath) throw new Error("download do backup não gerou arquivo");
+
+  await page.evaluate(() => window.localStorage.clear());
+  await page.reload();
+  await expect(page.getByRole("heading", { name: /crie seu perfil/i })).toBeVisible();
+
+  await page.locator("summary", { hasText: "Gerenciar progresso" }).click();
+  await page.getByLabel("Arquivo de backup do progresso").setInputFiles(filePath);
+
+  const confirmation = page.getByRole("group", {
+    name: /confirmar importação de backup/i,
+  });
+  await expect(confirmation).toBeVisible();
+  await confirmation.getByRole("button", { name: "Substituir tudo" }).click();
+
+  await expect(page.getByRole("status")).toContainText("Backup importado com sucesso.");
+  await expect(profileList(page).locator("li", { hasText: "Ana" })).toBeVisible();
+  await expect(profileList(page).locator("li", { hasText: "Bruno" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Ana", exact: true })).toBeVisible();
+});
+
 test("a navegação e o rodapé levam ao perfil", async ({ page }) => {
   const viewport = page.viewportSize();
+  await seedProfile(page);
 
   await expect(page.getByRole("contentinfo").getByRole("link", { name: "Perfil" })).toHaveAttribute(
     "href",
@@ -155,10 +337,8 @@ test("a navegação e o rodapé levam ao perfil", async ({ page }) => {
   );
 
   if (viewport && viewport.width >= 768) {
-    await page
-      .getByRole("navigation", { name: "Navegação principal" })
-      .getByRole("link", { name: "Perfil" })
-      .click();
+    await page.getByRole("button", { name: /trocar de perfil/i }).click();
+    await page.getByRole("link", { name: "Gerenciar perfis" }).click();
   } else {
     await page.locator("header summary").click();
     await page.locator("header details a", { hasText: "Perfil" }).click();
