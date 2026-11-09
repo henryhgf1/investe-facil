@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { BadgeGrid } from "@/components/learn/badge-grid";
 import { MissionList } from "@/components/learn/mission-list";
+import { ProfileBanner } from "@/components/learn/profile-banner";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { missions } from "@/content/missions";
@@ -39,6 +40,10 @@ export default function MissoesPage() {
           <span>{badges.length} conquistas</span>
           <span>Até {MAX_XP} XP na trilha completa</span>
         </div>
+      </div>
+
+      <div className="mt-8">
+        <ProfileBanner />
       </div>
 
       <div className="mt-10">

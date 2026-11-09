@@ -1,5 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
+import { seedProfile } from "./helpers";
+
 async function answerJurosCompostosQuiz(page: Page) {
   const quiz = page.locator('section[aria-labelledby="quiz-titulo"]');
 
@@ -16,6 +18,7 @@ async function answerJurosCompostosQuiz(page: Page) {
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => window.localStorage.clear());
+  await seedProfile(page);
 });
 
 test("a landing apresenta a proposta e leva à trilha", async ({ page }) => {

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 import { MissionsSummary } from "@/components/learn/missions-summary";
+import { ProfileBanner } from "@/components/learn/profile-banner";
 import { ProgressSummary } from "@/components/learn/progress-summary";
-import { ProgressTools } from "@/components/learn/progress-tools";
 import { TrilhaList } from "@/components/learn/trilha-list";
 import { Container } from "@/components/ui/container";
 import { readyLessons } from "@/content/lessons";
@@ -30,9 +30,9 @@ export default function TrilhaPage() {
       </div>
 
       <div className="mt-8 space-y-4">
+        <ProfileBanner />
         <ProgressSummary />
         <MissionsSummary />
-        <ProgressTools />
       </div>
 
       <div className="mt-12">

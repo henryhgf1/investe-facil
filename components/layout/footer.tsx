@@ -40,6 +40,9 @@ export function Footer() {
             <Link href="/sobre/" className="hover:text-brand-700 text-slate-600">
               Sobre o projeto
             </Link>
+            <Link href="/perfil/" className="hover:text-brand-700 text-slate-600">
+              Perfil
+            </Link>
           </nav>
         </div>
 
