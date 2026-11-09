@@ -152,14 +152,16 @@ execução real da tarefa.
 
 ## Testes
 
-- **101 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
+- **106 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
   a simulação histórica, a carteira e os benchmarks, a progressão de XP, o store (idempotência,
-  missões, migração v1 → v2 e round-trip de backup), as badges, a busca sem acento e a integridade
-  do conteúdo/glossário, incluindo a pergunta de verificação das missões
-- **28 cenários E2E** em desktop, tablet e mobile: navegação, conclusão de lição após o quiz com
+  missões, migração v1 → v2 e round-trip de backup), as badges, a busca sem acento, os tipos de
+  risco da lição e a integridade do conteúdo/glossário, incluindo a pergunta de verificação das
+  missões
+- **30 cenários E2E** em desktop, tablet e mobile: navegação, conclusão de lição após o quiz com
   persistência, correção do quiz, reação dos simuladores, máquina do tempo, carteira com
   benchmarks, relatório em CSV e persistência da carteira, checklist e pergunta das missões,
-  badges, abertura das 10 lições, busca do glossário e ausência de rolagem horizontal
+  badges, cards de risco, abertura das 10 lições, busca do glossário e ausência de rolagem
+  horizontal
 
 ## Roadmap
 

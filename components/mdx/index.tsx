@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 export { IofCountdown } from "./iof-countdown";
 export { InterestComparison } from "./interest-comparison";
+export { RiskTypes } from "./risk-types";
 export { TaxBrackets } from "./tax-brackets";
 export { TimeComparison } from "./time-comparison";
 
