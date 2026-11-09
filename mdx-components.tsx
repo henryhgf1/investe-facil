@@ -6,6 +6,7 @@ import {
   InterestComparison,
   IofCountdown,
   KeyIdea,
+  RiskTypes,
   TaxBrackets,
   TimeComparison,
 } from "@/components/mdx";
@@ -87,5 +88,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     InterestComparison,
     TaxBrackets,
     IofCountdown,
+    RiskTypes,
   };
 }
