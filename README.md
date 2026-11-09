@@ -5,38 +5,39 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
-> **Status:** Sprint 4 concluído. A trilha de 10 lições, os simuladores, a carteira com benchmarks
-> CDI/IBOV, o relatório de evolução, as 8 missões práticas e as 12 conquistas estão no ar.
-
 ![Página inicial](screenshots/home.png)
 
 ![Missões práticas e conquistas](screenshots/missoes.png)
 
-## O problema
+## O que é
 
-Quem quer começar a investir esbarra em dois obstáculos: conteúdo cheio de jargão e medo de
-errar com dinheiro real. O Investe Fácil resolve os dois com uma trilha que constrói o
-vocabulário aos poucos e com simuladores onde errar custa zero.
+O Investe Fácil é um site educacional que explica os fundamentos dos investimentos em uma
+trilha curta, com linguagem simples e exemplos práticos. Cada lição termina em um quiz, e os
+simuladores deixam o leitor testar cenários sem arriscar dinheiro real.
 
-## O que já funciona
+Todo o progresso fica no próprio navegador. Não existe login, banco de dados nem coleta de
+dados pessoais.
 
-- **Trilha em 3 módulos** com 10 lições publicadas
-- **Lições em MDX** com componentes interativos embutidos
-- **Simuladores e gráficos**: juros compostos, inflação, risco × retorno, Tesouro × poupança,
-  CDB × LCI, IR/IOF, dividend yield, propriedade, diversificação e a máquina do tempo com CDI,
-  Ibovespa e IPCA de 2000 a 2024
+## Para quem é
+
+- Quem nunca investiu e quer entender o vocabulário antes de abrir uma conta
+- Quem já investe, mas aprendeu por vídeos soltos e sente falta de uma base organizada
+- Quem quer comparar produtos, prazos e riscos com números em vez de achismo
+
+## O que você encontra
+
+- **Trilha em 3 módulos** com 10 lições publicadas, de “por que investir” à renda variável
+- **Simuladores** de juros compostos, inflação, risco × retorno, Tesouro × poupança,
+  CDB × LCI, IR/IOF, dividend yield, propriedade e diversificação
+- **Máquina do tempo** com CDI, Ibovespa e IPCA de 2000 a 2024, incluindo correção pela inflação
 - **Carteira com benchmarks**: distribua aportes entre caixa, renda fixa, FIIs, ações e exterior,
   compare com CDI e Ibovespa, veja a queda máxima e baixe o relatório ano a ano em CSV
-- **8 missões práticas** com checklist obrigatório e pergunta de verificação antes de liberar o XP
-- **12 conquistas** derivadas do progresso, sem campo extra para manter no backup
-- **Conclusão de lição condicionada ao quiz**, para o XP não sair com um clique acidental
-- **Glossário com mais de 50 termos**, busca que ignora acentos, filtros por categoria e dados
-  estruturados para indexação
+- **8 missões práticas** com checklist e pergunta de verificação antes de liberar o XP
+- **12 conquistas** calculadas a partir do progresso, sem campo extra para manter no backup
+- **Glossário com mais de 50 termos**, busca que ignora acentos e filtros por categoria
 - **Quiz com correção e explicação** em cada lição
-- **Progresso persistente** no navegador, com XP, 8 níveis, aproveitamento nos quizzes, missões e
-  badges
-- **Backup em JSON** para exportar/importar progresso entre dispositivos
-- **Documentação de design** em [`docs/design-system.md`](docs/design-system.md)
+- **Progresso persistente** no navegador, com XP, 8 níveis, aproveitamento nos quizzes e badges
+- **Backup em JSON** para exportar e importar o progresso entre dispositivos
 - **Acessibilidade**: navegação por teclado, contraste AA, gráficos com descrição textual e
   respeito a `prefers-reduced-motion`
 
@@ -84,7 +85,7 @@ app/                      rotas (landing, trilha, lição, carteira, simulador, 
 components/
   charts/                 gráficos SVG sem dependências
   learn/                  quiz, progresso, missões, badges e navegação da trilha
-  mdx/                    Callout, KeyIdea, Formula
+  mdx/                    blocos reutilizáveis das lições
   sim/                    simuladores interativos, incluindo a máquina do tempo e a carteira
   ui/                     componentes base (botão, card, badge, progresso)
 content/
@@ -92,83 +93,29 @@ content/
   glossary.ts             verbetes, categorias e ligações entre termos
   history.ts              série anual de CDI, Ibovespa e IPCA (2000 a 2024)
   lessons.ts              metadados e ordenação da trilha
-  missions.ts             missões práticas, lição recomendada e pergunta de verificação
+  missions.ts             missões práticas e perguntas de verificação
   quizzes.ts              perguntas, respostas e explicações
   registry.ts             mapeamento slug → componente MDX
-lib/
-  badges.ts               conquistas derivadas do progresso
-  finance.ts              juros, inflação, IR/IOF, dividend yield e risco (funções puras)
-  history.ts              simulação histórica e correção pela inflação
-  portfolio.ts            carteira, benchmarks CDI/IBOV, retorno anualizado e drawdown
-  search.ts               normalização de busca sem acento
-  xp.ts                   níveis e progressão
-  store/progress.ts       Zustand + persist + validação do backup
+lib/                      motores de cálculo, busca, XP, badges e store
 docs/                     notas de aprendizado e design system
-tests/e2e/                fluxos críticos em desktop e mobile
+tests/e2e/                fluxos críticos em desktop, tablet e mobile
 ```
 
-## Decisões técnicas
+## Como foi construído
 
 **Sem backend, de propósito.** O progresso vive no `localStorage`, com schema versionado e
 exportação em JSON. Isso elimina banco, autenticação, custo de servidor e coleta de dados
-pessoais, e deixa o deploy em uma CDN estática. A limitação (progresso por navegador) é
-mitigada pelo backup manual. A versão 2 do store adiciona missões e migra automaticamente
-backups da versão 1.
+pessoais, e deixa o deploy em uma CDN estática.
 
 **Conteúdo em MDX versionado no Git.** Cada lição é um arquivo de texto. Revisar conteúdo é
-abrir um pull request, e o build quebra se um componente ou link estiver errado. Sem CMS.
+abrir um pull request, e o build quebra se um componente ou link estiver errado.
 
-**Motor financeiro separado da interface.** `lib/finance.ts` concentra as contas de juros
-compostos, inflação, IR/IOF, dividend yield e risco em funções puras, cobertas por testes. A UI
-apenas consome.
+**Motor financeiro separado da interface.** `lib/finance.ts`, `lib/history.ts` e
+`lib/portfolio.ts` concentram as contas em funções puras, cobertas por testes. A UI apenas
+consome os resultados.
 
-**Conteúdo validado no build.** Um teste de integridade garante que toda lição publicada tem
-arquivo MDX, entrada no registry e quiz com alternativas válidas. O glossário também é checado:
-slugs únicos, categorias existentes e referências cruzadas válidas.
-
-**Gráficos próprios em SVG.** Para os simuladores atuais, um componente de ~100 linhas resolve
-sem adicionar 100 kB de biblioteca. A máquina do tempo reutiliza o mesmo componente com rótulos
-por ano, em vez de puxar uma biblioteca de gráficos.
-
-**Dados históricos embutidos no build.** `content/history.ts` guarda a série anual de CDI,
-Ibovespa e IPCA de 2000 a 2024. `lib/history.ts` aplica a taxa anual mês a mês, corrige pela
-inflação e destaca melhor e pior ano. Os números são aproximados, declaram as fontes na tela e
-não incluem impostos, taxas, custódia ou dividendos.
-
-**Carteira comparada com duas réguas.** `lib/portfolio.ts` reutiliza a mesma série histórica e
-aplica uma proxy por classe: caixa e renda fixa seguem o CDI, ações seguem o Ibovespa, e FIIs e
-exterior misturam os dois. Os pesos são rebalanceados todo mês, e o resultado é comparado com CDI
-e Ibovespa usando os mesmos aportes. A carteira fica no `localStorage`, com relatório anual e
-exportação em CSV.
-
-**Badges derivadas do progresso.** `lib/badges.ts` calcula cada conquista a partir de XP, lições,
-quizzes e missões. Nada é gravado além do próprio progresso, então uma badge nunca fica
-dessincronizada do que o aluno fez.
-
-**Recompensa condicionada à prática.** As missões só liberam XP depois que todos os passos são
-marcados e a pergunta de verificação é respondida corretamente. As lições só liberam XP depois do
-envio do quiz. Como o site não tem backend, a verificação é de compreensão e de intenção, não de
-execução real da tarefa.
-
-## Testes
-
-- **106 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
-  a simulação histórica, a carteira e os benchmarks, a progressão de XP, o store (idempotência,
-  missões, migração v1 → v2 e round-trip de backup), as badges, a busca sem acento, os tipos de
-  risco da lição e a integridade do conteúdo/glossário, incluindo a pergunta de verificação das
-  missões
-- **30 cenários E2E** em desktop, tablet e mobile: navegação, conclusão de lição após o quiz com
-  persistência, correção do quiz, reação dos simuladores, máquina do tempo, carteira com
-  benchmarks, relatório em CSV e persistência da carteira, checklist e pergunta das missões,
-  badges, cards de risco, abertura das 10 lições, busca do glossário e ausência de rolagem
-  horizontal
-
-## Roadmap
-
-- [x] Sprint 1: base, componentes, 3 lições, quiz, progresso e deploy estático
-- [x] Sprint 2: 10 lições publicadas, simuladores de renda fixa/variável e glossário
-- [x] Sprint 3: badges, missões práticas e simulador com dados históricos (máquina do tempo)
-- [x] Sprint 4: carteira, benchmarks (CDI/IBOV) e relatório de evolução
+**Gráficos próprios em SVG.** Para os simuladores atuais, um componente pequeno resolve sem
+adicionar uma biblioteca de gráficos ao bundle.
 
 ## Aviso
 
