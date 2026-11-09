@@ -105,11 +105,18 @@ formatado. Sempre inclua `display` legível ("R$ 200", "0,80% a.m.").
 
 ### Blocos de MDX (`components/mdx/index.tsx`)
 
-| Componente | Uso                                                   |
-| ---------- | ----------------------------------------------------- |
-| `Callout`  | aviso contextual; variantes `info`, `warn`, `success` |
-| `KeyIdea`  | a única ideia que o leitor deve levar da lição        |
-| `Formula`  | destaque de fórmula matemática com legenda opcional   |
+| Componente           | Uso                                                        |
+| -------------------- | ---------------------------------------------------------- |
+| `Callout`            | aviso contextual; variantes `info`, `warn`, `success`      |
+| `KeyIdea`            | a única ideia que o leitor deve levar da lição             |
+| `Formula`            | destaque de fórmula matemática com legenda opcional        |
+| `TimeComparison`     | compara dois prazos com o mesmo aporte, calculado no build |
+| `InterestComparison` | juros simples × compostos com valores calculados no build  |
+| `TaxBrackets`        | faixas regressivas de IR lidas de `IR_BRACKETS`            |
+| `IofCountdown`       | tabela de IOF dos 30 dias lida de `IOF_TABLE`              |
+
+Os componentes de comparação e as duas tabelas de regras não recebem números por prop: eles leem
+`lib/finance.ts` e recalculam no build, então o texto da lição nunca diverge do simulador.
 
 ### Gráficos (`components/charts/projection-chart.tsx`)
 
