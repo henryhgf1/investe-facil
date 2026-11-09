@@ -48,6 +48,7 @@ test("a página sobre explica como o produto funciona", async ({ page }) => {
 test("a página não tem rolagem horizontal", async ({ page }) => {
   for (const route of [
     "/trilha/",
+    "/carteira/",
     "/trilha/fundamentos/juros-compostos/",
     "/trilha/renda-fixa/ir-iof-liquidez/",
     "/glossario/",
@@ -283,7 +284,7 @@ test("o menu mobile abre, navega e fecha", async ({ page }) => {
 
 test("a navegação horizontal mantém alvos de toque de 44px", async ({ page }) => {
   const viewport = page.viewportSize();
-  test.skip(!viewport || viewport.width < 640, "navegação horizontal só aparece a partir de 640px");
+  test.skip(!viewport || viewport.width < 768, "navegação horizontal só aparece a partir de 768px");
 
   const links = page.locator("header nav a");
   const total = await links.count();

@@ -47,7 +47,7 @@ export function MobileMenu({ links }: { links: readonly NavLink[] }) {
   }
 
   return (
-    <details ref={detailsRef} className="relative sm:hidden">
+    <details ref={detailsRef} className="relative md:hidden">
       <summary className="border-line text-ink flex size-11 cursor-pointer list-none items-center justify-center rounded-lg border bg-white marker:hidden">
         <span className="sr-only">Abrir menu</span>
         <svg viewBox="0 0 24 24" className="size-5" fill="none" aria-hidden="true">

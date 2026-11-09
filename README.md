@@ -5,8 +5,8 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
-> **Status:** Sprint 3 concluído. A trilha de 10 lições, os 7 simuladores (incluindo a máquina
-> do tempo), as 8 missões práticas e as 12 conquistas estão no ar.
+> **Status:** Sprint 4 concluído. A trilha de 10 lições, os simuladores, a carteira com benchmarks
+> CDI/IBOV, o relatório de evolução, as 8 missões práticas e as 12 conquistas estão no ar.
 
 ![Página inicial](screenshots/home.png)
 
@@ -25,6 +25,8 @@ vocabulário aos poucos e com simuladores onde errar custa zero.
 - **Simuladores e gráficos**: juros compostos, inflação, risco × retorno, Tesouro × poupança,
   CDB × LCI, IR/IOF, dividend yield, propriedade, diversificação e a máquina do tempo com CDI,
   Ibovespa e IPCA de 2000 a 2024
+- **Carteira com benchmarks**: distribua aportes entre caixa, renda fixa, FIIs, ações e exterior,
+  compare com CDI e Ibovespa, veja a queda máxima e baixe o relatório ano a ano em CSV
 - **8 missões práticas** com checklist obrigatório e pergunta de verificação antes de liberar o XP
 - **12 conquistas** derivadas do progresso, sem campo extra para manter no backup
 - **Conclusão de lição condicionada ao quiz**, para o XP não sair com um clique acidental
@@ -78,12 +80,12 @@ node scripts/screenshot.mjs
 ## Estrutura
 
 ```
-app/                      rotas (landing, trilha, lição, simulador, missões, glossário, sobre)
+app/                      rotas (landing, trilha, lição, carteira, simulador, missões, glossário, sobre)
 components/
   charts/                 gráficos SVG sem dependências
   learn/                  quiz, progresso, missões, badges e navegação da trilha
   mdx/                    Callout, KeyIdea, Formula
-  sim/                    simuladores interativos, incluindo a máquina do tempo
+  sim/                    simuladores interativos, incluindo a máquina do tempo e a carteira
   ui/                     componentes base (botão, card, badge, progresso)
 content/
   modules/                lições em MDX, versionadas no Git
@@ -97,6 +99,7 @@ lib/
   badges.ts               conquistas derivadas do progresso
   finance.ts              juros, inflação, IR/IOF, dividend yield e risco (funções puras)
   history.ts              simulação histórica e correção pela inflação
+  portfolio.ts            carteira, benchmarks CDI/IBOV, retorno anualizado e drawdown
   search.ts               normalização de busca sem acento
   xp.ts                   níveis e progressão
   store/progress.ts       Zustand + persist + validação do backup
@@ -132,6 +135,12 @@ Ibovespa e IPCA de 2000 a 2024. `lib/history.ts` aplica a taxa anual mês a mês
 inflação e destaca melhor e pior ano. Os números são aproximados, declaram as fontes na tela e
 não incluem impostos, taxas, custódia ou dividendos.
 
+**Carteira comparada com duas réguas.** `lib/portfolio.ts` reutiliza a mesma série histórica e
+aplica uma proxy por classe: caixa e renda fixa seguem o CDI, ações seguem o Ibovespa, e FIIs e
+exterior misturam os dois. Os pesos são rebalanceados todo mês, e o resultado é comparado com CDI
+e Ibovespa usando os mesmos aportes. A carteira fica no `localStorage`, com relatório anual e
+exportação em CSV.
+
 **Badges derivadas do progresso.** `lib/badges.ts` calcula cada conquista a partir de XP, lições,
 quizzes e missões. Nada é gravado além do próprio progresso, então uma badge nunca fica
 dessincronizada do que o aluno fez.
@@ -143,20 +152,21 @@ execução real da tarefa.
 
 ## Testes
 
-- **81 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
-  a simulação histórica, a progressão de XP, o store (idempotência, missões, migração v1 → v2 e
-  round-trip de backup), as badges, a busca sem acento e a integridade do conteúdo/glossário,
-  incluindo a pergunta de verificação das missões
-- **19 cenários E2E** em desktop, tablet e mobile: navegação, conclusão de lição após o quiz com
-  persistência, correção do quiz, reação dos simuladores, máquina do tempo, checklist e pergunta
-  das missões, badges, abertura das 10 lições, busca do glossário e ausência de rolagem horizontal
+- **101 testes unitários** cobrindo o motor financeiro (IR, IOF, poupança, dividend yield e risco),
+  a simulação histórica, a carteira e os benchmarks, a progressão de XP, o store (idempotência,
+  missões, migração v1 → v2 e round-trip de backup), as badges, a busca sem acento e a integridade
+  do conteúdo/glossário, incluindo a pergunta de verificação das missões
+- **28 cenários E2E** em desktop, tablet e mobile: navegação, conclusão de lição após o quiz com
+  persistência, correção do quiz, reação dos simuladores, máquina do tempo, carteira com
+  benchmarks, relatório em CSV e persistência da carteira, checklist e pergunta das missões,
+  badges, abertura das 10 lições, busca do glossário e ausência de rolagem horizontal
 
 ## Roadmap
 
 - [x] Sprint 1: base, componentes, 3 lições, quiz, progresso e deploy estático
 - [x] Sprint 2: 10 lições publicadas, simuladores de renda fixa/variável e glossário
 - [x] Sprint 3: badges, missões práticas e simulador com dados históricos (máquina do tempo)
-- [ ] Sprint 4: carteira, benchmarks (CDI/IBOV) e relatório de evolução
+- [x] Sprint 4: carteira, benchmarks (CDI/IBOV) e relatório de evolução
 
 ## Aviso
 
