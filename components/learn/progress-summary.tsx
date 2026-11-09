@@ -5,14 +5,15 @@ import { Flame, Star, Trophy } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { readyLessons } from "@/content/lessons";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile } from "@/lib/store/progress";
 import { levelForXp } from "@/lib/xp";
 
 export function ProgressSummary() {
   const hydrated = useHydrated();
-  const xp = useProgressStore((state) => state.xp);
-  const lessons = useProgressStore((state) => state.lessons);
-  const quizzes = useProgressStore((state) => state.quizzes);
+  const profile = useActiveProfile();
+  const xp = profile?.xp ?? 0;
+  const lessons = profile?.lessons ?? {};
+  const quizzes = profile?.quizzes ?? {};
 
   const info = levelForXp(xp);
   const completed = Object.keys(lessons).length;

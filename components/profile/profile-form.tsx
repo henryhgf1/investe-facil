@@ -10,40 +10,49 @@ import type { Profile } from "@/lib/store/progress";
 import { useProgressStore } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 
+export type ProfileFormMode = "create" | "edit";
+
 export function ProfileForm({
-  profile,
-  onSaved,
+  profile = null,
+  mode = profile ? "edit" : "create",
+  onDone,
+  onCancel,
 }: {
-  profile: Profile | null;
-  onSaved: () => void;
+  profile?: Profile | null;
+  mode?: ProfileFormMode;
+  onDone: (message: string) => void;
+  onCancel?: () => void;
 }) {
-  const saveProfile = useProgressStore((state) => state.saveProfile);
-  const [name, setName] = useState(profile?.name ?? "");
-  const [avatarId, setAvatarId] = useState(profile?.avatarId ?? DEFAULT_AVATAR_ID);
+  const createProfile = useProgressStore((state) => state.createProfile);
+  const updateProfile = useProgressStore((state) => state.updateProfile);
+  const [name, setName] = useState(mode === "edit" ? (profile?.name ?? "") : "");
+  const [avatarId, setAvatarId] = useState(
+    mode === "edit" ? (profile?.avatarId ?? DEFAULT_AVATAR_ID) : DEFAULT_AVATAR_ID,
+  );
   const [error, setError] = useState<string | null>(null);
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const trimmed = name.trim();
-    if (trimmed.length < 2) {
-      setError("Escolha um nome com pelo menos 2 letras.");
+    const result = mode === "edit" ? updateProfile(name, avatarId) : createProfile(name, avatarId);
+
+    if (!result.ok) {
+      setError(result.error);
       return;
     }
 
-    saveProfile(trimmed, avatarId);
     setError(null);
-    onSaved();
+    onDone("Perfil salvo.");
   }
 
   return (
     <form onSubmit={handleSubmit} className="mt-6 space-y-5">
       <div>
-        <label htmlFor="profile-name" className="text-ink text-sm font-semibold">
+        <label htmlFor={`profile-name-${mode}`} className="text-ink text-sm font-semibold">
           Nome
         </label>
         <input
-          id="profile-name"
+          id={`profile-name-${mode}`}
           name="name"
           type="text"
           value={name}
@@ -52,11 +61,11 @@ export function ProfileForm({
           maxLength={24}
           autoComplete="nickname"
           required
-          aria-describedby="profile-name-help"
+          aria-describedby={`profile-name-help-${mode}`}
           className="border-line focus:border-brand-600 focus:ring-brand-600/20 mt-1.5 h-11 w-full rounded-xl border bg-white px-3 text-[15px] text-slate-800 outline-none focus:ring-4"
         />
-        <p id="profile-name-help" className="text-muted mt-1.5 text-xs leading-5">
-          Pode ser um apelido. Nada é enviado para servidor.
+        <p id={`profile-name-help-${mode}`} className="text-muted mt-1.5 text-xs leading-5">
+          De 2 a 24 caracteres. Pode ser um apelido. Nada é enviado para servidor.
         </p>
       </div>
 
@@ -79,7 +88,7 @@ export function ProfileForm({
               >
                 <input
                   type="radio"
-                  name="avatar"
+                  name={`avatar-${mode}`}
                   value={avatar.id}
                   checked={selected}
                   onChange={() => setAvatarId(avatar.id)}
@@ -98,10 +107,17 @@ export function ProfileForm({
       <div className="flex flex-wrap items-center gap-3">
         <Button type="submit">
           <Save className="size-4" aria-hidden="true" />
-          {profile ? "Salvar perfil" : "Criar perfil"}
+          {mode === "edit" ? "Salvar perfil" : "Criar perfil"}
         </Button>
+        {onCancel ? (
+          <Button type="button" variant="secondary" onClick={onCancel}>
+            Cancelar
+          </Button>
+        ) : null}
         <p className="text-muted text-xs leading-5">
-          O perfil fica salvo apenas neste navegador, junto com o progresso.
+          {mode === "edit"
+            ? "O perfil e o progresso ficam salvos apenas neste navegador."
+            : "O novo perfil começa com o progresso zerado e pode ser trocado depois."}
         </p>
       </div>
 

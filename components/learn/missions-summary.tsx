@@ -7,14 +7,15 @@ import { Progress } from "@/components/ui/progress";
 import { missions } from "@/content/missions";
 import { badges, earnedBadgeCount, nextBadge } from "@/lib/badges";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile } from "@/lib/store/progress";
 
 export function MissionsSummary() {
   const hydrated = useHydrated();
-  const xp = useProgressStore((state) => state.xp);
-  const lessons = useProgressStore((state) => state.lessons);
-  const quizzes = useProgressStore((state) => state.quizzes);
-  const missionState = useProgressStore((state) => state.missions);
+  const profile = useActiveProfile();
+  const xp = profile?.xp ?? 0;
+  const lessons = profile?.lessons ?? {};
+  const quizzes = profile?.quizzes ?? {};
+  const missionState = profile?.missions ?? {};
 
   if (!hydrated) {
     return (

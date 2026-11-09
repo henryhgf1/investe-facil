@@ -7,7 +7,7 @@ import { ProfileRequiredNotice } from "@/components/learn/profile-required";
 import { Button } from "@/components/ui/button";
 import type { Mission } from "@/content/missions";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile, useProgressStore } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 
 export function MissionExercise({
@@ -18,8 +18,8 @@ export function MissionExercise({
   compact?: boolean;
 }) {
   const hydrated = useHydrated();
-  const profile = useProgressStore((state) => state.profile);
-  const completed = useProgressStore((state) => Boolean(state.missions[mission.id]));
+  const profile = useActiveProfile();
+  const completed = Boolean(profile?.missions[mission.id]);
   const completeMission = useProgressStore((state) => state.completeMission);
   const [checkedSteps, setCheckedSteps] = useState<number[]>([]);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);

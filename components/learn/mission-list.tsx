@@ -10,7 +10,7 @@ import { getLessonBySlug, lessonPath } from "@/content/lessons";
 import { missions, type Mission } from "@/content/missions";
 import { modules } from "@/content/modules";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
-import { useProgressStore } from "@/lib/store/progress";
+import { useActiveProfile } from "@/lib/store/progress";
 import { cn } from "@/lib/utils";
 
 const badgeVariant = {
@@ -62,7 +62,8 @@ function MissionItem({ mission, completed }: { mission: Mission; completed: bool
 
 export function MissionList() {
   const hydrated = useHydrated();
-  const completedMissions = useProgressStore((state) => state.missions);
+  const profile = useActiveProfile();
+  const completedMissions = profile?.missions ?? {};
   const completed = Object.keys(completedMissions).length;
   const percent = missions.length > 0 ? (completed / missions.length) * 100 : 0;
 
