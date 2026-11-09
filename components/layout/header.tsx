@@ -6,6 +6,7 @@ import { Logo } from "@/components/ui/logo";
 
 const navLinks = [
   { href: "/trilha/", label: "Trilha" },
+  { href: "/carteira/", label: "Carteira" },
   { href: "/simulador/", label: "Simulador" },
   { href: "/missoes/", label: "Missões" },
   { href: "/glossario/", label: "Glossário" },
@@ -18,7 +19,7 @@ export function Header() {
       <Container className="flex h-16 items-center justify-between gap-4">
         <Logo />
 
-        <nav aria-label="Navegação principal" className="hidden items-center gap-1 sm:flex">
+        <nav aria-label="Navegação principal" className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}

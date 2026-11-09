@@ -82,7 +82,7 @@ test("a lição mostra a missão recomendada e permite concluí-la", async ({ pa
 test("a navegação principal leva às missões", async ({ page }) => {
   const viewport = page.viewportSize();
 
-  if (viewport && viewport.width >= 640) {
+  if (viewport && viewport.width >= 768) {
     await page
       .getByRole("navigation", { name: "Navegação principal" })
       .getByRole("link", { name: "Missões" })
