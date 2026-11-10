@@ -5,7 +5,8 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
-Tema claro e escuro em todo o site, com visual de fintech premium e escolha manual de tema.
+Tema claro e escuro em todo o site, com visual de fintech premium, escolha manual de tema e
+animações de entrada discretas.
 
 | Claro                                                 | Escuro                                                      |
 | ----------------------------------------------------- | ----------------------------------------------------------- |
@@ -49,6 +50,8 @@ dados pessoais.
 - **Backup em JSON** com todos os perfis e o progresso para exportar e importar entre dispositivos
 - **Tema claro, escuro e sistema** em todo o site, com escolha manual salva no navegador e
   preferência inicial do sistema operacional
+- **Animações discretas**: entrada do hero, reveal ao rolar e skeletons com shimmer, em CSS puro,
+  sem biblioteca e com fallback para quem navega sem JavaScript
 - **Acessibilidade**: navegação por teclado, contraste AA nos dois temas, gráficos com descrição
   textual e respeito a `prefers-reduced-motion`
 
@@ -91,7 +94,8 @@ node scripts/screenshot.mjs
 
 O script gera as capturas nos dois temas e em desktop/mobile: `home.png` (claro) e
 `home-dark.png` (escuro), além de `home-mobile.png` e `home-mobile-dark.png`. Ele grava o tema em
-`localStorage` antes do primeiro render e falha se houver erro de console.
+`localStorage` antes do primeiro render, usa `reducedMotion: "reduce"` para o `fullPage` capturar
+o conteúdo já revelado e falha se houver erro de console.
 
 O tema e os tokens estão documentados em [`docs/design-system.md`](docs/design-system.md).
 
@@ -144,6 +148,12 @@ série muda de tom junto com o tema.
 script inline no layout aplica a classe `.dark` antes da pintura. Os tokens semânticos em
 `app/globals.css` trocam de valor entre `:root` e `.dark`, então a maior parte dos componentes não
 precisa de nenhuma classe `dark:`.
+
+**Animação em CSS, não em biblioteca.** O hero usa `@keyframes` (`fade-up`), as seções abaixo da
+dobra usam um `Reveal` com `IntersectionObserver` e os placeholders de hidratação usam
+`.skeleton` com shimmer. O estado escondido do reveal depende da classe `.js` no `<html>`, então
+sem JavaScript o conteúdo aparece normalmente. `prefers-reduced-motion` encurta tudo e revela na
+hora. Nenhuma dependência nova entrou no bundle.
 
 ## Aviso
 

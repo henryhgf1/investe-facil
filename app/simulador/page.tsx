@@ -5,6 +5,7 @@ import Link from "next/link";
 import { TimeMachine } from "@/components/sim/time-machine";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { HISTORY_END, HISTORY_START, historySource } from "@/content/history";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function SimuladorPage() {
 
   return (
     <Container className="py-12 sm:py-16">
-      <div className="max-w-3xl">
+      <Reveal className="max-w-3xl">
         <Badge variant="brand">Simulador histórico</Badge>
         <h1 className="font-display text-ink mt-4 text-3xl font-extrabold sm:text-4xl">
           E se você tivesse começado em 2000?
@@ -38,11 +39,14 @@ export default function SimuladorPage() {
             Nenhum dinheiro em risco
           </span>
         </div>
-      </div>
+      </Reveal>
 
-      <TimeMachine />
+      <Reveal delay={80}>
+        <TimeMachine />
+      </Reveal>
 
-      <section
+      <Reveal
+        as="section"
         aria-labelledby="fontes"
         className="border-line bg-surface mt-12 rounded-2xl border p-6"
       >
@@ -66,9 +70,9 @@ export default function SimuladorPage() {
         <p className="bg-canvas text-muted mt-4 rounded-xl px-4 py-3 text-sm leading-6">
           {historySource.note}
         </p>
-      </section>
+      </Reveal>
 
-      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+      <Reveal className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
         <Link
           href="/trilha/fundamentos/inflacao/"
           className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-1.5 font-semibold"
@@ -83,7 +87,7 @@ export default function SimuladorPage() {
           Ver a lição de diversificação
           <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
-      </div>
+      </Reveal>
     </Container>
   );
 }

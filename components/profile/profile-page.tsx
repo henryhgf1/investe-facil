@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Progress } from "@/components/ui/progress";
+import { Reveal } from "@/components/ui/reveal";
 import { readyLessons } from "@/content/lessons";
 import { missions } from "@/content/missions";
 import { useHydrated } from "@/lib/hooks/use-hydrated";
@@ -42,8 +43,8 @@ export function ProfilePage() {
     return (
       <Container className="max-w-4xl py-12 sm:py-16">
         <div aria-hidden="true" className="space-y-4">
-          <div className="border-line bg-surface h-24 animate-pulse rounded-2xl border" />
-          <div className="border-line bg-surface h-64 animate-pulse rounded-2xl border" />
+          <div className="border-line skeleton h-24 rounded-2xl border" />
+          <div className="border-line skeleton h-64 rounded-2xl border" />
         </div>
       </Container>
     );
@@ -57,7 +58,7 @@ export function ProfilePage() {
 
   return (
     <Container className="max-w-4xl py-12 sm:py-16">
-      <div className="max-w-2xl">
+      <Reveal className="max-w-2xl">
         <Badge variant="brand">
           <UserRound className="size-3.5" aria-hidden="true" />
           Seu espaço
@@ -69,11 +70,13 @@ export function ProfilePage() {
           Até {MAX_PROFILES} perfis por navegador, cada um com o próprio progresso. Nome e avatar
           identificam você. Nada é enviado para servidor e não existe senha.
         </p>
-      </div>
+      </Reveal>
 
-      <section
+      <Reveal
+        as="section"
         aria-labelledby="dados-perfil"
         className="border-line bg-surface mt-8 overflow-hidden rounded-3xl border"
+        delay={60}
       >
         <div className="border-line flex flex-wrap items-start gap-4 border-b px-6 py-5 sm:px-8">
           <ProfileAvatar avatarId={showCreateForm ? null : profile?.avatarId} size="lg" />
@@ -127,13 +130,16 @@ export function ProfilePage() {
             onCancel={showCreateForm && profile ? () => setCreating(false) : undefined}
           />
         </div>
-      </section>
+      </Reveal>
 
-      <ProfileList onMessage={setMessage} />
+      <Reveal>
+        <ProfileList onMessage={setMessage} />
+      </Reveal>
 
       {profile && !showCreateForm ? (
         <>
-          <section
+          <Reveal
+            as="section"
             aria-labelledby="resumo-perfil"
             className="border-line bg-surface mt-6 rounded-3xl border p-6 sm:p-8"
           >
@@ -177,17 +183,17 @@ export function ProfilePage() {
                   : `Faltam ${info.xpToNextLevel} XP para o nível ${info.level + 1}.`}
               </p>
             </div>
-          </section>
+          </Reveal>
 
-          <div className="mt-6">
+          <Reveal className="mt-6">
             <ResetProgress />
-          </div>
+          </Reveal>
         </>
       ) : null}
 
-      <div className="mt-6">
+      <Reveal className="mt-6">
         <ProgressTools />
-      </div>
+      </Reveal>
     </Container>
   );
 }

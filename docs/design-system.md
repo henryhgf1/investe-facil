@@ -134,10 +134,70 @@ Números financeiros usam `tabular-nums`.
 
 - Sombra padrão de card: `shadow-card` (`--card-shadow`); no hover use `shadow-card-hover`.
 - Classes utilitárias próprias: `.hero-glow` (brilho radial do topo), `.text-gradient`
-  (gradiente verde→azul em texto) e `.ring-glow` (borda com brilho suave).
+  (gradiente verde→azul em texto), `.ring-glow` (borda com brilho suave), `.animate-fade-up`,
+  `.reveal` e `.skeleton` (ver seção de animações).
 - Container: `max-w-6xl` com `px-5 sm:px-6 lg:px-8`
 - Ritmo vertical entre seções: `py-16` a `py-24`
 - Conteúdo de lição: `max-w-3xl` para manter a linha entre 60 e 75 caracteres
+
+## Animações e microinterações
+
+As animações são CSS puro, sem biblioteca. A regra é: movimento curto, com propósito, e sempre
+com um caminho sem animação.
+
+| Peça                      | Onde vive                          | Uso                                                             |
+| ------------------------- | ---------------------------------- | --------------------------------------------------------------- |
+| `.animate-fade-up`        | `app/globals.css`                  | entrada imediata de hero e cabeçalho de lição, uma vez ao abrir |
+| `.reveal` + `Reveal`      | `app/globals.css`, `components/ui` | revela blocos quando entram na viewport                         |
+| `.skeleton`               | `app/globals.css`                  | placeholder de hidratação, com shimmer                          |
+| `transition-*` nos botões | `components/ui/button.tsx`         | hover/active com cor, sombra e 1px de elevação                  |
+
+### Entrada no carregamento (`fade-up`)
+
+Use `animate-fade-up` só no que já está acima da dobra. A animação roda uma vez, dura 0,6s e usa
+`cubic-bezier(0.22, 1, 0.36, 1)`. Para escalonar, aplique `style={{ animationDelay: "120ms" }}`
+diretamente no elemento (é o que o hero da home faz no card de prévia).
+
+### Reveal ao rolar
+
+`Reveal` (`components/ui/reveal.tsx`) é um client component que observa a entrada do bloco com
+`IntersectionObserver`, revela uma única vez e desconecta o observer. Variantes: `up` (padrão),
+`fade` e `scale`. `delay` escalona cards em milissegundos e `as` permite renderizar `section`,
+`nav` etc. sem perder a semântica.
+
+```tsx
+<Reveal delay={index * 70}>
+  <Card className="h-full p-6">…</Card>
+</Reveal>
+```
+
+Regras:
+
+- **Só abaixo da dobra.** Hero e topo de lição usam `animate-fade-up`, não `Reveal`.
+- **Nunca esconda conteúdo sem JavaScript.** O estado inicial (`opacity: 0` e `translateY`) só vale
+  dentro de `.js .reveal`. O script inline de `app/layout.tsx` adiciona `js` ao `<html>` antes da
+  pintura; sem JavaScript, o seletor não casa e tudo aparece normalmente.
+- **Não anime texto longo de leitura.** Na página de lição, o artigo fica estático; só quiz,
+  conclusão, missão e navegação recebem `Reveal`.
+- **Não use `Reveal` para esconder conteúdo interativo acima da dobra.** Prefira `fade-up`, que não
+  depende de scroll.
+
+### Loading com skeleton
+
+O site é estático e o progresso vem do `localStorage`, então o estado de carregamento é a
+hidratação. Use `.skeleton` (fundo `surface-2` + brilho em `surface-3`) em vez de spinner ou
+`animate-pulse`. O shimmer é decorativo: o bloco tem `aria-hidden="true"` e o conteúdo real entra
+assim que o perfil hidrata.
+
+### Quando não animar
+
+- `prefers-reduced-motion: reduce`: durações caem para ~0 e o reveal aparece imediatamente
+  (`opacity: 1 !important`, `transform: none !important`); o shimmer do skeleton é desligado.
+- Movimento que muda layout (largura, altura, posição de conteúdo) fica fora; use opacidade,
+  transform e sombra.
+- Não anime foco, erro de formulário nem mudança de estado do quiz: o feedback precisa ser
+  imediato e legível.
+- Não empilhe animações no mesmo elemento (ex.: `fade-up` + `Reveal`).
 
 ## Componentes
 
@@ -153,7 +213,9 @@ Números financeiros usam `tabular-nums`.
 
 Tamanhos: `sm` (36px), `md` (44px), `lg` (48px). Para links com aparência de botão, use
 `buttonStyles({ variant, size })` em vez de `<Button>`. Todos usam `primary`/`on-primary`,
-`danger-soft`/`on-danger` e `focus-visible` com o anel do tema.
+`danger-soft`/`on-danger` e `focus-visible` com o anel do tema. A transição é explícita
+(`color`, `background-color`, `border-color`, `box-shadow`, `transform`, 200ms, `ease-out`), sem
+`transition-all`: o hover sobe 1px (`hover:-translate-y-px`) e o active volta ao lugar.
 
 ### Badge (`components/ui/badge.tsx`)
 
@@ -251,7 +313,8 @@ aparecem tracejadas. As cores vêm de `var(--chart-N)` para trocar junto com o t
 
 - Contraste mínimo AA em todo texto nos dois temas; `muted` só para texto de apoio
 - Foco visível global: `outline: 2px solid var(--ring)` com `offset: 2px`
-- `prefers-reduced-motion` desliga animações e transições
+- `prefers-reduced-motion` encurta animações/transições e revela o conteúdo imediatamente, sem
+  shimmer nos skeletons
 - Todo gráfico tem `role="img"` e `aria-label` com o resumo numérico
 - Quiz usa `input type="radio"` nativo dentro de `<fieldset>`, com feedback textual
 - Alvos de toque com no mínimo 44px de altura nas ações principais, inclusive no seletor de tema
@@ -298,4 +361,6 @@ node scripts/screenshot.mjs
 
 O script abre um contexto por combinação, grava o tema em `localStorage` antes do primeiro render
 e salva `home.png` (claro), `home-dark.png` (escuro), `home-mobile.png` e `home-mobile-dark.png`.
-Ele também falha se houver erro de console ou de página.
+Ele usa `reducedMotion: "reduce"` no contexto porque o `fullPage` não dispara o
+`IntersectionObserver`; assim o reveal já está no estado final na captura. O script também falha se
+houver erro de console ou de página.

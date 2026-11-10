@@ -111,12 +111,7 @@ export function BadgeGrid() {
   const percent = badges.length > 0 ? (earned / badges.length) * 100 : 0;
 
   if (!hydrated) {
-    return (
-      <div
-        aria-hidden="true"
-        className="border-line bg-surface h-64 animate-pulse rounded-2xl border"
-      />
-    );
+    return <div aria-hidden="true" className="border-line skeleton h-64 rounded-2xl border" />;
   }
 
   return (

@@ -5,6 +5,7 @@ import { ProfileBanner } from "@/components/learn/profile-banner";
 import { ProgressSummary } from "@/components/learn/progress-summary";
 import { TrilhaList } from "@/components/learn/trilha-list";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { readyLessons } from "@/content/lessons";
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export default function TrilhaPage() {
   return (
     <Container className="py-12 sm:py-16">
-      <div className="max-w-2xl">
+      <Reveal className="max-w-2xl">
         <p className="text-brand-700 mb-2 text-xs font-bold tracking-widest uppercase">
           Trilha de aprendizado
         </p>
@@ -27,12 +28,18 @@ export default function TrilhaPage() {
           Comece pelos fundamentos, avance para a renda fixa e só então explore a renda variável.
           São {readyLessons.length} lições no ar, com quiz e progresso salvo no seu navegador.
         </p>
-      </div>
+      </Reveal>
 
       <div className="mt-8 space-y-4">
-        <ProfileBanner />
-        <ProgressSummary />
-        <MissionsSummary />
+        <Reveal>
+          <ProfileBanner />
+        </Reveal>
+        <Reveal delay={60}>
+          <ProgressSummary />
+        </Reveal>
+        <Reveal delay={120}>
+          <MissionsSummary />
+        </Reveal>
       </div>
 
       <div className="mt-12">

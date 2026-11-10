@@ -26,7 +26,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const themeScript = `(function(){try{var key="investe-facil:theme";var value=window.localStorage.getItem(key);var theme=value==="light"||value==="dark"?value:"system";var dark=theme==="dark"||(theme==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches);var root=document.documentElement;root.classList.toggle("dark",dark);root.style.colorScheme=dark?"dark":"light";}catch(error){}})();`;
+const themeScript = `(function(){var root=document.documentElement;root.classList.add("js");try{var key="investe-facil:theme";var value=window.localStorage.getItem(key);var theme=value==="light"||value==="dark"?value:"system";var dark=theme==="dark"||(theme==="system"&&window.matchMedia("(prefers-color-scheme: dark)").matches);root.classList.toggle("dark",dark);root.style.colorScheme=dark?"dark":"light";}catch(error){}})();`;
 
 export const metadata: Metadata = {
   title: {

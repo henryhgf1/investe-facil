@@ -22,6 +22,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { glossary } from "@/content/glossary";
 import { lessonsOfModule } from "@/content/lessons";
 import { modules } from "@/content/modules";
@@ -139,17 +140,19 @@ export default function SobrePage() {
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
-      <Badge variant="brand">Sobre o Investe Fácil</Badge>
-      <h1 className="font-display text-ink mt-4 text-3xl font-extrabold sm:text-4xl">
-        Como o Investe Fácil funciona
-      </h1>
-      <p className="text-body mt-4 text-lg leading-8">
-        Uma trilha curta para entender como o dinheiro cresce, como os investimentos funcionam e
-        quais riscos existem antes de colocar dinheiro real. Você lê, simula e responde quiz no
-        mesmo lugar, sem cadastro e sem movimentar um centavo.
-      </p>
+      <Reveal>
+        <Badge variant="brand">Sobre o Investe Fácil</Badge>
+        <h1 className="font-display text-ink mt-4 text-3xl font-extrabold sm:text-4xl">
+          Como o Investe Fácil funciona
+        </h1>
+        <p className="text-body mt-4 text-lg leading-8">
+          Uma trilha curta para entender como o dinheiro cresce, como os investimentos funcionam e
+          quais riscos existem antes de colocar dinheiro real. Você lê, simula e responde quiz no
+          mesmo lugar, sem cadastro e sem movimentar um centavo.
+        </p>
+      </Reveal>
 
-      <section aria-labelledby="para-quem" className="mt-12">
+      <Reveal as="section" aria-labelledby="para-quem" className="mt-12">
         <h2 id="para-quem" className="font-display text-ink text-2xl font-bold">
           Para quem é
         </h2>
@@ -164,9 +167,9 @@ export default function SobrePage() {
             </Card>
           ))}
         </div>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="trilha" className="mt-12">
+      <Reveal as="section" aria-labelledby="trilha" className="mt-12">
         <h2 id="trilha" className="font-display text-ink text-2xl font-bold">
           A trilha em 3 módulos
         </h2>
@@ -198,9 +201,9 @@ export default function SobrePage() {
             );
           })}
         </div>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="licao" className="mt-12">
+      <Reveal as="section" aria-labelledby="licao" className="mt-12">
         <h2 id="licao" className="font-display text-ink text-2xl font-bold">
           Como uma lição funciona
         </h2>
@@ -219,9 +222,9 @@ export default function SobrePage() {
             </li>
           ))}
         </ol>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="material" className="mt-12">
+      <Reveal as="section" aria-labelledby="material" className="mt-12">
         <h2 id="material" className="font-display text-ink text-2xl font-bold">
           O material
         </h2>
@@ -239,9 +242,9 @@ export default function SobrePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="exercicios" className="mt-12">
+      <Reveal as="section" aria-labelledby="exercicios" className="mt-12">
         <h2 id="exercicios" className="font-display text-ink text-2xl font-bold">
           Os exercícios
         </h2>
@@ -259,9 +262,9 @@ export default function SobrePage() {
             </Card>
           ))}
         </div>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="progresso" className="mt-12">
+      <Reveal as="section" aria-labelledby="progresso" className="mt-12">
         <h2 id="progresso" className="font-display text-ink text-2xl font-bold">
           Quiz e progresso
         </h2>
@@ -306,9 +309,9 @@ export default function SobrePage() {
             </Badge>
           </Card>
         </div>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="glossario" className="mt-12">
+      <Reveal as="section" aria-labelledby="glossario" className="mt-12">
         <h2 id="glossario" className="font-display text-ink text-2xl font-bold">
           Glossário
         </h2>
@@ -324,9 +327,9 @@ export default function SobrePage() {
           Consultar o glossário
           <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
-      </section>
+      </Reveal>
 
-      <section aria-labelledby="nao-e" className="mt-12">
+      <Reveal as="section" aria-labelledby="nao-e" className="mt-12">
         <h2 id="nao-e" className="font-display text-ink text-2xl font-bold">
           O que o Investe Fácil não é
         </h2>
@@ -338,9 +341,9 @@ export default function SobrePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Reveal>
 
-      <div className="border-warn/25 bg-warn-soft mt-12 rounded-2xl border p-5">
+      <Reveal className="border-warn/25 bg-warn-soft mt-12 rounded-2xl border p-5">
         <p className="font-display text-ink flex items-center gap-2 text-base font-bold">
           <ShieldCheck className="text-warn size-4" aria-hidden="true" />
           Aviso importante
@@ -350,9 +353,9 @@ export default function SobrePage() {
           investimentos. Todos os números são ilustrativos e não representam produtos reais.
           Rentabilidades passadas não garantem resultados futuros.
         </p>
-      </div>
+      </Reveal>
 
-      <div className="border-line mt-10 flex flex-wrap items-center gap-4 border-t pt-6 text-sm">
+      <Reveal className="border-line mt-10 flex flex-wrap items-center gap-4 border-t pt-6 text-sm">
         <Link
           href="/trilha/"
           className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-1.5 font-semibold"
@@ -378,7 +381,7 @@ export default function SobrePage() {
           </svg>
           Código e detalhes técnicos
         </a>
-      </div>
+      </Reveal>
     </Container>
   );
 }

@@ -70,8 +70,8 @@ export function MissionList() {
   if (!hydrated) {
     return (
       <div aria-hidden="true" className="space-y-4">
-        <div className="border-line bg-surface h-24 animate-pulse rounded-2xl border" />
-        <div className="border-line bg-surface h-64 animate-pulse rounded-2xl border" />
+        <div className="border-line skeleton h-24 rounded-2xl border" />
+        <div className="border-line skeleton h-64 rounded-2xl border" />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GlossaryList } from "@/components/learn/glossary-list";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { glossary, glossaryCategories } from "@/content/glossary";
 
 export const metadata: Metadata = {
@@ -33,7 +34,7 @@ export default function GlossarioPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="max-w-2xl">
+      <Reveal className="max-w-2xl">
         <Badge variant="brand">Consulta rápida</Badge>
         <h1 className="font-display text-ink mt-4 text-3xl font-extrabold sm:text-4xl">
           Glossário de investimentos
@@ -42,13 +43,13 @@ export default function GlossarioPage() {
           {glossary.length} termos explicados sem jargão, organizados em {glossaryCategories.length}{" "}
           categorias. Use a busca: ela ignora acentos e encontra siglas como CDI, FII e IOF.
         </p>
-      </div>
+      </Reveal>
 
-      <div className="mt-8">
+      <Reveal className="mt-8">
         <GlossaryList />
-      </div>
+      </Reveal>
 
-      <div className="border-line bg-canvas mt-12 rounded-2xl border p-6">
+      <Reveal className="border-line bg-canvas mt-12 rounded-2xl border p-6">
         <p className="font-display text-ink text-base font-bold">
           Não achou o termo que procurava?
         </p>
@@ -62,7 +63,7 @@ export default function GlossarioPage() {
         >
           Ver a trilha completa →
         </Link>
-      </div>
+      </Reveal>
     </Container>
   );
 }

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonStyles } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { glossary } from "@/content/glossary";
 import { lessonsOfModule, readyLessons } from "@/content/lessons";
 import { missions } from "@/content/missions";
@@ -53,7 +54,7 @@ export default function HomePage() {
       <section className="border-line relative overflow-hidden border-b">
         <div aria-hidden="true" className="hero-glow pointer-events-none absolute inset-0" />
         <Container className="relative grid gap-12 py-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:py-24">
-          <div>
+          <div className="animate-fade-up">
             <p className="border-line bg-surface/70 text-body inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur">
               <span className="bg-primary size-1.5 rounded-full" aria-hidden="true" />
               Educação financeira sem jargão
@@ -99,7 +100,10 @@ export default function HomePage() {
             </dl>
           </div>
 
-          <Card className="ring-glow relative overflow-hidden p-6 sm:p-7">
+          <Card
+            className="ring-glow animate-fade-up relative overflow-hidden p-6 sm:p-7"
+            style={{ animationDelay: "120ms" }}
+          >
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--primary)_10%,transparent),transparent)]"
@@ -167,7 +171,7 @@ export default function HomePage() {
 
       <section id="como-funciona" className="scroll-mt-20 py-16 sm:py-20">
         <Container>
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <p className="text-brand-700 mb-2 text-xs font-bold tracking-widest uppercase">
               Como funciona
             </p>
@@ -178,20 +182,22 @@ export default function HomePage() {
               O Investe Fácil foi desenhado para quem nunca investiu: primeiro entender, depois
               experimentar, só então decidir.
             </p>
-          </div>
+          </Reveal>
 
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {steps.map((step, index) => (
-              <Card key={step.title} className="p-6">
-                <span className="bg-brand-50 text-brand-700 flex size-11 items-center justify-center rounded-xl">
-                  <step.icon className="size-5" aria-hidden="true" />
-                </span>
-                <p className="text-muted mt-5 text-xs font-bold tracking-widest uppercase">
-                  Passo {index + 1}
-                </p>
-                <h3 className="font-display text-ink mt-1 text-lg font-bold">{step.title}</h3>
-                <p className="text-muted mt-2 text-sm leading-6">{step.description}</p>
-              </Card>
+              <Reveal key={step.title} className="h-full" delay={index * 70}>
+                <Card className="h-full p-6">
+                  <span className="bg-brand-50 text-brand-700 flex size-11 items-center justify-center rounded-xl">
+                    <step.icon className="size-5" aria-hidden="true" />
+                  </span>
+                  <p className="text-muted mt-5 text-xs font-bold tracking-widest uppercase">
+                    Passo {index + 1}
+                  </p>
+                  <h3 className="font-display text-ink mt-1 text-lg font-bold">{step.title}</h3>
+                  <p className="text-muted mt-2 text-sm leading-6">{step.description}</p>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </Container>
@@ -199,7 +205,7 @@ export default function HomePage() {
 
       <section className="border-line bg-surface border-y py-16 sm:py-20">
         <Container>
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
               <p className="text-brand-700 mb-2 text-xs font-bold tracking-widest uppercase">
                 A trilha
@@ -219,56 +225,58 @@ export default function HomePage() {
               Ver trilha completa
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
-          </div>
+          </Reveal>
 
           <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {modules.map((module) => {
+            {modules.map((module, index) => {
               const moduleLessons = lessonsOfModule(module.id);
               const ready = moduleLessons.filter((lesson) => lesson.status === "ready").length;
 
               return (
-                <Card key={module.id} className="flex flex-col p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-muted font-mono text-xs font-bold">
-                      MÓDULO {String(module.order).padStart(2, "0")}
-                    </span>
-                    <Badge variant={ready === moduleLessons.length ? "brand" : "outline"}>
-                      {ready === moduleLessons.length
-                        ? "completo"
-                        : `${ready} de ${moduleLessons.length} no ar`}
-                    </Badge>
-                  </div>
+                <Reveal key={module.id} className="h-full" delay={index * 70}>
+                  <Card className="flex h-full flex-col p-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-muted font-mono text-xs font-bold">
+                        MÓDULO {String(module.order).padStart(2, "0")}
+                      </span>
+                      <Badge variant={ready === moduleLessons.length ? "brand" : "outline"}>
+                        {ready === moduleLessons.length
+                          ? "completo"
+                          : `${ready} de ${moduleLessons.length} no ar`}
+                      </Badge>
+                    </div>
 
-                  <h3 className="font-display text-ink mt-4 text-xl font-bold">{module.title}</h3>
-                  <p className="text-muted mt-2 flex-1 text-sm leading-6">{module.description}</p>
+                    <h3 className="font-display text-ink mt-4 text-xl font-bold">{module.title}</h3>
+                    <p className="text-muted mt-2 flex-1 text-sm leading-6">{module.description}</p>
 
-                  <ul className="border-line mt-5 space-y-1.5 border-t pt-4 text-sm">
-                    {moduleLessons.slice(0, 3).map((lesson) => (
-                      <li key={lesson.slug} className="text-body flex items-center gap-2">
-                        <span
-                          aria-hidden="true"
-                          className={
-                            lesson.status === "ready"
-                              ? "bg-brand-600 size-1.5 rounded-full"
-                              : "bg-line-strong size-1.5 rounded-full"
-                          }
-                        />
-                        {lesson.title}
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="border-line mt-5 space-y-1.5 border-t pt-4 text-sm">
+                      {moduleLessons.slice(0, 3).map((lesson) => (
+                        <li key={lesson.slug} className="text-body flex items-center gap-2">
+                          <span
+                            aria-hidden="true"
+                            className={
+                              lesson.status === "ready"
+                                ? "bg-brand-600 size-1.5 rounded-full"
+                                : "bg-line-strong size-1.5 rounded-full"
+                            }
+                          />
+                          {lesson.title}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <p className="text-muted mt-4 inline-flex items-center gap-1.5 text-xs">
-                    <Clock3 className="size-3.5" aria-hidden="true" />
-                    {moduleLessons.reduce((sum, lesson) => sum + lesson.durationMin, 0)} min de
-                    leitura
-                  </p>
-                </Card>
+                    <p className="text-muted mt-4 inline-flex items-center gap-1.5 text-xs">
+                      <Clock3 className="size-3.5" aria-hidden="true" />
+                      {moduleLessons.reduce((sum, lesson) => sum + lesson.durationMin, 0)} min de
+                      leitura
+                    </p>
+                  </Card>
+                </Reveal>
               );
             })}
           </div>
 
-          <div className="border-line bg-canvas mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border px-5 py-4">
+          <Reveal className="border-line bg-canvas mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border px-5 py-4">
             <p className="text-muted text-sm">
               Encontrou uma sigla desconhecida? O glossário explica {glossary.length} termos em
               português claro, com busca que ignora acentos.
@@ -280,13 +288,13 @@ export default function HomePage() {
               Abrir o glossário
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
-          </div>
+          </Reveal>
         </Container>
       </section>
 
       <section className="border-line border-t py-16 sm:py-20">
         <Container>
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <p className="text-brand-700 mb-2 text-xs font-bold tracking-widest uppercase">
               Pratique sem risco
             </p>
@@ -297,93 +305,99 @@ export default function HomePage() {
               Depois da teoria, use os números a seu favor: volte no tempo com dados reais de
               mercado ou leve o aprendizado para uma tarefa concreta do dia a dia.
             </p>
-          </div>
+          </Reveal>
 
           <div className="mt-10 grid gap-4 md:grid-cols-2">
-            <Link href="/simulador/" className="group">
-              <Card className="group-hover:border-brand-600/40 group-hover:shadow-card-hover h-full p-6 transition-all duration-200 group-hover:-translate-y-0.5">
-                <span className="bg-brand-50 text-brand-700 flex size-11 items-center justify-center rounded-xl">
-                  <CalendarRange className="size-5" aria-hidden="true" />
-                </span>
-                <Badge variant="brand" className="mt-4">
-                  Simulador histórico
-                </Badge>
-                <h3 className="font-display text-ink mt-2 text-xl font-bold">Máquina do tempo</h3>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  Compare CDI, Ibovespa e inflação de 2000 a 2024 com os seus aportes e veja como o
-                  tempo muda o resultado.
-                </p>
-                <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
-                  Abrir o simulador
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </span>
-              </Card>
-            </Link>
+            <Reveal className="h-full">
+              <Link href="/simulador/" className="group block h-full">
+                <Card className="group-hover:border-brand-600/40 group-hover:shadow-card-hover h-full p-6 transition-all duration-200 group-hover:-translate-y-0.5">
+                  <span className="bg-brand-50 text-brand-700 flex size-11 items-center justify-center rounded-xl">
+                    <CalendarRange className="size-5" aria-hidden="true" />
+                  </span>
+                  <Badge variant="brand" className="mt-4">
+                    Simulador histórico
+                  </Badge>
+                  <h3 className="font-display text-ink mt-2 text-xl font-bold">Máquina do tempo</h3>
+                  <p className="text-muted mt-2 text-sm leading-6">
+                    Compare CDI, Ibovespa e inflação de 2000 a 2024 com os seus aportes e veja como
+                    o tempo muda o resultado.
+                  </p>
+                  <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
+                    Abrir o simulador
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </span>
+                </Card>
+              </Link>
+            </Reveal>
 
-            <Link href="/missoes/" className="group">
-              <Card className="group-hover:border-brand-600/40 group-hover:shadow-card-hover h-full p-6 transition-all duration-200 group-hover:-translate-y-0.5">
-                <span className="bg-warn-soft text-warn flex size-11 items-center justify-center rounded-xl">
-                  <Target className="size-5" aria-hidden="true" />
-                </span>
-                <Badge variant="warn" className="mt-4">
-                  Prática
-                </Badge>
-                <h3 className="font-display text-ink mt-2 text-xl font-bold">
-                  Missões e conquistas
-                </h3>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  Oito missões curtas para aplicar o conteúdo na vida real, com checklist, pergunta
-                  de verificação, XP e badges que acompanham o seu progresso.
-                </p>
-                <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
-                  Ver missões
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </span>
-              </Card>
-            </Link>
+            <Reveal className="h-full" delay={80}>
+              <Link href="/missoes/" className="group block h-full">
+                <Card className="group-hover:border-brand-600/40 group-hover:shadow-card-hover h-full p-6 transition-all duration-200 group-hover:-translate-y-0.5">
+                  <span className="bg-warn-soft text-warn flex size-11 items-center justify-center rounded-xl">
+                    <Target className="size-5" aria-hidden="true" />
+                  </span>
+                  <Badge variant="warn" className="mt-4">
+                    Prática
+                  </Badge>
+                  <h3 className="font-display text-ink mt-2 text-xl font-bold">
+                    Missões e conquistas
+                  </h3>
+                  <p className="text-muted mt-2 text-sm leading-6">
+                    Oito missões curtas para aplicar o conteúdo na vida real, com checklist,
+                    pergunta de verificação, XP e badges que acompanham o seu progresso.
+                  </p>
+                  <span className="text-brand-700 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
+                    Ver missões
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </span>
+                </Card>
+              </Link>
+            </Reveal>
           </div>
         </Container>
       </section>
 
       <section className="py-16 sm:py-20">
         <Container>
-          <Card className="border-brand-600/20 from-cta-from to-cta-to text-cta-ink shadow-card overflow-hidden bg-linear-to-br p-8 sm:p-12">
-            <div className="grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-center">
-              <div>
-                <p className="text-cta-muted inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
-                  <Compass className="size-4" aria-hidden="true" />
-                  Comece agora
-                </p>
-                <h2 className="font-display mt-3 text-3xl font-bold">
-                  Seu primeiro investimento começa com uma pergunta simples.
-                </h2>
-                <p className="text-cta-muted mt-3 max-w-xl text-base leading-7">
-                  Quanto tempo você quer esperar? A resposta muda tudo. Comece pela lição de juros
-                  compostos e veja o efeito na prática.
-                </p>
+          <Reveal>
+            <Card className="border-brand-600/20 from-cta-from to-cta-to text-cta-ink shadow-card overflow-hidden bg-linear-to-br p-8 sm:p-12">
+              <div className="grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-center">
+                <div>
+                  <p className="text-cta-muted inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
+                    <Compass className="size-4" aria-hidden="true" />
+                    Comece agora
+                  </p>
+                  <h2 className="font-display mt-3 text-3xl font-bold">
+                    Seu primeiro investimento começa com uma pergunta simples.
+                  </h2>
+                  <p className="text-cta-muted mt-3 max-w-xl text-base leading-7">
+                    Quanto tempo você quer esperar? A resposta muda tudo. Comece pela lição de juros
+                    compostos e veja o efeito na prática.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="/trilha/fundamentos/juros-compostos/"
+                    className={buttonStyles({
+                      variant: "secondary",
+                      size: "lg",
+                      className:
+                        "bg-cta-ink text-cta-from hover:bg-cta-muted w-full justify-center border-white/25",
+                    })}
+                  >
+                    Abrir a lição
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </Link>
+                  <Link
+                    href="/trilha/"
+                    className="text-cta-ink inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-sm font-semibold transition-colors hover:bg-white/10"
+                  >
+                    Ver todos os módulos
+                  </Link>
+                </div>
               </div>
-              <div className="flex flex-col gap-3">
-                <Link
-                  href="/trilha/fundamentos/juros-compostos/"
-                  className={buttonStyles({
-                    variant: "secondary",
-                    size: "lg",
-                    className:
-                      "bg-cta-ink text-cta-from hover:bg-cta-muted w-full justify-center border-white/25",
-                  })}
-                >
-                  Abrir a lição
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </Link>
-                <Link
-                  href="/trilha/"
-                  className="text-cta-ink inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-sm font-semibold transition-colors hover:bg-white/10"
-                >
-                  Ver todos os módulos
-                </Link>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </Reveal>
         </Container>
       </section>
     </>

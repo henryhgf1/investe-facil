@@ -18,12 +18,7 @@ export function MissionsSummary() {
   const missionState = profile?.missions ?? {};
 
   if (!hydrated) {
-    return (
-      <div
-        aria-hidden="true"
-        className="border-line bg-surface h-[124px] animate-pulse rounded-2xl border"
-      />
-    );
+    return <div aria-hidden="true" className="border-line skeleton h-[124px] rounded-2xl border" />;
   }
 
   const completedMissions = Object.keys(missionState).length;

@@ -40,6 +40,8 @@ async function capture({ theme, viewport, pages }) {
     viewport,
     locale: "pt-BR",
     colorScheme: theme === "dark" ? "dark" : "light",
+    // Sem animação de entrada: o fullPage não dispara o IntersectionObserver.
+    reducedMotion: "reduce",
     isMobile: viewport.width < 640,
     hasTouch: viewport.width < 640,
   });
