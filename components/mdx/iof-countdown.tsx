@@ -15,7 +15,7 @@ export function IofCountdown() {
   return (
     <section
       aria-labelledby="tabela-iof"
-      className="border-line my-10 overflow-hidden rounded-3xl border bg-white shadow-[0_1px_2px_rgba(11,18,32,0.04)]"
+      className="border-line bg-surface shadow-card my-10 overflow-hidden rounded-3xl border"
     >
       <div className="border-line bg-canvas flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5 sm:px-8">
         <div>
@@ -60,7 +60,7 @@ export function IofCountdown() {
                 {formatPercent(milestone.rate * 100, 0)}
               </p>
             </div>
-            <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-slate-100">
+            <div className="bg-surface-2 mt-1.5 h-2 overflow-hidden rounded-full">
               <div
                 className={cn(
                   "h-full rounded-full",

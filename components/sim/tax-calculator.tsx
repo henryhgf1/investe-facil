@@ -35,7 +35,7 @@ export function TaxCalculator() {
   return (
     <section
       aria-labelledby="simulador-impostos"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -96,8 +96,8 @@ export function TaxCalculator() {
                   className={cn(
                     "flex-1 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors",
                     product === option.id
-                      ? "border-brand-600 bg-brand-600 text-white"
-                      : "border-line hover:border-brand-600/40 bg-white text-slate-600",
+                      ? "border-brand-600 bg-primary text-on-primary"
+                      : "border-line hover:border-brand-600/40 bg-surface text-body",
                   )}
                 >
                   {option.label}
@@ -139,7 +139,7 @@ export function TaxCalculator() {
             <p className="text-muted mb-1.5 text-xs font-medium">
               Para onde vai o rendimento bruto
             </p>
-            <div className="flex h-4 w-full overflow-hidden rounded-full bg-slate-200">
+            <div className="bg-track flex h-4 w-full overflow-hidden rounded-full">
               <div
                 className="bg-brand-600 h-full"
                 style={{ width: `${Math.max(0, netShare) * 100}%` }}
@@ -167,7 +167,7 @@ export function TaxCalculator() {
           </div>
 
           <div className="mt-4 space-y-2 text-sm leading-6">
-            <p className="bg-canvas rounded-xl px-4 py-3 text-slate-700">
+            <p className="bg-canvas text-body rounded-xl px-4 py-3">
               <strong className="text-ink font-semibold">Taxa efetiva:</strong>{" "}
               {formatPercent(result.effectiveAnnualRate * 100, 2)} ao ano, já descontados IOF e IR.
             </p>

@@ -41,36 +41,36 @@ export function TimeMachine() {
     ? [
         {
           label: "CDI corrigido",
-          color: "#0f6b4f",
+          color: "var(--chart-1)",
           values: simulation.points.map((point) => point.cdiReal),
           fill: true,
         },
         {
           label: "Ibovespa corrigido",
-          color: "#1d4ed8",
+          color: "var(--chart-2)",
           values: simulation.points.map((point) => point.ibovReal),
         },
         {
           label: "Aportes corrigidos",
-          color: "#94a3b8",
+          color: "var(--chart-muted)",
           values: simulation.points.map((point) => point.investedReal),
         },
       ]
     : [
         {
           label: "CDI",
-          color: "#0f6b4f",
+          color: "var(--chart-1)",
           values: simulation.points.map((point) => point.cdi),
           fill: true,
         },
         {
           label: "Ibovespa",
-          color: "#1d4ed8",
+          color: "var(--chart-2)",
           values: simulation.points.map((point) => point.ibov),
         },
         {
           label: "Aportes",
-          color: "#94a3b8",
+          color: "var(--chart-muted)",
           values: simulation.points.map((point) => point.invested),
         },
       ];
@@ -88,7 +88,7 @@ export function TimeMachine() {
   return (
     <section
       aria-labelledby="simulador-historico"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -120,8 +120,8 @@ export function TimeMachine() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
                 active
-                  ? "border-brand-600 bg-brand-600 text-white"
-                  : "border-line hover:border-brand-600/40 bg-white text-slate-600",
+                  ? "border-brand-600 bg-primary text-on-primary"
+                  : "border-line hover:border-brand-600/40 bg-surface text-body",
               )}
             >
               {preset.label}
@@ -180,7 +180,7 @@ export function TimeMachine() {
           </p>
 
           <div
-            className="border-line inline-flex rounded-xl border bg-white p-1"
+            className="border-line bg-surface inline-flex rounded-xl border p-1"
             role="group"
             aria-label="Ajuste dos valores"
           >
@@ -195,7 +195,7 @@ export function TimeMachine() {
                 onClick={() => setReal(option.id)}
                 className={cn(
                   "rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors",
-                  real === option.id ? "bg-brand-600 text-white" : "hover:text-ink text-slate-600",
+                  real === option.id ? "bg-primary text-on-primary" : "hover:text-ink text-body",
                 )}
               >
                 {option.label}
@@ -269,7 +269,7 @@ export function TimeMachine() {
         recomendação.
       </p>
 
-      <details className="border-line mt-6 rounded-xl border bg-white">
+      <details className="border-line bg-surface mt-6 rounded-xl border">
         <summary className="text-ink cursor-pointer px-4 py-3 text-sm font-semibold">
           Ver ano a ano
         </summary>
@@ -316,7 +316,7 @@ export function TimeMachine() {
                   >
                     {formatPercent(item.ibov, 1)}
                   </td>
-                  <td className="px-4 py-2 text-right text-slate-700 tabular-nums">
+                  <td className="text-body px-4 py-2 text-right tabular-nums">
                     {formatPercent(item.ipca, 1)}
                   </td>
                 </tr>
@@ -326,7 +326,7 @@ export function TimeMachine() {
         </div>
       </details>
 
-      <div className="border-warn/25 bg-warn-soft mt-6 flex gap-3 rounded-2xl border p-4 text-sm leading-6 text-slate-700">
+      <div className="border-warn/25 bg-warn-soft text-body mt-6 flex gap-3 rounded-2xl border p-4 text-sm leading-6">
         <Info className="text-warn mt-0.5 size-4 shrink-0" aria-hidden="true" />
         <p>
           <strong className="text-ink font-semibold">Como ler estes números:</strong> os dados são

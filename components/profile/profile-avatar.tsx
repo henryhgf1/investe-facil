@@ -17,8 +17,8 @@ const tones: Record<ProfileAvatarTone, string> = {
   brand: "bg-brand-50 text-brand-700",
   accent: "bg-accent-soft text-accent",
   warn: "bg-warn-soft text-warn",
-  danger: "bg-red-50 text-danger",
-  neutral: "bg-slate-100 text-slate-600",
+  danger: "bg-danger-soft text-danger",
+  neutral: "bg-surface-2 text-body",
 };
 
 const sizeClasses = {

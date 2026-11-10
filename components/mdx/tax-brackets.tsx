@@ -18,7 +18,7 @@ export function TaxBrackets() {
   return (
     <section
       aria-labelledby="faixas-ir"
-      className="border-line my-10 overflow-hidden rounded-3xl border bg-white shadow-[0_1px_2px_rgba(11,18,32,0.04)]"
+      className="border-line bg-surface shadow-card my-10 overflow-hidden rounded-3xl border"
     >
       <div className="border-line bg-canvas flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5 sm:px-8">
         <div>
@@ -44,7 +44,7 @@ export function TaxBrackets() {
                 {formatRate(bracket.rate)}
               </p>
             </div>
-            <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-slate-100">
+            <div className="bg-surface-2 mt-2 h-2.5 overflow-hidden rounded-full">
               <div
                 className={cn("h-full rounded-full", barTones[index] ?? "bg-brand-600")}
                 style={{ width: `${(bracket.rate / topRate) * 100}%` }}

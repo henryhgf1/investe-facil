@@ -26,7 +26,7 @@ export function ProgressSummary() {
     return (
       <div
         aria-hidden="true"
-        className="border-line h-[132px] animate-pulse rounded-2xl border bg-white"
+        className="border-line bg-surface h-[132px] animate-pulse rounded-2xl border"
       />
     );
   }
@@ -34,7 +34,7 @@ export function ProgressSummary() {
   return (
     <section
       aria-label="Resumo do seu progresso"
-      className="border-line rounded-2xl border bg-white p-5 sm:p-6"
+      className="border-line bg-surface rounded-2xl border p-5 sm:p-6"
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">

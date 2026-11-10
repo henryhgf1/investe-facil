@@ -50,7 +50,7 @@ export function ProfileSwitcher() {
     return (
       <Link
         href="/perfil/"
-        className="border-line text-ink hover:border-brand-600/40 hover:bg-brand-50 flex h-11 items-center gap-2 rounded-xl border bg-white px-2.5 transition-colors"
+        className="border-line text-ink hover:border-brand-600/40 hover:bg-brand-50 bg-surface flex h-11 items-center gap-2 rounded-xl border px-2.5 transition-colors"
         aria-label="Criar perfil"
       >
         <ProfileAvatar avatarId={null} size="sm" />
@@ -69,7 +69,7 @@ export function ProfileSwitcher() {
         aria-haspopup="menu"
         aria-controls="seletor-perfis"
         aria-label={`Trocar de perfil. Perfil ativo: ${profile.name}`}
-        className="border-line text-ink hover:border-brand-600/40 hover:bg-brand-50 flex h-11 items-center gap-2 rounded-xl border bg-white px-2.5 transition-colors"
+        className="border-line text-ink hover:border-brand-600/40 hover:bg-brand-50 bg-surface flex h-11 items-center gap-2 rounded-xl border px-2.5 transition-colors"
       >
         <ProfileAvatar avatarId={profile.avatarId} size="sm" />
         <span className="hidden max-w-28 truncate text-sm font-semibold lg:inline">
@@ -86,7 +86,7 @@ export function ProfileSwitcher() {
           id="seletor-perfis"
           role="menu"
           aria-label="Trocar de perfil"
-          className="border-line absolute right-0 z-50 mt-2 w-64 rounded-2xl border bg-white p-2 shadow-xl"
+          className="border-line bg-surface absolute right-0 z-50 mt-2 w-64 rounded-2xl border p-2 shadow-xl"
         >
           <p className="text-muted px-3 py-2 text-xs font-semibold tracking-wide uppercase">
             Trocar de perfil

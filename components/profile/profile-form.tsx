@@ -62,7 +62,7 @@ export function ProfileForm({
           autoComplete="nickname"
           required
           aria-describedby={`profile-name-help-${mode}`}
-          className="border-line focus:border-brand-600 focus:ring-brand-600/20 mt-1.5 h-11 w-full rounded-xl border bg-white px-3 text-[15px] text-slate-800 outline-none focus:ring-4"
+          className="border-line focus:border-brand-600 focus:ring-brand-600/20 bg-surface text-ink mt-1.5 h-11 w-full rounded-xl border px-3 text-[15px] outline-none focus:ring-4"
         />
         <p id={`profile-name-help-${mode}`} className="text-muted mt-1.5 text-xs leading-5">
           De 2 a 24 caracteres. Pode ser um apelido. Nada é enviado para servidor.
@@ -95,7 +95,7 @@ export function ProfileForm({
                   className="sr-only"
                 />
                 <ProfileAvatar avatarId={avatar.id} size="sm" />
-                <span className={cn("font-medium", selected ? "text-brand-800" : "text-slate-700")}>
+                <span className={cn("font-medium", selected ? "text-brand-800" : "text-body")}>
                   {avatar.label}
                 </span>
               </label>

@@ -26,7 +26,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "Poupança",
     risk: 3,
     returnPct: 6.2,
-    color: "#94a3b8",
+    color: "var(--chart-muted)",
     description:
       "Risco baixíssimo e retorno baixo. Serve para guardar o que você precisa amanhã, não para construir patrimônio no longo prazo.",
   },
@@ -35,7 +35,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "Tesouro Selic",
     risk: 6,
     returnPct: 11,
-    color: "#0f6b4f",
+    color: "var(--chart-1)",
     description:
       "Você empresta ao governo federal. O risco de crédito é muito baixo e a liquidez é diária, mas o retorno acompanha a Selic e cai quando ela cai.",
   },
@@ -44,7 +44,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "CDB",
     risk: 9,
     returnPct: 12,
-    color: "#0b5740",
+    color: "var(--chart-1)",
     description:
       "Empréstimo a um banco, com proteção do FGC até R$ 250 mil por CPF e instituição. Paga Imposto de Renda e costuma exigir prazo.",
   },
@@ -53,7 +53,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "Tesouro IPCA+",
     risk: 14,
     returnPct: 11.5,
-    color: "#1d4ed8",
+    color: "var(--chart-2)",
     description:
       "Garante inflação mais uma taxa fixa se você levar até o vencimento. Se vender antes, o preço do título oscila, e pode cair.",
   },
@@ -62,7 +62,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "FII",
     risk: 35,
     returnPct: 10,
-    color: "#b45309",
+    color: "var(--chart-3)",
     description:
       "Imóveis negociados em bolsa. Distribuem renda mensal, mas a cota oscila com juros, vacância e humor do mercado.",
   },
@@ -71,7 +71,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "Ações",
     risk: 55,
     returnPct: 13,
-    color: "#7c3aed",
+    color: "var(--chart-4)",
     description:
       "Você vira sócio de empresas. O retorno esperado é maior no longo prazo, mas o caminho inclui quedas de 30% ou mais sem aviso.",
   },
@@ -80,7 +80,7 @@ export const RISK_RETURN_ASSETS: RiskAsset[] = [
     name: "Cripto",
     risk: 90,
     returnPct: 22,
-    color: "#dc2626",
+    color: "var(--chart-5)",
     description:
       "Alta volatilidade, regulação ainda em evolução e risco de perda total. Só entra com dinheiro que você aceita perder por inteiro.",
   },
@@ -104,7 +104,7 @@ export function RiskReturnChart({ assets = RISK_RETURN_ASSETS }: { assets?: Risk
   return (
     <section
       aria-labelledby="simulador-risco-retorno"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -229,7 +229,7 @@ export function RiskReturnChart({ assets = RISK_RETURN_ASSETS }: { assets?: Risk
                     cy={yFor(asset.returnPct)}
                     r={isSelected ? 8 : 6}
                     fill={asset.color}
-                    stroke="#ffffff"
+                    stroke="var(--surface)"
                     strokeWidth={2}
                   />
                   <text
@@ -275,7 +275,7 @@ export function RiskReturnChart({ assets = RISK_RETURN_ASSETS }: { assets?: Risk
             </div>
           </dl>
 
-          <p className="mt-4 flex-1 text-sm leading-6 text-slate-700">{selected.description}</p>
+          <p className="text-body mt-4 flex-1 text-sm leading-6">{selected.description}</p>
 
           <div className="mt-4 flex flex-wrap gap-1.5">
             {assets.map((asset) => (
@@ -287,8 +287,8 @@ export function RiskReturnChart({ assets = RISK_RETURN_ASSETS }: { assets?: Risk
                 className={cn(
                   "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
                   asset.id === selected.id
-                    ? "border-brand-600 bg-brand-600 text-white"
-                    : "border-line hover:border-brand-600/40 bg-white text-slate-600",
+                    ? "border-brand-600 bg-primary text-on-primary"
+                    : "border-line hover:border-brand-600/40 bg-surface text-body",
                 )}
               >
                 {asset.name}

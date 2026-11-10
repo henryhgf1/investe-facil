@@ -5,7 +5,11 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
-![Página inicial](screenshots/home.png)
+Tema claro e escuro em todo o site, com visual de fintech premium e escolha manual de tema.
+
+| Claro                                                 | Escuro                                                      |
+| ----------------------------------------------------- | ----------------------------------------------------------- |
+| ![Página inicial no tema claro](screenshots/home.png) | ![Página inicial no tema escuro](screenshots/home-dark.png) |
 
 ![Missões práticas e conquistas](screenshots/missoes.png)
 
@@ -43,8 +47,10 @@ dados pessoais.
 - **Controle do progresso** no perfil ativo: apague uma missão ou lição específica, recomece a
   trilha, as missões ou todo o progresso, sempre com confirmação
 - **Backup em JSON** com todos os perfis e o progresso para exportar e importar entre dispositivos
-- **Acessibilidade**: navegação por teclado, contraste AA, gráficos com descrição textual e
-  respeito a `prefers-reduced-motion`
+- **Tema claro, escuro e sistema** em todo o site, com escolha manual salva no navegador e
+  preferência inicial do sistema operacional
+- **Acessibilidade**: navegação por teclado, contraste AA nos dois temas, gráficos com descrição
+  textual e respeito a `prefers-reduced-motion`
 
 ## Stack
 
@@ -83,12 +89,19 @@ Para regenerar as capturas de tela com o servidor rodando:
 node scripts/screenshot.mjs
 ```
 
+O script gera as capturas nos dois temas e em desktop/mobile: `home.png` (claro) e
+`home-dark.png` (escuro), além de `home-mobile.png` e `home-mobile-dark.png`. Ele grava o tema em
+`localStorage` antes do primeiro render e falha se houver erro de console.
+
+O tema e os tokens estão documentados em [`docs/design-system.md`](docs/design-system.md).
+
 ## Estrutura
 
 ```
 app/                      rotas (landing, trilha, lição, carteira, simulador, missões, glossário, perfil, sobre)
 components/
   charts/                 gráficos SVG sem dependências
+  layout/                 cabeçalho, navegação desktop, menu mobile, tema e rodapé
   learn/                  quiz, progresso, missões, badges e navegação da trilha
   mdx/                    blocos reutilizáveis das lições
   profile/                perfis locais, avatares, troca de perfil e controle de reset
@@ -124,7 +137,13 @@ abrir um pull request, e o build quebra se um componente ou link estiver errado.
 consome os resultados.
 
 **Gráficos próprios em SVG.** Para os simuladores atuais, um componente pequeno resolve sem
-adicionar uma biblioteca de gráficos ao bundle.
+adicionar uma biblioteca de gráficos ao bundle. As séries usam `var(--chart-N)`, então a mesma
+série muda de tom junto com o tema.
+
+**Tema sem flash e sem dependência.** `lib/theme.ts` guarda a escolha em `localStorage`, e um
+script inline no layout aplica a classe `.dark` antes da pintura. Os tokens semânticos em
+`app/globals.css` trocam de valor entre `:root` e `.dark`, então a maior parte dos componentes não
+precisa de nenhuma classe `dark:`.
 
 ## Aviso
 

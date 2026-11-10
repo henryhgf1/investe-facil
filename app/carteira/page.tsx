@@ -44,7 +44,7 @@ export default function CarteiraPage() {
 
       <section
         aria-labelledby="fontes-carteira"
-        className="border-line mt-12 rounded-2xl border bg-white p-6"
+        className="border-line bg-surface mt-12 rounded-2xl border p-6"
       >
         <h2 id="fontes-carteira" className="font-display text-ink text-xl font-bold">
           De onde vêm os números

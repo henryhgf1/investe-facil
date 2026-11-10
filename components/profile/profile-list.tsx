@@ -59,7 +59,7 @@ export function ProfileList({ onMessage }: { onMessage: (message: string) => voi
   return (
     <section
       aria-labelledby="lista-perfis"
-      className="border-line mt-6 overflow-hidden rounded-3xl border bg-white"
+      className="border-line bg-surface mt-6 overflow-hidden rounded-3xl border"
     >
       <div className="border-line flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5 sm:px-8">
         <div>
@@ -121,7 +121,7 @@ export function ProfileList({ onMessage }: { onMessage: (message: string) => voi
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="text-danger hover:bg-red-50"
+                    className="text-danger hover:bg-danger-soft"
                     onClick={() => startDelete(profile.id)}
                   >
                     Apagar perfil
@@ -133,12 +133,9 @@ export function ProfileList({ onMessage }: { onMessage: (message: string) => voi
                 <div
                   role="group"
                   aria-label={`Confirmar exclusão do perfil ${profile.name}`}
-                  className="border-danger/25 mt-3 rounded-xl border bg-red-50 p-3"
+                  className="border-danger/25 bg-danger-soft mt-3 rounded-xl border p-3"
                 >
-                  <label
-                    htmlFor={`delete-${profile.id}`}
-                    className="text-sm leading-6 text-slate-800"
-                  >
+                  <label htmlFor={`delete-${profile.id}`} className="text-ink text-sm leading-6">
                     Digite <strong className="font-semibold">APAGAR</strong> para remover o perfil{" "}
                     <strong className="font-semibold">{profile.name}</strong>. Todo o progresso dele
                     será perdido.
@@ -150,7 +147,7 @@ export function ProfileList({ onMessage }: { onMessage: (message: string) => voi
                     onChange={(event) => setWord(event.target.value)}
                     autoComplete="off"
                     spellCheck={false}
-                    className="border-line focus:border-danger focus:ring-danger/20 mt-2 h-10 w-full rounded-xl border bg-white px-3 font-mono text-sm tracking-widest text-slate-800 uppercase outline-none focus:ring-4"
+                    className="border-line focus:border-danger focus:ring-danger/20 bg-surface text-ink mt-2 h-10 w-full rounded-xl border px-3 font-mono text-sm tracking-widest uppercase outline-none focus:ring-4"
                   />
                   <div className="mt-2 flex flex-wrap gap-2">
                     <Button type="button" variant="secondary" size="sm" onClick={cancelDelete}>

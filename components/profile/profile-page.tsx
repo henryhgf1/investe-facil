@@ -21,7 +21,7 @@ import { levelForXp } from "@/lib/xp";
 
 function Stat({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
   return (
-    <div className="border-line rounded-2xl border bg-white p-4">
+    <div className="border-line bg-surface rounded-2xl border p-4">
       <span className="bg-brand-50 text-brand-700 flex size-9 items-center justify-center rounded-xl">
         <Icon className="size-4" aria-hidden="true" />
       </span>
@@ -42,8 +42,8 @@ export function ProfilePage() {
     return (
       <Container className="max-w-4xl py-12 sm:py-16">
         <div aria-hidden="true" className="space-y-4">
-          <div className="border-line h-24 animate-pulse rounded-2xl border bg-white" />
-          <div className="border-line h-64 animate-pulse rounded-2xl border bg-white" />
+          <div className="border-line bg-surface h-24 animate-pulse rounded-2xl border" />
+          <div className="border-line bg-surface h-64 animate-pulse rounded-2xl border" />
         </div>
       </Container>
     );
@@ -73,7 +73,7 @@ export function ProfilePage() {
 
       <section
         aria-labelledby="dados-perfil"
-        className="border-line mt-8 overflow-hidden rounded-3xl border bg-white"
+        className="border-line bg-surface mt-8 overflow-hidden rounded-3xl border"
       >
         <div className="border-line flex flex-wrap items-start gap-4 border-b px-6 py-5 sm:px-8">
           <ProfileAvatar avatarId={showCreateForm ? null : profile?.avatarId} size="lg" />
@@ -135,7 +135,7 @@ export function ProfilePage() {
         <>
           <section
             aria-labelledby="resumo-perfil"
-            className="border-line mt-6 rounded-3xl border bg-white p-6 sm:p-8"
+            className="border-line bg-surface mt-6 rounded-3xl border p-6 sm:p-8"
           >
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>

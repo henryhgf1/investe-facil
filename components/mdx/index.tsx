@@ -13,15 +13,15 @@ type CalloutVariant = "info" | "warn" | "success";
 
 const calloutStyles: Record<CalloutVariant, { wrapper: string; icon: ReactNode }> = {
   info: {
-    wrapper: "border-accent/20 bg-accent-soft/70 text-slate-800",
+    wrapper: "border-accent/20 bg-accent-soft/70 text-ink",
     icon: <Info className="text-accent size-5 shrink-0" aria-hidden="true" />,
   },
   warn: {
-    wrapper: "border-warn/25 bg-warn-soft text-slate-800",
+    wrapper: "border-warn/25 bg-warn-soft text-ink",
     icon: <AlertTriangle className="text-warn size-5 shrink-0" aria-hidden="true" />,
   },
   success: {
-    wrapper: "border-brand-600/20 bg-brand-50 text-slate-800",
+    wrapper: "border-brand-600/20 bg-brand-50 text-ink",
     icon: <CheckCircle2 className="text-brand-700 size-5 shrink-0" aria-hidden="true" />,
   },
 };
@@ -50,7 +50,7 @@ export function Callout({
 
 export function KeyIdea({ children }: { children: ReactNode }) {
   return (
-    <div className="border-brand-600/15 from-brand-50 my-10 rounded-2xl border bg-linear-to-br to-white p-6">
+    <div className="border-brand-600/15 from-brand-50 to-surface my-10 rounded-2xl border bg-linear-to-br p-6">
       <p className="font-display text-brand-700 mb-2 flex items-center gap-2 text-sm font-bold tracking-wide uppercase">
         <Lightbulb className="size-4" aria-hidden="true" />
         Ideia-chave
@@ -62,7 +62,7 @@ export function KeyIdea({ children }: { children: ReactNode }) {
 
 export function Formula({ label, children }: { label?: string; children: ReactNode }) {
   return (
-    <figure className="border-line my-8 overflow-hidden rounded-2xl border bg-white">
+    <figure className="border-line bg-surface my-8 overflow-hidden rounded-2xl border">
       <div className="text-ink overflow-x-auto px-6 py-7 text-center font-mono text-lg">
         {children}
       </div>

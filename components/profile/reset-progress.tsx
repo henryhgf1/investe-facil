@@ -28,7 +28,7 @@ function ItemResetButton({
         type="button"
         variant="ghost"
         size="sm"
-        className="text-danger hover:bg-red-50"
+        className="text-danger hover:bg-danger-soft"
         onClick={() => setOpen(true)}
       >
         <Undo2 className="size-4" aria-hidden="true" />
@@ -41,9 +41,9 @@ function ItemResetButton({
     <div
       role="group"
       aria-label={`Confirmar remoção de ${label}`}
-      className="border-danger/25 w-full rounded-xl border bg-red-50 p-3"
+      className="border-danger/25 bg-danger-soft w-full rounded-xl border p-3"
     >
-      <p className="text-sm leading-6 text-slate-800">
+      <p className="text-ink text-sm leading-6">
         <strong className="font-semibold">Tem certeza?</strong> {description}
       </p>
       <div className="mt-2 flex flex-wrap gap-2">
@@ -90,7 +90,7 @@ function BulkReset({
   const inputId = `reset-${id}`;
 
   return (
-    <div className="border-line rounded-2xl border bg-white p-4">
+    <div className="border-line bg-surface rounded-2xl border p-4">
       <div className="flex items-start gap-3">
         <span className="bg-warn-soft text-warn flex size-9 shrink-0 items-center justify-center rounded-xl">
           <RotateCcw className="size-4" aria-hidden="true" />
@@ -102,8 +102,8 @@ function BulkReset({
       </div>
 
       {open ? (
-        <div className="border-danger/25 mt-3 rounded-xl border bg-red-50 p-3">
-          <label htmlFor={inputId} className="text-sm leading-6 text-slate-800">
+        <div className="border-danger/25 bg-danger-soft mt-3 rounded-xl border p-3">
+          <label htmlFor={inputId} className="text-ink text-sm leading-6">
             Digite <strong className="font-semibold">{confirmWord}</strong> para confirmar.
           </label>
           <input
@@ -113,7 +113,7 @@ function BulkReset({
             onChange={(event) => setWord(event.target.value)}
             autoComplete="off"
             spellCheck={false}
-            className="border-line focus:border-danger focus:ring-danger/20 mt-2 h-10 w-full rounded-xl border bg-white px-3 font-mono text-sm tracking-widest text-slate-800 uppercase outline-none focus:ring-4"
+            className="border-line focus:border-danger focus:ring-danger/20 bg-surface text-ink mt-2 h-10 w-full rounded-xl border px-3 font-mono text-sm tracking-widest uppercase outline-none focus:ring-4"
           />
           <div className="mt-2 flex flex-wrap gap-2">
             <Button
@@ -185,7 +185,7 @@ export function ResetProgress() {
   return (
     <section
       aria-labelledby="recomecar"
-      className="border-line overflow-hidden rounded-3xl border bg-white"
+      className="border-line bg-surface overflow-hidden rounded-3xl border"
     >
       <div className="border-line border-b px-6 py-5 sm:px-8">
         <p className="text-warn text-xs font-bold tracking-widest uppercase">Controle</p>

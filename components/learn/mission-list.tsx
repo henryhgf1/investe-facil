@@ -27,7 +27,7 @@ function MissionItem({ mission, completed }: { mission: Mission; completed: bool
     <article
       id={mission.id}
       className={cn(
-        "border-line scroll-mt-24 rounded-2xl border bg-white p-5 transition-colors sm:p-6",
+        "border-line bg-surface scroll-mt-24 rounded-2xl border p-5 transition-colors sm:p-6",
         completed && "border-brand-600/30 bg-brand-50/40",
       )}
     >
@@ -70,15 +70,15 @@ export function MissionList() {
   if (!hydrated) {
     return (
       <div aria-hidden="true" className="space-y-4">
-        <div className="border-line h-24 animate-pulse rounded-2xl border bg-white" />
-        <div className="border-line h-64 animate-pulse rounded-2xl border bg-white" />
+        <div className="border-line bg-surface h-24 animate-pulse rounded-2xl border" />
+        <div className="border-line bg-surface h-64 animate-pulse rounded-2xl border" />
       </div>
     );
   }
 
   return (
     <section aria-labelledby="lista-missoes">
-      <div className="border-line rounded-2xl border bg-white p-5 sm:p-6">
+      <div className="border-line bg-surface rounded-2xl border p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 id="lista-missoes" className="font-display text-ink text-xl font-bold">
             Missões práticas

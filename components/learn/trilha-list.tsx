@@ -84,10 +84,10 @@ export function TrilhaList() {
                       className={cn(
                         "flex size-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold",
                         isDone
-                          ? "border-brand-600 bg-brand-600 text-white"
+                          ? "border-brand-600 bg-primary text-on-primary"
                           : isSoon
-                            ? "border-line bg-canvas text-slate-400"
-                            : "border-brand-600/30 text-brand-700 bg-white",
+                            ? "border-line bg-canvas text-muted"
+                            : "border-brand-600/30 text-brand-700 bg-surface",
                       )}
                     >
                       {isDone ? (
@@ -135,13 +135,13 @@ export function TrilhaList() {
                 return (
                   <li key={lesson.slug}>
                     {isSoon ? (
-                      <div className="border-line flex items-start gap-3 rounded-xl border border-dashed bg-white/50 px-4 py-3">
+                      <div className="border-line bg-surface/50 flex items-start gap-3 rounded-xl border border-dashed px-4 py-3">
                         {content}
                       </div>
                     ) : (
                       <Link
                         href={`/trilha/${lesson.module}/${lesson.slug}/`}
-                        className="border-line hover:border-brand-600/40 hover:bg-brand-50/40 flex items-start gap-3 rounded-xl border bg-white px-4 py-3 transition-colors"
+                        className="border-line hover:border-brand-600/40 hover:bg-brand-50/40 bg-surface flex items-start gap-3 rounded-xl border px-4 py-3 transition-colors"
                       >
                         {content}
                       </Link>

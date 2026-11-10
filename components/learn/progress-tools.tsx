@@ -50,7 +50,7 @@ export function ProgressTools() {
   }
 
   return (
-    <details className="group border-line rounded-2xl border bg-white">
+    <details className="group border-line bg-surface rounded-2xl border">
       <summary className="text-ink cursor-pointer list-none px-5 py-4 text-sm font-semibold marker:hidden">
         <span className="inline-flex items-center gap-2">
           Gerenciar progresso
@@ -90,9 +90,9 @@ export function ProgressTools() {
           <div
             role="group"
             aria-label="Confirmar importação de backup"
-            className="border-danger/25 rounded-xl border bg-red-50 p-3"
+            className="border-danger/25 bg-danger-soft rounded-xl border p-3"
           >
-            <p className="text-sm leading-6 text-slate-800">
+            <p className="text-ink text-sm leading-6">
               <strong className="font-semibold">Substituir todos os perfis?</strong> O arquivo{" "}
               <span className="font-semibold">{pendingFile.name}</span> vai trocar os perfis e o
               progresso salvos neste navegador. Essa ação não pode ser desfeita.

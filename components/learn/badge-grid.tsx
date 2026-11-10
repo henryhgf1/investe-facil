@@ -41,15 +41,15 @@ const icons: Record<string, typeof Trophy> = {
 const accentStyles = {
   brand: {
     card: "border-brand-600/25 bg-brand-50",
-    icon: "bg-brand-600 text-white",
+    icon: "bg-primary text-on-primary",
   },
   accent: {
     card: "border-accent/20 bg-accent-soft",
-    icon: "bg-accent text-white",
+    icon: "bg-accent text-on-accent",
   },
   warn: {
     card: "border-warn/25 bg-warn-soft",
-    icon: "bg-warn text-white",
+    icon: "bg-warn text-on-warn",
   },
 } as const;
 
@@ -59,13 +59,16 @@ function BadgeItem({ badge }: { badge: BadgeStatus }) {
 
   return (
     <article
-      className={cn("rounded-2xl border p-4", badge.earned ? styles.card : "border-line bg-white")}
+      className={cn(
+        "rounded-2xl border p-4",
+        badge.earned ? styles.card : "border-line bg-surface",
+      )}
     >
       <div className="flex items-start justify-between gap-2">
         <span
           className={cn(
             "flex size-10 items-center justify-center rounded-xl",
-            badge.earned ? styles.icon : "bg-slate-100 text-slate-400",
+            badge.earned ? styles.icon : "bg-surface-2 text-muted",
           )}
         >
           <Icon className="size-5" aria-hidden="true" />
@@ -83,7 +86,7 @@ function BadgeItem({ badge }: { badge: BadgeStatus }) {
       <h3
         className={cn(
           "font-display mt-3 text-base font-bold",
-          badge.earned ? "text-ink" : "text-slate-500",
+          badge.earned ? "text-ink" : "text-muted",
         )}
       >
         {badge.title}
@@ -111,7 +114,7 @@ export function BadgeGrid() {
     return (
       <div
         aria-hidden="true"
-        className="border-line h-64 animate-pulse rounded-2xl border bg-white"
+        className="border-line bg-surface h-64 animate-pulse rounded-2xl border"
       />
     );
   }
