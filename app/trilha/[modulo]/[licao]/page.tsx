@@ -10,6 +10,7 @@ import { ReadingProgress } from "@/components/learn/reading-progress";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import {
   getLesson,
   lessonPath,
@@ -80,7 +81,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </ol>
         </nav>
 
-        <header className="mt-6">
+        <header className="animate-fade-up mt-6">
           <Badge variant="brand">
             Módulo {String(lessonModule.order).padStart(2, "0")} · {lessonModule.shortTitle}
           </Badge>
@@ -107,9 +108,11 @@ export default async function LessonPage({ params }: LessonPageProps) {
           </article>
         </div>
 
-        <Quiz slug={lesson.slug} questions={quiz} />
+        <Reveal>
+          <Quiz slug={lesson.slug} questions={quiz} />
+        </Reveal>
 
-        <div className="border-line bg-surface mt-10 rounded-2xl border p-5 sm:p-6">
+        <Reveal className="border-line bg-surface mt-10 rounded-2xl border p-5 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="font-display text-ink text-base font-bold">
@@ -123,11 +126,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
             </div>
             <CompleteLesson slug={lesson.slug} xp={XP_PER_LESSON} quizRequired={quiz.length > 0} />
           </div>
-        </div>
+        </Reveal>
 
-        <LessonMission lessonSlug={lesson.slug} />
+        <Reveal>
+          <LessonMission lessonSlug={lesson.slug} />
+        </Reveal>
 
-        <nav
+        <Reveal
+          as="nav"
           aria-label="Navegação entre lições"
           className="border-line mt-10 grid gap-3 border-t pt-8 sm:grid-cols-2"
         >
@@ -174,7 +180,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
               </Card>
             </Link>
           )}
-        </nav>
+        </Reveal>
       </Container>
     </>
   );

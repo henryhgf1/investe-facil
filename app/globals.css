@@ -202,6 +202,24 @@
   --radius-card: 1rem;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -313,6 +331,67 @@
       var(--card-shadow),
       0 0 0 1px color-mix(in oklab, var(--primary) 16%, transparent);
   }
+
+  /* Entrada imediata, usada no hero: roda uma vez ao carregar a página. */
+  .animate-fade-up {
+    animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--fade-delay, 0ms);
+  }
+
+  /*
+   * Reveal ao rolar. O estado escondido só vale quando o script inline
+   * adiciona a classe .js no <html>; sem JavaScript, o conteúdo aparece
+   * normalmente.
+   */
+  .reveal {
+    opacity: 1;
+  }
+
+  .js .reveal {
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+
+  .js .reveal[data-reveal="up"] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .js .reveal[data-reveal="fade"] {
+    opacity: 0;
+  }
+
+  .js .reveal[data-reveal="scale"] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .js .reveal[data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Shimmer dos skeletons de hidratação. */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-2);
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--surface-3) 90%, transparent),
+      transparent
+    );
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -324,7 +403,19 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .skeleton::after {
+    animation: none !important;
   }
 }

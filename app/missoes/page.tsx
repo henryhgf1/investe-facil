@@ -7,6 +7,7 @@ import { MissionList } from "@/components/learn/mission-list";
 import { ProfileBanner } from "@/components/learn/profile-banner";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { missions } from "@/content/missions";
 import { badges } from "@/lib/badges";
 import { MAX_XP } from "@/lib/xp";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export default function MissoesPage() {
   return (
     <Container className="py-12 sm:py-16">
-      <div className="max-w-3xl">
+      <Reveal className="max-w-3xl">
         <Badge variant="warn">
           <Sparkles className="size-3.5" aria-hidden="true" />
           Prática
@@ -40,21 +41,21 @@ export default function MissoesPage() {
           <span>{badges.length} conquistas</span>
           <span>Até {MAX_XP} XP na trilha completa</span>
         </div>
-      </div>
+      </Reveal>
 
-      <div className="mt-8">
+      <Reveal className="mt-8">
         <ProfileBanner />
-      </div>
+      </Reveal>
 
-      <div className="mt-10">
+      <Reveal className="mt-10">
         <MissionList />
-      </div>
+      </Reveal>
 
-      <div className="border-line mt-14 border-t pt-10">
+      <Reveal className="border-line mt-14 border-t pt-10">
         <BadgeGrid />
-      </div>
+      </Reveal>
 
-      <div className="border-line bg-canvas mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-5">
+      <Reveal className="border-line bg-canvas mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-5">
         <div>
           <p className="font-display text-ink text-base font-bold">Continue praticando</p>
           <p className="text-muted mt-1 text-sm">
@@ -77,7 +78,7 @@ export default function MissoesPage() {
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
-      </div>
+      </Reveal>
     </Container>
   );
 }

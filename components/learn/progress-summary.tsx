@@ -23,12 +23,7 @@ export function ProgressSummary() {
   const totalQuestions = quizScores.reduce((sum, quiz) => sum + quiz.total, 0);
 
   if (!hydrated) {
-    return (
-      <div
-        aria-hidden="true"
-        className="border-line bg-surface h-[132px] animate-pulse rounded-2xl border"
-      />
-    );
+    return <div aria-hidden="true" className="border-line skeleton h-[132px] rounded-2xl border" />;
   }
 
   return (
