@@ -143,7 +143,7 @@ export default function SobrePage() {
       <h1 className="font-display text-ink mt-4 text-3xl font-extrabold sm:text-4xl">
         Como o Investe Fácil funciona
       </h1>
-      <p className="mt-4 text-lg leading-8 text-slate-600">
+      <p className="text-body mt-4 text-lg leading-8">
         Uma trilha curta para entender como o dinheiro cresce, como os investimentos funcionam e
         quais riscos existem antes de colocar dinheiro real. Você lê, simula e responde quiz no
         mesmo lugar, sem cadastro e sem movimentar um centavo.
@@ -208,7 +208,7 @@ export default function SobrePage() {
           {lessonSteps.map((step, index) => (
             <li key={step.title}>
               <Card className="flex gap-4 p-5">
-                <span className="bg-brand-600 font-display flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white">
+                <span className="bg-primary text-on-primary font-display flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-bold">
                   {index + 1}
                 </span>
                 <div>
@@ -232,7 +232,7 @@ export default function SobrePage() {
           {material.map((item) => (
             <li
               key={item}
-              className="border-line flex gap-3 rounded-xl border bg-white p-4 text-sm leading-6 text-slate-700"
+              className="border-line bg-surface text-body flex gap-3 rounded-xl border p-4 text-sm leading-6"
             >
               <CheckCircle2 className="text-brand-600 mt-0.5 size-4 shrink-0" aria-hidden="true" />
               <span>{item}</span>
@@ -312,7 +312,7 @@ export default function SobrePage() {
         <h2 id="glossario" className="font-display text-ink text-2xl font-bold">
           Glossário
         </h2>
-        <p className="mt-2 text-sm leading-6 text-slate-700">
+        <p className="text-body mt-2 text-sm leading-6">
           Os {glossary.length} termos da trilha estão reunidos no glossário, com busca que ignora
           acentos e filtros por categoria.
         </p>
@@ -332,7 +332,7 @@ export default function SobrePage() {
         </h2>
         <ul className="mt-4 space-y-2">
           {notFor.map((item) => (
-            <li key={item} className="flex gap-2 text-[17px] leading-8 text-slate-700">
+            <li key={item} className="text-body flex gap-2 text-[17px] leading-8">
               <XCircle className="text-danger mt-1.5 size-4 shrink-0" aria-hidden="true" />
               {item}
             </li>
@@ -345,7 +345,7 @@ export default function SobrePage() {
           <ShieldCheck className="text-warn size-4" aria-hidden="true" />
           Aviso importante
         </p>
-        <p className="mt-2 text-sm leading-6 text-slate-700">
+        <p className="text-body mt-2 text-sm leading-6">
           Este é um projeto educacional. Nada aqui constitui recomendação, oferta ou consultoria de
           investimentos. Todos os números são ilustrativos e não representam produtos reais.
           Rentabilidades passadas não garantem resultados futuros.

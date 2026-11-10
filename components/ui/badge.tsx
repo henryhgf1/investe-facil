@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 type BadgeVariant = "brand" | "accent" | "warn" | "neutral" | "outline";
 
 const variants: Record<BadgeVariant, string> = {
-  brand: "bg-brand-50 text-brand-800 border-brand-600/15",
-  accent: "bg-accent-soft text-accent border-accent/15",
-  warn: "bg-warn-soft text-warn border-warn/20",
-  neutral: "bg-slate-100 text-slate-600 border-slate-200",
-  outline: "bg-transparent text-muted border-line",
+  brand: "bg-brand-50 text-brand-800 border-brand-600/20",
+  accent: "bg-accent-soft text-accent border-accent/20",
+  warn: "bg-warn-soft text-warn border-warn/25",
+  neutral: "bg-surface-2 text-body border-line",
+  outline: "bg-transparent text-muted border-line-strong",
 };
 
 export function Badge({

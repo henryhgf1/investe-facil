@@ -51,25 +51,20 @@ export default function HomePage() {
   return (
     <>
       <section className="border-line relative overflow-hidden border-b">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_0%,rgba(15,107,79,0.10),transparent_70%)]"
-        />
-        <Container className="relative grid gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
+        <div aria-hidden="true" className="hero-glow pointer-events-none absolute inset-0" />
+        <Container className="relative grid gap-12 py-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:py-24">
           <div>
-            <h1 className="font-display text-ink text-4xl leading-[1.05] font-extrabold sm:text-5xl">
-              Aprenda a investir{" "}
-              <span className="text-brand-700 relative whitespace-nowrap">
-                sem arriscar
-                <span
-                  aria-hidden="true"
-                  className="bg-brand-200 absolute bottom-[0.07em] left-0 h-1.5 w-full rounded-full"
-                />
-              </span>{" "}
-              dinheiro de verdade.
+            <p className="border-line bg-surface/70 text-body inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur">
+              <span className="bg-primary size-1.5 rounded-full" aria-hidden="true" />
+              Educação financeira sem jargão
+            </p>
+
+            <h1 className="font-display text-ink mt-5 text-4xl leading-[1.02] font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              Aprenda a investir <span className="text-gradient">sem arriscar</span> dinheiro de
+              verdade.
             </h1>
 
-            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+            <p className="text-body mt-6 max-w-xl text-lg leading-8">
               Teoria curta, simuladores interativos e um caminho claro do primeiro aporte à primeira
               carteira diversificada. Feito para quem está começando, de verdade.
             </p>
@@ -87,42 +82,43 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm">
-              <div>
-                <dt className="text-muted">Módulos</dt>
-                <dd className="font-display text-ink text-xl font-bold">{modules.length}</dd>
-              </div>
-              <div>
-                <dt className="text-muted">Lições no ar</dt>
-                <dd className="font-display text-ink text-xl font-bold">{readyLessons.length}</dd>
-              </div>
-              <div>
-                <dt className="text-muted">Missões práticas</dt>
-                <dd className="font-display text-ink text-xl font-bold">{missions.length}</dd>
-              </div>
-              <div>
-                <dt className="text-muted">Dinheiro em risco</dt>
-                <dd className="font-display text-brand-700 text-xl font-bold">R$ 0</dd>
-              </div>
+            <dl className="border-line bg-line mt-10 grid max-w-xl grid-cols-2 gap-px overflow-hidden rounded-2xl border sm:grid-cols-4">
+              {[
+                { label: "Módulos", value: modules.length },
+                { label: "Lições no ar", value: readyLessons.length },
+                { label: "Missões práticas", value: missions.length },
+                { label: "Dinheiro em risco", value: "R$ 0" },
+              ].map((stat) => (
+                <div key={stat.label} className="bg-surface/85 px-4 py-3 backdrop-blur">
+                  <dt className="text-muted text-xs">{stat.label}</dt>
+                  <dd className="font-display text-ink mt-0.5 text-xl font-bold tabular-nums">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
             </dl>
           </div>
 
-          <Card className="relative overflow-hidden p-6">
-            <div className="flex items-center justify-between gap-3">
+          <Card className="ring-glow relative overflow-hidden p-6 sm:p-7">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--primary)_10%,transparent),transparent)]"
+            />
+            <div className="relative flex items-center justify-between gap-3">
               <Badge variant="neutral">Prévia do simulador</Badge>
               <span className="text-muted text-xs">dados ilustrativos</span>
             </div>
 
-            <p className="text-muted mt-6 text-sm">Saldo simulado em 10 anos</p>
-            <p className="font-display text-ink mt-1 text-4xl font-extrabold tabular-nums">
+            <p className="text-muted relative mt-6 text-sm">Saldo simulado em 10 anos</p>
+            <p className="font-display text-ink relative mt-1 text-4xl font-extrabold tabular-nums">
               {formatBRL(lastPreview.balance)}
             </p>
-            <p className="text-brand-700 mt-1 text-sm">
+            <p className="text-brand-700 relative mt-1 text-sm">
               +{formatPercent((previewInterest / lastPreview.invested) * 100, 0)} sobre o valor
               investido
             </p>
 
-            <div className="mt-6">
+            <div className="relative mt-6">
               <svg
                 viewBox="0 0 100 40"
                 preserveAspectRatio="none"
@@ -131,15 +127,15 @@ export default function HomePage() {
               >
                 <defs>
                   <linearGradient id="hero-fill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0f6b4f" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#0f6b4f" stopOpacity="0" />
+                    <stop offset="0%" stopColor="var(--chart-1)" stopOpacity="0.25" />
+                    <stop offset="100%" stopColor="var(--chart-1)" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <path d={`M ${sparkPath} L 100,40 L 0,40 Z`} fill="url(#hero-fill)" />
                 <path
                   d={`M ${sparkPath}`}
                   fill="none"
-                  stroke="#0f6b4f"
+                  stroke="var(--chart-1)"
                   strokeWidth="1.6"
                   strokeLinecap="round"
                   vectorEffect="non-scaling-stroke"
@@ -147,7 +143,7 @@ export default function HomePage() {
               </svg>
             </div>
 
-            <dl className="border-line mt-2 grid grid-cols-2 gap-3 border-t pt-4 text-sm">
+            <dl className="border-line relative mt-2 grid grid-cols-2 gap-3 border-t pt-4 text-sm">
               <div>
                 <dt className="text-muted">Você investiu</dt>
                 <dd className="text-ink font-semibold tabular-nums">
@@ -162,7 +158,7 @@ export default function HomePage() {
               </div>
             </dl>
 
-            <p className="bg-canvas text-muted mt-4 rounded-lg px-3 py-2 text-xs leading-5">
+            <p className="bg-surface-2 text-muted relative mt-4 rounded-lg px-3 py-2 text-xs leading-5">
               R$ 200 por mês a 0,8% ao mês. Rentabilidade passada não garante resultado futuro.
             </p>
           </Card>
@@ -201,7 +197,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-line border-y bg-white py-16 sm:py-20">
+      <section className="border-line bg-surface border-y py-16 sm:py-20">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
@@ -248,13 +244,13 @@ export default function HomePage() {
 
                   <ul className="border-line mt-5 space-y-1.5 border-t pt-4 text-sm">
                     {moduleLessons.slice(0, 3).map((lesson) => (
-                      <li key={lesson.slug} className="flex items-center gap-2 text-slate-600">
+                      <li key={lesson.slug} className="text-body flex items-center gap-2">
                         <span
                           aria-hidden="true"
                           className={
                             lesson.status === "ready"
                               ? "bg-brand-600 size-1.5 rounded-full"
-                              : "size-1.5 rounded-full bg-slate-300"
+                              : "bg-line-strong size-1.5 rounded-full"
                           }
                         />
                         {lesson.title}
@@ -305,7 +301,7 @@ export default function HomePage() {
 
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             <Link href="/simulador/" className="group">
-              <Card className="group-hover:border-brand-600/40 h-full p-6 transition-colors">
+              <Card className="group-hover:border-brand-600/40 group-hover:shadow-card-hover h-full p-6 transition-all duration-200 group-hover:-translate-y-0.5">
                 <span className="bg-brand-50 text-brand-700 flex size-11 items-center justify-center rounded-xl">
                   <CalendarRange className="size-5" aria-hidden="true" />
                 </span>
@@ -325,7 +321,7 @@ export default function HomePage() {
             </Link>
 
             <Link href="/missoes/" className="group">
-              <Card className="group-hover:border-brand-600/40 h-full p-6 transition-colors">
+              <Card className="group-hover:border-brand-600/40 group-hover:shadow-card-hover h-full p-6 transition-all duration-200 group-hover:-translate-y-0.5">
                 <span className="bg-warn-soft text-warn flex size-11 items-center justify-center rounded-xl">
                   <Target className="size-5" aria-hidden="true" />
                 </span>
@@ -351,17 +347,17 @@ export default function HomePage() {
 
       <section className="py-16 sm:py-20">
         <Container>
-          <Card className="border-brand-600/15 from-brand-800 to-brand-600 overflow-hidden bg-linear-to-br p-8 text-white sm:p-12">
+          <Card className="border-brand-600/20 from-cta-from to-cta-to text-cta-ink shadow-card overflow-hidden bg-linear-to-br p-8 sm:p-12">
             <div className="grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:items-center">
               <div>
-                <p className="text-brand-100 inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
+                <p className="text-cta-muted inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
                   <Compass className="size-4" aria-hidden="true" />
                   Comece agora
                 </p>
                 <h2 className="font-display mt-3 text-3xl font-bold">
                   Seu primeiro investimento começa com uma pergunta simples.
                 </h2>
-                <p className="text-brand-50 mt-3 max-w-xl text-base leading-7">
+                <p className="text-cta-muted mt-3 max-w-xl text-base leading-7">
                   Quanto tempo você quer esperar? A resposta muda tudo. Comece pela lição de juros
                   compostos e veja o efeito na prática.
                 </p>
@@ -372,7 +368,8 @@ export default function HomePage() {
                   className={buttonStyles({
                     variant: "secondary",
                     size: "lg",
-                    className: "w-full justify-center",
+                    className:
+                      "bg-cta-ink text-cta-from hover:bg-cta-muted w-full justify-center border-white/25",
                   })}
                 >
                   Abrir a lição
@@ -380,7 +377,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/trilha/"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                  className="text-cta-ink inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-sm font-semibold transition-colors hover:bg-white/10"
                 >
                   Ver todos os módulos
                 </Link>

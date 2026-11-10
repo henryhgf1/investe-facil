@@ -57,7 +57,7 @@ export function TimeComparison() {
   return (
     <section
       aria-labelledby="comparativo-tempo"
-      className="border-line my-10 overflow-hidden rounded-3xl border bg-white shadow-[0_1px_2px_rgba(11,18,32,0.04)]"
+      className="border-line bg-surface shadow-card my-10 overflow-hidden rounded-3xl border"
     >
       <div className="border-line bg-canvas flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5 sm:px-8">
         <div>
@@ -85,7 +85,7 @@ export function TimeComparison() {
                 "rounded-2xl border p-5",
                 person.highlight
                   ? "border-brand-600/30 from-brand-50/80 ring-brand-600/10 bg-linear-to-br to-white ring-1"
-                  : "border-line bg-white",
+                  : "border-line bg-surface",
               )}
             >
               <div className="flex items-start justify-between gap-3">
@@ -96,7 +96,7 @@ export function TimeComparison() {
                 <span
                   className={cn(
                     "rounded-full px-2.5 py-1 text-xs font-semibold",
-                    person.highlight ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-600",
+                    person.highlight ? "bg-primary text-on-primary" : "bg-surface-2 text-body",
                   )}
                 >
                   {person.years * 12} aportes
@@ -128,15 +128,15 @@ export function TimeComparison() {
               <div
                 role="img"
                 aria-label={`${person.name} aportou ${formatBRL(person.invested)} e ganhou ${formatBRL(person.interest)} em juros, chegando a ${formatBRL(person.balance)}.`}
-                className="mt-4 flex h-3 overflow-hidden rounded-full bg-slate-100"
+                className="bg-surface-2 mt-4 flex h-3 overflow-hidden rounded-full"
               >
-                <div className="bg-slate-300" style={{ width: `${investedShare}%` }} />
+                <div className="bg-line-strong" style={{ width: `${investedShare}%` }} />
                 <div className="bg-brand-500" style={{ width: `${100 - investedShare}%` }} />
               </div>
 
               <div className="text-muted mt-2 flex flex-wrap justify-between gap-x-3 gap-y-1 text-[11px]">
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="size-2 rounded-full bg-slate-300" aria-hidden="true" />o que{" "}
+                  <span className="bg-line-strong size-2 rounded-full" aria-hidden="true" />o que{" "}
                   {person.name} aportou
                 </span>
                 <span className="inline-flex items-center gap-1.5">

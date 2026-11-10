@@ -131,7 +131,7 @@ function StatCard({
   tone?: "neutral" | "brand" | "accent" | "warn";
 }) {
   const tones = {
-    neutral: "border-line bg-white",
+    neutral: "border-line bg-surface",
     brand: "border-brand-600/25 bg-brand-50",
     accent: "border-accent/20 bg-accent-soft",
     warn: "border-warn/25 bg-warn-soft",
@@ -155,7 +155,7 @@ function PortfolioSkeleton() {
     <section
       aria-labelledby="simulador-carteira"
       aria-busy="true"
-      className="border-line mt-10 min-h-[640px] rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card mt-10 min-h-[640px] rounded-3xl border p-6 sm:p-8"
     >
       <p className="text-brand-700 text-xs font-semibold tracking-widest uppercase">
         Monte a sua carteira
@@ -208,23 +208,23 @@ function PortfolioBuilderClient() {
   const series: ChartSeries[] = [
     {
       label: real ? "Carteira corrigida" : "Carteira",
-      color: "#0f6b4f",
+      color: "var(--chart-1)",
       values: simulation.points.map((point) => (real ? point.portfolioReal : point.portfolio)),
       fill: true,
     },
     {
       label: real ? "CDI corrigido" : "CDI",
-      color: "#64748b",
+      color: "var(--chart-6)",
       values: simulation.points.map((point) => (real ? point.cdiReal : point.cdi)),
     },
     {
       label: real ? "Ibovespa corrigido" : "Ibovespa",
-      color: "#1d4ed8",
+      color: "var(--chart-2)",
       values: simulation.points.map((point) => (real ? point.ibovReal : point.ibov)),
     },
     {
       label: real ? "Aportes corrigidos" : "Aportes",
-      color: "#94a3b8",
+      color: "var(--chart-muted)",
       values: simulation.points.map((point) => (real ? point.investedReal : point.invested)),
     },
   ];
@@ -327,7 +327,7 @@ function PortfolioBuilderClient() {
     <>
       <section
         aria-labelledby="simulador-carteira"
-        className="border-line mt-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+        className="border-line bg-surface shadow-card mt-10 rounded-3xl border p-6 sm:p-8"
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -353,8 +353,8 @@ function PortfolioBuilderClient() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
                 presetId === item.id
-                  ? "border-brand-600 bg-brand-600 text-white"
-                  : "border-line hover:border-brand-600/40 bg-white text-slate-600",
+                  ? "border-brand-600 bg-primary text-on-primary"
+                  : "border-line hover:border-brand-600/40 bg-surface text-body",
               )}
             >
               {item.label}
@@ -363,7 +363,7 @@ function PortfolioBuilderClient() {
           <button
             type="button"
             onClick={reset}
-            className="border-line hover:text-ink ml-auto inline-flex items-center gap-1.5 rounded-full border bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors"
+            className="border-line hover:text-ink bg-surface text-body ml-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors"
           >
             <RotateCcw className="size-3.5" aria-hidden="true" />
             Restaurar padrão
@@ -407,7 +407,7 @@ function PortfolioBuilderClient() {
                   : "Carteira pronta para simular."}
             </p>
 
-            <div className="mt-3 flex h-3 overflow-hidden rounded-full bg-slate-100">
+            <div className="bg-surface-2 mt-3 flex h-3 overflow-hidden rounded-full">
               {ASSET_CLASSES.map((asset) => (
                 <span
                   key={asset.id}
@@ -426,7 +426,7 @@ function PortfolioBuilderClient() {
                     className="size-2.5 shrink-0 rounded-full"
                     style={{ backgroundColor: asset.color }}
                   />
-                  <span className="text-slate-600">{asset.shortLabel}</span>
+                  <span className="text-body">{asset.shortLabel}</span>
                   <span className="text-ink ml-auto font-semibold tabular-nums">
                     {formatPercent(percentages[asset.id], 0)}
                   </span>
@@ -491,8 +491,8 @@ function PortfolioBuilderClient() {
                     className={cn(
                       "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
                       active
-                        ? "border-brand-600 bg-brand-600 text-white"
-                        : "border-line hover:border-brand-600/40 bg-white text-slate-600",
+                        ? "border-brand-600 bg-primary text-on-primary"
+                        : "border-line hover:border-brand-600/40 bg-surface text-body",
                     )}
                   >
                     {item.label}
@@ -518,7 +518,7 @@ function PortfolioBuilderClient() {
               </p>
 
               <div
-                className="border-line inline-flex rounded-xl border bg-white p-1"
+                className="border-line bg-surface inline-flex rounded-xl border p-1"
                 role="group"
                 aria-label="Ajuste dos valores"
               >
@@ -534,8 +534,8 @@ function PortfolioBuilderClient() {
                     className={cn(
                       "rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors",
                       real === option.id
-                        ? "bg-brand-600 text-white"
-                        : "hover:text-ink text-slate-600",
+                        ? "bg-primary text-on-primary"
+                        : "hover:text-ink text-body",
                     )}
                   >
                     {option.label}
@@ -579,7 +579,7 @@ function PortfolioBuilderClient() {
               />
             </dl>
 
-            <div className="border-line bg-canvas mt-4 rounded-xl border p-4 text-sm leading-6 text-slate-700">
+            <div className="border-line bg-canvas text-body mt-4 rounded-xl border p-4 text-sm leading-6">
               <p>
                 <strong className="text-ink font-semibold">Carteira contra as réguas:</strong>{" "}
                 terminou {signedBRL(simulation.differenceVsCdi)}{" "}
@@ -598,7 +598,7 @@ function PortfolioBuilderClient() {
 
       <section
         aria-labelledby="relatorio-evolucao"
-        className="border-line mt-8 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+        className="border-line bg-surface shadow-card mt-8 rounded-3xl border p-6 sm:p-8"
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
@@ -655,7 +655,7 @@ function PortfolioBuilderClient() {
           </div>
         </div>
 
-        <details className="border-line mt-5 rounded-xl border bg-white">
+        <details className="border-line bg-surface mt-5 rounded-xl border">
           <summary className="text-ink cursor-pointer px-4 py-3 text-sm font-semibold">
             Ver a evolução ano a ano
           </summary>
@@ -692,19 +692,19 @@ function PortfolioBuilderClient() {
                     <th scope="row" className="text-ink px-4 py-2 text-left font-semibold">
                       {point.year}
                     </th>
-                    <td className="px-4 py-2 text-right text-slate-700 tabular-nums">
+                    <td className="text-body px-4 py-2 text-right tabular-nums">
                       {formatBRL(point.invested)}
                     </td>
                     <td className="text-brand-700 px-4 py-2 text-right font-semibold tabular-nums">
                       {formatBRL(point.portfolio)}
                     </td>
-                    <td className="px-4 py-2 text-right text-slate-700 tabular-nums">
+                    <td className="text-body px-4 py-2 text-right tabular-nums">
                       {formatBRL(point.cdi)}
                     </td>
                     <td className="text-accent px-4 py-2 text-right tabular-nums">
                       {formatBRL(point.ibov)}
                     </td>
-                    <td className="px-4 py-2 text-right text-slate-700 tabular-nums">
+                    <td className="text-body px-4 py-2 text-right tabular-nums">
                       {formatBRL(point.portfolioReal)}
                     </td>
                   </tr>
@@ -715,7 +715,7 @@ function PortfolioBuilderClient() {
         </details>
       </section>
 
-      <div className="border-warn/25 bg-warn-soft mt-6 flex gap-3 rounded-2xl border p-4 text-sm leading-6 text-slate-700">
+      <div className="border-warn/25 bg-warn-soft text-body mt-6 flex gap-3 rounded-2xl border p-4 text-sm leading-6">
         <Info className="text-warn mt-0.5 size-4 shrink-0" aria-hidden="true" />
         <div>
           <p>
@@ -732,7 +732,7 @@ function PortfolioBuilderClient() {
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-3">
-        <div className="border-line flex items-start gap-3 rounded-xl border bg-white p-4">
+        <div className="border-line bg-surface flex items-start gap-3 rounded-xl border p-4">
           <Wallet className="text-brand-700 mt-0.5 size-4 shrink-0" aria-hidden="true" />
           <p className="text-muted text-xs leading-5">
             <strong className="text-ink block font-semibold">Diversificar é distribuir</strong>{" "}
@@ -740,7 +740,7 @@ function PortfolioBuilderClient() {
             aposta.
           </p>
         </div>
-        <div className="border-line flex items-start gap-3 rounded-xl border bg-white p-4">
+        <div className="border-line bg-surface flex items-start gap-3 rounded-xl border p-4">
           <ShieldCheck className="text-brand-700 mt-0.5 size-4 shrink-0" aria-hidden="true" />
           <p className="text-muted text-xs leading-5">
             <strong className="text-ink block font-semibold">Risco aparece na queda</strong> A queda
@@ -748,7 +748,7 @@ function PortfolioBuilderClient() {
             segurá-la no pior momento.
           </p>
         </div>
-        <div className="border-line flex items-start gap-3 rounded-xl border bg-white p-4">
+        <div className="border-line bg-surface flex items-start gap-3 rounded-xl border p-4">
           <CalendarRange className="text-brand-700 mt-0.5 size-4 shrink-0" aria-hidden="true" />
           <p className="text-muted text-xs leading-5">
             <strong className="text-ink block font-semibold">Tempo faz o trabalho</strong> Aportes

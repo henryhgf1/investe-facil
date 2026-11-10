@@ -24,7 +24,7 @@ export function InflationErosion() {
   return (
     <section
       aria-labelledby="simulador-inflacao"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -68,10 +68,14 @@ export function InflationErosion() {
           <ProjectionChart
             ariaLabel={`Com inflação de ${formatPercent(inflation, 1)} ao ano, R$ 1.000 parados passam a valer ${formatBRLPrecise(last.real)} em poder de compra após ${years} anos.`}
             series={[
-              { label: "Valor na conta", color: "#94a3b8", values: points.map((p) => p.nominal) },
+              {
+                label: "Valor na conta",
+                color: "var(--chart-muted)",
+                values: points.map((p) => p.nominal),
+              },
               {
                 label: "Poder de compra",
-                color: "#b45309",
+                color: "var(--chart-3)",
                 values: points.map((p) => p.real),
                 fill: true,
               },

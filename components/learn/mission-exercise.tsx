@@ -70,7 +70,7 @@ export function MissionExercise({
         <ul className="mt-2 space-y-2">
           {mission.steps.map((step, index) => (
             <li key={step}>
-              <label className="flex cursor-pointer items-start gap-2.5 text-sm leading-6 text-slate-700">
+              <label className="text-body flex cursor-pointer items-start gap-2.5 text-sm leading-6">
                 <input
                   type="checkbox"
                   checked={checkedSteps.includes(index)}
@@ -105,7 +105,7 @@ export function MissionExercise({
                     !showFeedback &&
                     "border-line hover:border-brand-600/40 hover:bg-canvas",
                   isRight && "border-brand-600 bg-brand-50",
-                  isWrong && "border-danger/40 bg-red-50",
+                  isWrong && "border-danger/40 bg-danger-soft",
                   showFeedback && !isRight && !isWrong && "border-line opacity-70",
                 )}
               >
@@ -122,15 +122,15 @@ export function MissionExercise({
                   className={cn(
                     "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold",
                     selected
-                      ? "border-brand-600 bg-brand-600 text-white"
-                      : "border-slate-300 text-slate-500",
-                    isRight && "border-brand-600 bg-brand-600 text-white",
-                    isWrong && "border-danger bg-danger text-white",
+                      ? "border-brand-600 bg-primary text-on-primary"
+                      : "border-line-strong text-muted",
+                    isRight && "border-brand-600 bg-primary text-on-primary",
+                    isWrong && "border-danger bg-danger text-on-danger",
                   )}
                 >
                   {option.id.toUpperCase()}
                 </span>
-                <span className="flex-1 leading-6 text-slate-700">{option.label}</span>
+                <span className="text-body flex-1 leading-6">{option.label}</span>
                 {isRight ? (
                   <CheckCircle2
                     className="text-brand-700 mt-0.5 size-5 shrink-0"
@@ -155,7 +155,7 @@ export function MissionExercise({
           aria-live="polite"
           className={cn(
             "rounded-xl px-4 py-3 text-sm leading-6",
-            answerIsCorrect ? "bg-brand-50 text-brand-900" : "bg-warn-soft text-slate-800",
+            answerIsCorrect ? "bg-brand-50 text-brand-900" : "bg-warn-soft text-ink",
           )}
         >
           <strong className="font-semibold">{answerIsCorrect ? "Correto. " : "Ainda não. "}</strong>
@@ -177,7 +177,7 @@ export function MissionExercise({
             <Lock className="size-4" aria-hidden="true" />
           )}
           Concluir missão
-          <span className="inline-flex items-center gap-1 font-normal text-white/70">
+          <span className="text-on-primary/70 inline-flex items-center gap-1 font-normal">
             <Sparkles className="size-3.5" aria-hidden="true" />+{mission.xp} XP
           </span>
         </Button>

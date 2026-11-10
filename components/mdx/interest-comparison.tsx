@@ -37,9 +37,12 @@ function BarRow({
   return (
     <div className="grid grid-cols-[4.5rem_minmax(0,1fr)_auto] items-center gap-2">
       <dt className="text-muted text-xs">{label}</dt>
-      <dd className="h-2.5 overflow-hidden rounded-full bg-slate-100">
+      <dd className="bg-surface-2 h-2.5 overflow-hidden rounded-full">
         <div
-          className={cn("h-full rounded-full", tone === "brand" ? "bg-brand-500" : "bg-slate-300")}
+          className={cn(
+            "h-full rounded-full",
+            tone === "brand" ? "bg-brand-500" : "bg-line-strong",
+          )}
           style={{ width: `${width}%` }}
         />
       </dd>
@@ -81,7 +84,7 @@ export function InterestComparison() {
   return (
     <section
       aria-labelledby="comparativo-juros"
-      className="border-line my-10 overflow-hidden rounded-3xl border bg-white shadow-[0_1px_2px_rgba(11,18,32,0.04)]"
+      className="border-line bg-surface shadow-card my-10 overflow-hidden rounded-3xl border"
     >
       <div className="border-line bg-canvas flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5 sm:px-8">
         <div>
@@ -106,7 +109,7 @@ export function InterestComparison() {
               <span
                 className={cn(
                   "rounded-full px-2.5 py-1 text-xs font-semibold tabular-nums",
-                  row.gap > 0.005 ? "bg-brand-50 text-brand-700" : "bg-slate-100 text-slate-600",
+                  row.gap > 0.005 ? "bg-brand-50 text-brand-700" : "bg-surface-2 text-body",
                 )}
               >
                 {row.gap > 0.005 ? `+${formatBRLPrecise(row.gap)}` : "empate"}

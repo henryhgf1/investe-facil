@@ -19,14 +19,14 @@ export function Progress({ value, label, className, barClassName, size = "md" }:
       aria-valuemax={100}
       aria-valuenow={safeValue}
       className={cn(
-        "w-full overflow-hidden rounded-full bg-slate-200/80",
+        "bg-track w-full overflow-hidden rounded-full",
         size === "sm" ? "h-1.5" : "h-2.5",
         className,
       )}
     >
       <div
         className={cn(
-          "bg-brand-600 h-full rounded-full transition-[width] duration-500",
+          "bg-primary h-full rounded-full transition-[width] duration-500",
           barClassName,
         )}
         style={{ width: `${safeValue}%` }}

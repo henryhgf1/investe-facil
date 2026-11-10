@@ -42,7 +42,7 @@ export function CompleteLesson({
         <Button size="lg" disabled>
           <Lock className="size-4" aria-hidden="true" />
           Concluir lição
-          <span className="font-normal text-white/70">+{xp} XP</span>
+          <span className="text-on-primary/70 font-normal">+{xp} XP</span>
         </Button>
         <ProfileRequiredNotice action="registrar a conclusão das lições" />
       </div>
@@ -57,7 +57,7 @@ export function CompleteLesson({
         <Button size="lg" disabled aria-describedby={helperId}>
           <Lock className="size-4" aria-hidden="true" />
           Concluir lição
-          <span className="font-normal text-white/70">+{xp} XP</span>
+          <span className="text-on-primary/70 font-normal">+{xp} XP</span>
         </Button>
         <p id={helperId} className="text-muted text-xs leading-5">
           Responda ao quiz acima para liberar a conclusão.
@@ -70,7 +70,7 @@ export function CompleteLesson({
     <Button size="lg" onClick={() => completeLesson(slug, xp)}>
       <Check className="size-4" aria-hidden="true" />
       Concluir lição
-      <span className="font-normal text-white/70">+{xp} XP</span>
+      <span className="text-on-primary/70 font-normal">+{xp} XP</span>
     </Button>
   );
 }

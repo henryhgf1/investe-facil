@@ -16,15 +16,15 @@ const tones: Record<RiskTone, { icon: string }> = {
   accent: { icon: "bg-accent-soft text-accent" },
   warn: { icon: "bg-warn-soft text-warn" },
   brand: { icon: "bg-brand-50 text-brand-700" },
-  danger: { icon: "bg-red-50 text-danger" },
-  neutral: { icon: "bg-slate-100 text-slate-600" },
+  danger: { icon: "bg-danger-soft text-danger" },
+  neutral: { icon: "bg-surface-2 text-body" },
 };
 
 export function RiskTypes() {
   return (
     <section
       aria-labelledby="tipos-de-risco"
-      className="border-line my-10 overflow-hidden rounded-3xl border bg-white shadow-[0_1px_2px_rgba(11,18,32,0.04)]"
+      className="border-line bg-surface shadow-card my-10 overflow-hidden rounded-3xl border"
     >
       <div className="border-line bg-canvas flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5 sm:px-8">
         <div>
@@ -52,7 +52,7 @@ export function RiskTypes() {
             <li
               key={risk.id}
               className={cn(
-                "border-line flex flex-col rounded-2xl border bg-white p-5",
+                "border-line bg-surface flex flex-col rounded-2xl border p-5",
                 index === RISK_TYPES.length - 1 && "sm:col-span-2 lg:col-span-1",
               )}
             >
@@ -66,7 +66,7 @@ export function RiskTypes() {
               </span>
               <h3 className="font-display text-ink mt-4 text-base font-bold">{risk.name}</h3>
               <p className="text-muted mt-1 text-sm leading-6">{risk.definition}</p>
-              <p className="border-line mt-auto border-t pt-3 text-sm leading-6 text-slate-700">
+              <p className="border-line text-body mt-auto border-t pt-3 text-sm leading-6">
                 <span className="text-ink font-semibold">Exemplo: </span>
                 {risk.example}
               </p>

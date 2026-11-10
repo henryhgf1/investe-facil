@@ -57,7 +57,7 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
   return (
     <section
       aria-labelledby="quiz-titulo"
-      className="border-line mt-14 rounded-3xl border bg-white p-6 sm:p-8"
+      className="border-line bg-surface mt-14 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -98,7 +98,7 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
                           !submitted &&
                           "border-line hover:border-brand-600/40 hover:bg-canvas",
                         isRightOption && "border-brand-600 bg-brand-50",
-                        isWrongSelection && "border-danger/40 bg-red-50",
+                        isWrongSelection && "border-danger/40 bg-danger-soft",
                         !isRightOption &&
                           !isWrongSelection &&
                           submitted &&
@@ -121,15 +121,15 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
                         className={cn(
                           "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold",
                           isSelected
-                            ? "border-brand-600 bg-brand-600 text-white"
-                            : "border-slate-300 text-slate-500",
-                          isRightOption && "border-brand-600 bg-brand-600 text-white",
-                          isWrongSelection && "border-danger bg-danger text-white",
+                            ? "border-brand-600 bg-primary text-on-primary"
+                            : "border-line-strong text-muted",
+                          isRightOption && "border-brand-600 bg-primary text-on-primary",
+                          isWrongSelection && "border-danger bg-danger text-on-danger",
                         )}
                       >
                         {option.id.toUpperCase()}
                       </span>
-                      <span className="flex-1 leading-6 text-slate-700">{option.text}</span>
+                      <span className="text-body flex-1 leading-6">{option.text}</span>
                       {isRightOption ? (
                         <CheckCircle2
                           className="text-brand-700 mt-0.5 size-5 shrink-0"
@@ -151,7 +151,7 @@ export function Quiz({ slug, questions }: { slug: string; questions: QuizQuestio
                 <p
                   className={cn(
                     "rounded-xl px-4 py-3 text-sm leading-6",
-                    isCorrect ? "bg-brand-50 text-brand-900" : "bg-warn-soft text-slate-800",
+                    isCorrect ? "bg-brand-50 text-brand-900" : "bg-warn-soft text-ink",
                   )}
                 >
                   <strong className="font-semibold">

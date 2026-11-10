@@ -52,7 +52,7 @@ export function DividendYield() {
   return (
     <section
       aria-labelledby="simulador-dividend-yield"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -138,7 +138,7 @@ export function DividendYield() {
                       {formatBRLPrecise(row.value)}
                     </span>
                   </div>
-                  <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                  <div className="bg-track h-3 w-full overflow-hidden rounded-full">
                     <div
                       className={cn("h-full rounded-full", row.color)}
                       style={{ width: `${Math.max(2, (row.value / maxIncome) * 100)}%` }}

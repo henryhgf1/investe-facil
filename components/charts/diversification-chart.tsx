@@ -54,7 +54,7 @@ export function DiversificationChart() {
   return (
     <section
       aria-labelledby="simulador-diversificacao"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -115,8 +115,8 @@ export function DiversificationChart() {
             >
               <defs>
                 <linearGradient id="diversification-fill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0f6b4f" stopOpacity="0.18" />
-                  <stop offset="100%" stopColor="#0f6b4f" stopOpacity="0" />
+                  <stop offset="0%" stopColor="var(--chart-1)" stopOpacity="0.18" />
+                  <stop offset="100%" stopColor="var(--chart-1)" stopOpacity="0" />
                 </linearGradient>
               </defs>
 
@@ -166,7 +166,7 @@ export function DiversificationChart() {
               <path
                 d={linePath}
                 fill="none"
-                stroke="#0f6b4f"
+                stroke="var(--chart-1)"
                 strokeWidth={2.5}
                 strokeLinecap="round"
               />
@@ -176,7 +176,7 @@ export function DiversificationChart() {
                 x2={WIDTH - PADDING.right}
                 y1={yFor(floor)}
                 y2={yFor(floor)}
-                stroke="#b45309"
+                stroke="var(--chart-3)"
                 strokeWidth={1.5}
                 strokeDasharray="6 5"
               />
@@ -194,7 +194,7 @@ export function DiversificationChart() {
                 x2={xFor(assetCount)}
                 y1={PADDING.top}
                 y2={HEIGHT - PADDING.bottom}
-                stroke="#1d4ed8"
+                stroke="var(--chart-2)"
                 strokeDasharray="3 4"
                 opacity={0.5}
               />
@@ -202,8 +202,8 @@ export function DiversificationChart() {
                 cx={xFor(assetCount)}
                 cy={yFor(current.value)}
                 r={7}
-                fill="#1d4ed8"
-                stroke="#ffffff"
+                fill="var(--chart-2)"
+                stroke="var(--surface)"
                 strokeWidth={2}
               />
               <text

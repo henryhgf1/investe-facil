@@ -52,7 +52,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
           netAmount: tesouro.netAmount,
           netRate: tesouro.effectiveAnnualRate,
           taxLabel: "paga IR",
-          color: "#0f6b4f",
+          color: "var(--chart-1)",
         },
         {
           name: "Poupança",
@@ -61,7 +61,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
           netAmount: poupanca.netAmount,
           netRate: poupanca.effectiveAnnualRate,
           taxLabel: "isenta de IR",
-          color: "#b45309",
+          color: "var(--chart-3)",
         },
       ];
     }
@@ -83,7 +83,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
         netAmount: cdb.netAmount,
         netRate: cdb.effectiveAnnualRate,
         taxLabel: "paga IR",
-        color: "#1d4ed8",
+        color: "var(--chart-2)",
       },
       {
         name: "LCI 90% do CDI",
@@ -92,7 +92,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
         netAmount: lci.netAmount,
         netRate: lci.effectiveAnnualRate,
         taxLabel: "isenta de IR",
-        color: "#0f6b4f",
+        color: "var(--chart-1)",
       },
     ];
   }, [baseRate, days, preset]);
@@ -110,7 +110,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
   return (
     <section
       aria-labelledby="simulador-renda-fixa"
-      className="border-line my-10 rounded-3xl border bg-white p-6 shadow-[0_1px_2px_rgba(11,18,32,0.04)] sm:p-8"
+      className="border-line bg-surface shadow-card my-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -161,7 +161,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
                   className={
                     isBest
                       ? "border-brand-600/40 bg-brand-50/50 rounded-2xl border-2 p-4"
-                      : "border-line rounded-2xl border bg-white p-4"
+                      : "border-line bg-surface rounded-2xl border p-4"
                   }
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -194,12 +194,12 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
                     </div>
                     <div className="flex justify-between gap-2">
                       <dt className="text-muted">Tributação</dt>
-                      <dd className="text-slate-600">{product.taxLabel}</dd>
+                      <dd className="text-body">{product.taxLabel}</dd>
                     </div>
                   </dl>
 
                   {isBest ? (
-                    <p className="bg-brand-600 mt-3 rounded-lg px-2.5 py-1 text-center text-xs font-semibold text-white">
+                    <p className="bg-primary text-on-primary mt-3 rounded-lg px-2.5 py-1 text-center text-xs font-semibold">
                       Melhor líquido
                     </p>
                   ) : null}
@@ -208,7 +208,7 @@ export function FixedIncomeComparison({ preset }: { preset: Preset }) {
             })}
           </div>
 
-          <p className="border-line bg-canvas mt-4 rounded-xl border px-4 py-3 text-sm leading-6 text-slate-700">
+          <p className="border-line bg-canvas text-body mt-4 rounded-xl border px-4 py-3 text-sm leading-6">
             <strong className="text-ink font-semibold">Diferença:</strong>{" "}
             {formatBRLPrecise(difference)} a mais em {months} {months === 1 ? "mês" : "meses"} para{" "}
             {best.name.toLowerCase()}.

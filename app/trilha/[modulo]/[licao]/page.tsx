@@ -76,7 +76,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
             <li aria-hidden="true">/</li>
             <li>{lessonModule.shortTitle}</li>
             <li aria-hidden="true">/</li>
-            <li className="text-slate-700">Lição {lesson.order}</li>
+            <li className="text-body">Lição {lesson.order}</li>
           </ol>
         </nav>
 
@@ -87,7 +87,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
           <h1 className="font-display text-ink mt-4 text-3xl leading-tight font-extrabold sm:text-4xl">
             {lesson.title}
           </h1>
-          <p className="mt-4 text-lg leading-8 text-slate-600">{lesson.summary}</p>
+          <p className="text-body mt-4 text-lg leading-8">{lesson.summary}</p>
 
           <div className="text-muted mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
             <span className="inline-flex items-center gap-1.5">
@@ -109,7 +109,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
 
         <Quiz slug={lesson.slug} questions={quiz} />
 
-        <div className="border-line mt-10 rounded-2xl border bg-white p-5 sm:p-6">
+        <div className="border-line bg-surface mt-10 rounded-2xl border p-5 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="font-display text-ink text-base font-bold">

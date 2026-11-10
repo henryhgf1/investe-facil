@@ -14,7 +14,7 @@ export function LessonMission({ lessonSlug }: { lessonSlug: string }) {
   return (
     <section
       aria-labelledby="missao-pratica"
-      className="border-line mt-10 rounded-3xl border bg-white p-6 sm:p-8"
+      className="border-line bg-surface mt-10 rounded-3xl border p-6 sm:p-8"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
