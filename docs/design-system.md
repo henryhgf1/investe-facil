@@ -3,9 +3,9 @@
 Referência interna de cores, temas, tipografia e componentes do Investe Fácil. Não existe rota
 pública: esta documentação existe para manter consistência quando o produto crescer.
 
-A direção visual é **fintech premium escuro**: verde profundo para ação, azul para dados,
-gradientes radiais discretos, sombras em camadas e hover com leve elevação. O mesmo sistema
-funciona nos temas claro e escuro.
+A direção visual é **fintech premium**: verde profundo para ação, azul para dados, sombras em
+camadas e hover com leve elevação. O tema claro tem fundo esverdeado e gradientes radiais
+discretos; o escuro é preto com superfícies em cinza neutro, sem halos coloridos.
 
 ## Onde os tokens vivem
 
@@ -22,8 +22,8 @@ Tailwind CSS 4, então trocar um valor em `:root`/`.dark` propaga para o site in
 }
 
 .dark {
-  --canvas: #05100c;
-  --surface: #0a1813;
+  --canvas: #0b0b0b;
+  --surface: #121212;
   --primary: #10b981;
   --on-primary: #04150f;
 }
@@ -64,15 +64,15 @@ Ao criar uma tela nova, não duplique lógica de tema: use os tokens semânticos
 
 | Token           | Claro      | Escuro     | Uso                                       |
 | --------------- | ---------- | ---------- | ----------------------------------------- |
-| `canvas`        | `#f5faf7`  | `#05100c`  | Fundo da página                           |
-| `surface`       | `#ffffff`  | `#0a1813`  | Fundo de cards e do cabeçalho             |
-| `surface-2`     | `#edf4f0`  | `#0f221b`  | Fundo secundário, chips e blocos internos |
-| `surface-3`     | `#e2ece6`  | `#142a22`  | Terceiro nível de superfície              |
-| `ink`           | `#08130f`  | `#eef7f2`  | Texto principal e títulos                 |
-| `body`          | `#33453c`  | `#c3d4ca`  | Texto corrido                             |
-| `muted`         | `#5c6f64`  | `#92a79c`  | Texto secundário e legendas               |
-| `line`          | `#dde8e1`  | `#1c332a`  | Bordas e divisores                        |
-| `line-strong`   | `#c6d8ce`  | `#2a4a3d`  | Bordas de destaque e trilhos              |
+| `canvas`        | `#f5faf7`  | `#0b0b0b`  | Fundo da página                           |
+| `surface`       | `#ffffff`  | `#121212`  | Fundo de cards e do cabeçalho             |
+| `surface-2`     | `#edf4f0`  | `#181818`  | Fundo secundário, chips e blocos internos |
+| `surface-3`     | `#e2ece6`  | `#202020`  | Terceiro nível de superfície              |
+| `ink`           | `#08130f`  | `#f5f5f5`  | Texto principal e títulos                 |
+| `body`          | `#33453c`  | `#c8c8c8`  | Texto corrido                             |
+| `muted`         | `#5c6f64`  | `#909090`  | Texto secundário e legendas               |
+| `line`          | `#dde8e1`  | `#2a2a2a`  | Bordas e divisores                        |
+| `line-strong`   | `#c6d8ce`  | `#3a3a3a`  | Bordas de destaque e trilhos              |
 | `primary`       | `#0f6b4f`  | `#10b981`  | Ação primária, links, séries de gráfico   |
 | `primary-hover` | `#0b5740`  | `#34d399`  | Hover da ação primária                    |
 | `on-primary`    | `#ffffff`  | `#04150f`  | Texto sobre `primary`                     |
@@ -90,14 +90,16 @@ Ao criar uma tela nova, não duplique lógica de tema: use os tokens semânticos
 | `on-danger`     | `#ffffff`  | `#2a0b0b`  | Texto sobre `danger`                      |
 | `cta-from/to`   | verde      | verde      | Gradiente do bloco de chamada final       |
 | `cta-ink/muted` | branco     | claro      | Texto e apoio dentro do CTA               |
-| `track`         | `#e2e8f0`  | `#1c332a`  | Trilhos de progresso e sliders            |
+| `track`         | `#e2e8f0`  | `#2d2d2d`  | Trilhos de progresso e sliders            |
 | `chart-1..6`    | verde/azul | verde/azul | Séries de gráficos, adaptadas ao tema     |
 | `chart-muted`   | `#94a3b8`  | `#64748b`  | Série de referência apagada               |
 | `card-shadow`   | sombra 2D  | sombra 3D  | Sombra padrão de card (`shadow-card`)     |
 
-A escala `brand-50..950` também muda de valor no tema escuro: no claro ela é verde-clara, no
-escuro ela inverte para tons profundos. Isso mantém `bg-brand-50`, `text-brand-700` e
-`border-brand-600` legíveis nos dois temas sem `dark:` espalhado.
+A escala `brand-50..950` também muda de valor no tema escuro. No claro ela é verde-clara; no
+escuro, `brand-50..300` viram cinzas neutros (`#141414` a `#3f3f3f`) para os fundos suaves lerem
+como preto elevado, e `brand-400..950` ficam nos verdes claros usados em texto, ícones e bordas.
+Isso mantém `bg-brand-50`, `text-brand-700` e `border-brand-600` legíveis nos dois temas sem
+`dark:` espalhado.
 
 ### Séries de gráfico
 
@@ -133,9 +135,10 @@ Números financeiros usam `tabular-nums`.
 | Pílulas         | 999px | `rounded-full` |
 
 - Sombra padrão de card: `shadow-card` (`--card-shadow`); no hover use `shadow-card-hover`.
-- Classes utilitárias próprias: `.hero-glow` (brilho radial do topo), `.text-gradient`
-  (gradiente verde→azul em texto), `.ring-glow` (borda com brilho suave), `.animate-fade-up`,
-  `.reveal` e `.skeleton` (ver seção de animações).
+  No escuro a sombra é preta pura e a elevação vem do contraste entre `canvas` e `surface`.
+- Classes utilitárias próprias: `.hero-glow` (brilho radial do topo, desligado no tema escuro),
+  `.text-gradient` (gradiente verde→azul em texto), `.ring-glow` (borda com brilho suave),
+  `.animate-fade-up`, `.reveal` e `.skeleton` (ver seção de animações).
 - Container: `max-w-6xl` com `px-5 sm:px-6 lg:px-8`
 - Ritmo vertical entre seções: `py-16` a `py-24`
 - Conteúdo de lição: `max-w-3xl` para manter a linha entre 60 e 75 caracteres

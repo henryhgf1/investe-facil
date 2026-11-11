@@ -5,8 +5,8 @@
 Educação financeira para quem está começando: lições curtas, simuladores interativos e
 progresso gamificado, sem cadastro, sem backend e sem dinheiro em risco.
 
-Tema claro e escuro em todo o site, com visual de fintech premium, escolha manual de tema e
-animações de entrada discretas.
+Tema claro e escuro em todo o site: o escuro usa preto e cinza neutros, com o verde restrito a
+acentos. Escolha manual de tema e animações de entrada discretas.
 
 | Claro                                                 | Escuro                                                      |
 | ----------------------------------------------------- | ----------------------------------------------------------- |
@@ -49,7 +49,8 @@ dados pessoais.
   trilha, as missões ou todo o progresso, sempre com confirmação
 - **Backup em JSON** com todos os perfis e o progresso para exportar e importar entre dispositivos
 - **Tema claro, escuro e sistema** em todo o site, com escolha manual salva no navegador e
-  preferência inicial do sistema operacional
+  preferência inicial do sistema operacional. O escuro é preto com elevação em cinza neutro, sem
+  halos coloridos; o verde fica só nos acentos
 - **Animações discretas**: entrada do hero, reveal ao rolar e skeletons com shimmer, em CSS puro,
   sem biblioteca e com fallback para quem navega sem JavaScript
 - **Acessibilidade**: navegação por teclado, contraste AA nos dois temas, gráficos com descrição
@@ -147,7 +148,9 @@ série muda de tom junto com o tema.
 **Tema sem flash e sem dependência.** `lib/theme.ts` guarda a escolha em `localStorage`, e um
 script inline no layout aplica a classe `.dark` antes da pintura. Os tokens semânticos em
 `app/globals.css` trocam de valor entre `:root` e `.dark`, então a maior parte dos componentes não
-precisa de nenhuma classe `dark:`.
+precisa de nenhuma classe `dark:`. No escuro, o fundo é preto com superfícies em cinza neutro e
+sombras pretas; o brilho radial do fundo e do hero é desligado, e o verde aparece apenas em
+acentos, ícones e gráficos.
 
 **Animação em CSS, não em biblioteca.** O hero usa `@keyframes` (`fade-up`), as seções abaixo da
 dobra usam um `Reveal` com `IntersectionObserver` e os placeholders de hidratação usam
