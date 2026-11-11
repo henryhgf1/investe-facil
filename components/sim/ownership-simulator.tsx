@@ -86,7 +86,7 @@ export function OwnershipSimulator() {
         </div>
 
         <div>
-          <div className="border-brand-600/20 from-brand-50 rounded-2xl border bg-linear-to-br to-white p-5">
+          <div className="border-brand-600/20 from-brand-50 rounded-2xl border bg-linear-to-br to-surface p-5">
             <p className="text-brand-800 text-xs font-semibold tracking-wide uppercase">
               Sua fatia da empresa
             </p>

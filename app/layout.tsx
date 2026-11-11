@@ -22,7 +22,7 @@ const manrope = Manrope({
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f5faf7" },
-    { media: "(prefers-color-scheme: dark)", color: "#05100c" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
   ],
 };
 

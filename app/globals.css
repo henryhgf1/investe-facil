@@ -76,20 +76,20 @@
 .dark {
   color-scheme: dark;
 
-  --canvas: #05100c;
-  --surface: #0a1813;
-  --surface-2: #0f221b;
-  --surface-3: #142a22;
-  --ink: #eef7f2;
-  --body: #c3d4ca;
-  --muted: #92a79c;
-  --line: #1c332a;
-  --line-strong: #2a4a3d;
+  --canvas: #0b0b0b;
+  --surface: #121212;
+  --surface-2: #181818;
+  --surface-3: #202020;
+  --ink: #f5f5f5;
+  --body: #c8c8c8;
+  --muted: #909090;
+  --line: #2a2a2a;
+  --line-strong: #3a3a3a;
 
-  --brand-50: #0a241c;
-  --brand-100: #0e3328;
-  --brand-200: #14473a;
-  --brand-300: #1b5f4c;
+  --brand-50: #141414;
+  --brand-100: #1c1c1c;
+  --brand-200: #262626;
+  --brand-300: #3f3f3f;
   --brand-400: #22a37b;
   --brand-500: #34d399;
   --brand-600: #10b981;
@@ -129,14 +129,12 @@
   --chart-6: #94a3b8;
   --chart-muted: #64748b;
 
-  --track: #1c332a;
+  --track: #2d2d2d;
   --selection-bg: #14503c;
   --selection-ink: #ecfdf5;
-  --card-shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 20px 44px -28px rgb(0 0 0 / 0.85);
-  --card-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 28px 56px -26px rgb(0 0 0 / 0.9);
-  --page-glow:
-    radial-gradient(60% 45% at 82% -8%, rgb(16 185 129 / 0.16), transparent 68%),
-    radial-gradient(48% 38% at 0% 0%, rgb(96 165 250 / 0.1), transparent 70%);
+  --card-shadow: 0 1px 0 rgb(255 255 255 / 0.05) inset, 0 20px 44px -28px rgb(0 0 0 / 0.9);
+  --card-shadow-hover: 0 1px 0 rgb(255 255 255 / 0.06) inset, 0 28px 56px -26px #000;
+  --page-glow: none;
 }
 
 @theme inline {
@@ -316,6 +314,11 @@
         color-mix(in oklab, var(--accent) 9%, transparent),
         transparent 72%
       );
+  }
+
+  /* No tema escuro o fundo é preto puro: nenhum halo colorido. */
+  .dark .hero-glow {
+    background-image: none;
   }
 
   .text-gradient {

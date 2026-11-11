@@ -84,7 +84,7 @@ export function TimeComparison() {
               className={cn(
                 "rounded-2xl border p-5",
                 person.highlight
-                  ? "border-brand-600/30 from-brand-50/80 ring-brand-600/10 bg-linear-to-br to-white ring-1"
+                  ? "border-brand-600/30 from-brand-50/80 ring-brand-600/10 bg-linear-to-br to-surface ring-1"
                   : "border-line bg-surface",
               )}
             >
